@@ -1,3 +1,7 @@
 name: DiaHunt
 version: 1.0
 main: killerm.minecraft.DiaHuntPlugin
+commands:
+  diahunt:
+    description: Configure Dia Hunt
+    usage: /<command>
