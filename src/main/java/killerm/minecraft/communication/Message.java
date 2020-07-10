@@ -24,8 +24,8 @@ public class Message {
     public static final String HELP = "help";
     public static final String HELP_HELP = "";
 
-    public static final String BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
-    public static final String BROADCAST_ERROR = BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
-    public static final String PLAYER = AQUA + FAT + "◆" + GREY;
-    public static final String PLAYER_ERROR = PLAYER + RESET + DARK_RED + " ERROR: " + GREY;
+    public static final String PREFIX_BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
+    public static final String PREFIX_BROADCAST_ERROR = PREFIX_BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
+    public static final String PREFIX_TELL = AQUA + FAT + "◆" + GREY;
+    public static final String PREFIX_TELL_ERROR = PREFIX_TELL + RESET + DARK_RED + " ERROR: " + GREY;
 }
