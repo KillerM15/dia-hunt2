@@ -5,8 +5,8 @@ import killerm.minecraft.error.DiaHuntParameterException;
 
 public enum CommandType {
     HELP(Message.HELP, Message.HELP_HELP),
-    TEST1("TEST1", ""),
-    TEST2("TEST2", "");
+    TEST1("test1", ""),
+    TEST2("test2", "");
 
     private String commandInChat;
     private String help;
