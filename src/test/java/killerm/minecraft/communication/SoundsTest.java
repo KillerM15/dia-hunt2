@@ -11,6 +11,8 @@ import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.*;
 
 class SoundsTest {
+    Sounds sounds = new Sounds();
+
     @Test
     public void GIVEN_player_location_world_sound_pitch_WHEN_play_THEN_verify_correct_method_called() {
         // GIVEN
@@ -24,7 +26,7 @@ class SoundsTest {
         float pitch = (float) 0.5;
 
         // WHEN
-        Sounds.play(player, Sound.ENTITY_HORSE_DEATH, pitch);
+        sounds.play(player, Sound.ENTITY_HORSE_DEATH, pitch);
 
         // THEN
         Mockito.verify(world, times(1)).playSound(playerLocation, sound, 1, pitch);
@@ -42,7 +44,7 @@ class SoundsTest {
         Sound sound = Sound.ENTITY_HORSE_DEATH;
 
         // WHEN
-        Sounds.play(player, sound);
+        sounds.play(player, sound);
 
         // THEN
         Mockito.verify(world, times(1)).playSound(playerLocation, sound, 1, 1);
