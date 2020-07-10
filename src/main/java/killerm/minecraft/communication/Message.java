@@ -1,6 +1,7 @@
 package killerm.minecraft.communication;
 
 import killerm.minecraft.commands.CommandType;
+import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.helper.CollectionDelimiter;
 
 // Intentional code duplication and ugly inner class to increase readability
@@ -24,6 +25,9 @@ public class Message {
     public static final String COMMAND_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
     public static final String HELP = "help";
     public static final String HELP_HELP = "";
+    public static final String VALID_DIACONFIGS = "Valid configurations: " + CollectionDelimiter.delimit(DiaConfig.values(), DiaConfig::getName);
+    public static final String DIACONFIG_NOT_VALID = "This command isn't valid! " + VALID_DIACONFIGS;
+    public static final String DIACONFIG_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
 
     public static final String PREFIX_BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
     public static final String PREFIX_BROADCAST_ERROR = PREFIX_BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
