@@ -12,6 +12,10 @@ public class Sounds {
         play((Collection<Player>) Bukkit.getOnlinePlayers(), sound);
     }
 
+    public static void play(Sound sound, float pitch) {
+        play((Collection<Player>) Bukkit.getOnlinePlayers(), sound, pitch);
+    }
+
     public static void play(Collection<Player> players, Sound sound, float pitch) {
         for (Player player : players) {
             play(player, sound, pitch);
