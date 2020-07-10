@@ -1,7 +1,6 @@
 package killerm.minecraft.commands;
 
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.data.DiaConfig;
 import org.bukkit.entity.Player;
 
 // Is used for testing commands while developing
@@ -13,4 +12,4 @@ public class Tester {
 
     public void test2(Player player) {
     }
-}DiaConfig
+}
