@@ -1,17 +1,20 @@
 package killerm.minecraft.utilities;
 
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.powermock.api.mockito.PowerMockito.mock;
 
 class RegionTest {
 
     @Test
-    void GIVEN_2_coordinates_WHEN_min_max_XYZ_THEN_return_correct_values() {
+    public void GIVEN_2_coordinates_WHEN_min_max_XYZ_THEN_return_correct_values() {
         // GIVEN
-        Coordinates coordinates1 = new Coordinates(2, 30, 1889);
-        Coordinates coordinates2 = new Coordinates(4124, 1, 22);
-        Region region = new Region(coordinates1, coordinates2);
+        Location location1 = new Location(null, 2.3, 30.4, 1889.2);
+        Location location2 = new Location(null, 4123.5, 1.4, 21.7);
+        Region region = new Region(location1, location2);
 
         //WHEN / THEN
         assertEquals(2, region.minX());
@@ -25,15 +28,15 @@ class RegionTest {
     }
 
     @Test
-    void GIVEN_2_equal_regions_WHEN_isEqual_THEN_true() {
+    public void GIVEN_2_equal_regions_WHEN_isEqual_THEN_true() {
         // GIVEN
-        Coordinates coordinates1 = new Coordinates(2, 30, 1889);
-        Coordinates coordinates2 = new Coordinates(4124, 1, 22);
-        Region region1 = new Region(coordinates1, coordinates2);
+        Location location1 = new Location(null, 1.5, 29.5, 1889.1);
+        Location location2 = new Location(null, 4124, 1.4, 22.4);
+        Region region1 = new Region(location1, location2);
 
-        Coordinates coordinates3 = new Coordinates(2, 30, 1889);
-        Coordinates coordinates4 = new Coordinates(4124, 1, 22);
-        Region region2 = new Region(coordinates3, coordinates4);
+        Location location3 = new Location(null, 2.2, 30, 1889);
+        Location location4 = new Location(null, 4124, 1, 22);
+        Region region2 = new Region(location1, location2);
 
         // WHEN
         boolean isEqual = region1.equals(region2);
@@ -42,15 +45,15 @@ class RegionTest {
     }
 
     @Test
-    void GIVEN_2_unequal_regions_WHEN_isEqual_THEN_false() {
+    public void GIVEN_2_unequal_regions_WHEN_isEqual_THEN_false() {
         // GIVEN
-        Coordinates coordinates1 = new Coordinates(3, 30, 1889);
-        Coordinates coordinates2 = new Coordinates(4124, 1, 22);
-        Region region1 = new Region(coordinates1, coordinates2);
+        Location location1 = new Location(null, 3, 30, 1889);
+        Location location2 = new Location(null, 4124, 1, 22);
+        Region region1 = new Region(location1, location2);
 
-        Coordinates coordinates3 = new Coordinates(2, 30, 1889);
-        Coordinates coordinates4 = new Coordinates(4124, 1, 22);
-        Region region2 = new Region(coordinates3, coordinates4);
+        Location location3 = new Location(null, 2, 30, 1889);
+        Location location4 = new Location(null, 4124, 1, 22);
+        Region region2 = new Region(location3, location4);
 
         // WHEN
         boolean isEqual = region1.equals(region2);
@@ -59,11 +62,11 @@ class RegionTest {
     }
 
     @Test
-    void GIVEN_region_WHEN_range_XYZ_THEN_return_correct_ranges() {
+    public void GIVEN_region_WHEN_range_XYZ_THEN_return_correct_ranges() {
         // GIVEN
-        Coordinates coordinates1 = new Coordinates(3, 30, 1889);
-        Coordinates coordinates2 = new Coordinates(290, 1, 22);
-        Region region = new Region(coordinates1, coordinates2);
+        Location location1 = new Location(null, 3, 30, 1889);
+        Location location2 = new Location(null, 290, 1, 22);
+        Region region = new Region(location1, location2);
 
         // WHEN
         int rangeX = region.rangeX();
@@ -74,5 +77,17 @@ class RegionTest {
         assertEquals(287, rangeX);
         assertEquals(29, rangeY);
         assertEquals(1867, rangeZ);
+    }
+
+    @Test
+    public void func() {
+        // GIVEN
+        World world = mock(World.class);
+        Location location1 = new Location(world, 3, 30, 1889);
+        Location location2 = new Location(world, 290, 1, 22);
+        Region region = new Region(location1, location2);
+
+        // WHEN / THEN
+        assertEquals(world, region.getWorld());
     }
 }

@@ -1,36 +1,41 @@
 package killerm.minecraft.utilities;
 
-public class Region {
-    private Coordinates coordinates1;
-    private Coordinates coordinates2;
+import org.bukkit.Location;
+import org.bukkit.World;
 
-    public Region(Coordinates coordinates1, Coordinates coordinates2) {
-        this.coordinates1 = coordinates1;
-        this.coordinates2 = coordinates2;
+import static org.bukkit.util.NumberConversions.round;
+
+public class Region {
+    private Location location1;
+    private Location location2;
+
+    public Region(Location location1, Location location2) {
+        this.location1 = location1;
+        this.location2 = location2;
     }
 
     public int maxX() {
-        return Integer.max(coordinates1.x, coordinates2.x);
+        return round(Double.max(location1.getX(), location2.getX()));
     }
 
     public int minX() {
-        return Integer.min(coordinates1.x, coordinates2.x);
+        return round(Double.min(location1.getX(), location2.getX()));
     }
 
     public int maxY() {
-        return Integer.max(coordinates1.y, coordinates2.y);
+        return round(Double.max(location1.getY(), location2.getY()));
     }
 
     public int minY() {
-        return Integer.min(coordinates1.y, coordinates2.y);
+        return round(Double.min(location1.getY(), location2.getY()));
     }
 
     public int maxZ() {
-        return Integer.max(coordinates1.z, coordinates2.z);
+        return round(Double.max(location1.getZ(), location2.getZ()));
     }
 
     public int minZ() {
-        return Integer.min(coordinates1.z, coordinates2.z);
+        return round(Double.min(location1.getZ(), location2.getZ()));
     }
 
     public int rangeX() {
@@ -57,6 +62,10 @@ public class Region {
 
         Region region = (Region) object;
 
-        return this.coordinates1.equals(region.coordinates1) && this.coordinates2.equals(region.coordinates2);
+        return this.location1.equals(region.location1) && this.location2.equals(region.location2);
+    }
+
+    public World getWorld() {
+        return location1.getWorld();
     }
 }
