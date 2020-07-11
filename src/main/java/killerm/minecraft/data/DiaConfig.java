@@ -10,7 +10,9 @@ public enum DiaConfig {
     WORLD_NAME("world", String.class),
     SECONDS_UNTIL_START(60, Integer.class),
     SPAWN_AQUA(new Location(null, 0, 0, 0), Location.class),
-    SPAWN_LAVA(new Location(null, 0, 0, 0), Location.class);
+    SPAWN_LAVA(new Location(null, 0, 0, 0), Location.class),
+    MAP_POS1(new Location(null, 0, 0, 0), Location.class),
+    MAP_POS2(new Location(null, 0, 0, 0), Location.class);
 
     private Class T;
     private Object defaultValue;
