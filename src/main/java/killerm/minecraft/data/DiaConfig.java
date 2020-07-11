@@ -27,7 +27,7 @@ public enum DiaConfig {
 
         DiaHuntPlugin plugin = DiaHuntPlugin.getInstance();
 
-        plugin.getConfig().set(this.getName(), value);
+        plugin.getConfig().set(this.toString(), value);
         plugin.saveConfig();
     }
 
@@ -40,20 +40,21 @@ public enum DiaConfig {
     public <T> T get() {
         FileConfiguration config = DiaHuntPlugin.getInstance().getConfig();
 
-        if (config.get(this.getName()) == null) {
+        if (config.get(this.toString()) == null) {
             set(defaultValue);
         }
 
-        return (T) config.get(this.getName());
+        return (T) config.get(this.toString());
     }
 
-    public String getName() {
-        return toString().toLowerCase();
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 
     public static DiaConfig getInstance(String diaConfigString) {
         for (DiaConfig d : DiaConfig.values()) {
-            if (diaConfigString.equals(d.getName())) {
+            if (diaConfigString.equals(d.toString())) {
                 return d;
             }
         }
