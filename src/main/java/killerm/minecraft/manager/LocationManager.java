@@ -12,7 +12,7 @@ public class LocationManager {
         }
     }
 
-    public void teleport(Player player, Location loc) {
+    private void teleport(Player player, Location loc) {
         player.teleport(loc);
     }
 }
