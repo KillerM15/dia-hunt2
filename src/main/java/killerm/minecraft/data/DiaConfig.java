@@ -3,30 +3,30 @@ package killerm.minecraft.data;
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public enum DiaConfig {
     WORLD_NAME("world", String.class),
     SECONDS_UNTIL_START(60, Integer.class),
-    SPAWN_AQUA(new Location(Bukkit.getWorld((String) DiaConfig.WORLD_NAME.get()), 0, 0, 0), Location.class),
-    SPAWN_LAVA(new Location(Bukkit.getWorld((String) DiaConfig.WORLD_NAME.get()), 0, 0, 0), Location.class);
+    SPAWN_AQUA(new Location(null, 0, 0, 0), Location.class),
+    SPAWN_LAVA(new Location(null, 0, 0, 0), Location.class);
 
-    private DiaHuntPlugin diaHuntPlugin = DiaHuntPlugin.getInstance();
-    private FileConfiguration config = diaHuntPlugin.getConfig();
     private Class T;
+    private Object defaultValue;
 
     private DiaConfig(Object defaultValue, Class T) {
         this.T = T;
-        set(defaultValue);
+        this.defaultValue = defaultValue;
     }
 
     public <U> void set(U value) {
         throwIfWrongType(value.getClass());
 
-        config.set(this.getName(), value);
-        diaHuntPlugin.saveConfig();
+        DiaHuntPlugin plugin = DiaHuntPlugin.getInstance();
+
+        plugin.getConfig().set(this.getName(), value);
+        plugin.saveConfig();
     }
 
     private void throwIfWrongType(Class U) {
@@ -36,6 +36,12 @@ public enum DiaConfig {
     }
 
     public <T> T get() {
+        FileConfiguration config = DiaHuntPlugin.getInstance().getConfig();
+
+        if (config.get(this.getName()) == null) {
+            set(defaultValue);
+        }
+
         return (T) config.get(this.getName());
     }
 
