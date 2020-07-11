@@ -33,12 +33,12 @@ class CommandTypeTest {
     @Test
     public void GIVEN_invalid_commandTypeString_WHEN_getCommandType_THEN_Exception() {
         // GIVEN
-        String commandString = "helpp";
+        String commandTypeString = "helpp";
 
         // WHEN
         DiaHuntParameterException thrown = assertThrows(
                 DiaHuntParameterException.class,
-                () -> CommandType.getCommandType(commandString),
+                () -> CommandType.getCommandType(commandTypeString),
                 "Expected getCommandType to throw, but it didn't"
         );
 
