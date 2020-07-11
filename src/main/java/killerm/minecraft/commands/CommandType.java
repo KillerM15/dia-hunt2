@@ -4,29 +4,28 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
 
 public enum CommandType {
-    HELP(Message.HELP, Message.HELP_HELP),
-    TEST1("test1", ""),
-    TEST2("test2", "");
+    HELP(Message.HELP_DESCRIPTION),
+    TEST1(""),
+    TEST2("");
 
-    private String commandInChat;
-    private String help;
+    private String description;
 
-    private CommandType(String commandInChat, String help) {
-        this.commandInChat = commandInChat;
-        this.help = help;
+    private CommandType(String description) {
+        this.description = description;
     }
 
-    public String getCommandInChat() {
-        return commandInChat;
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 
-    public String getHelp() {
-        return help;
+    public String getDescription() {
+        return description;
     }
 
     public static CommandType getCommandType(String commandTypeString) {
         for (CommandType d : CommandType.values()) {
-            if (commandTypeString.equals(d.toString().toLowerCase())) {
+            if (commandTypeString.equals(d.toString())) {
                 return d;
             }
         }

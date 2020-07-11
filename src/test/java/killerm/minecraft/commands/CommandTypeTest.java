@@ -9,13 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class CommandTypeTest {
     @Test
     public void GIVEN_HELP_WHEN_getCommandInChat_THEN_return_correct_string() {
-        assertEquals(Message.HELP, CommandType.HELP.getCommandInChat());
+        assertEquals(Message.HELP, CommandType.HELP.toString());
     }
 
     @Test
-    public void GIVEN_HELP_WHEN_getHelp_THEN_return_correct_string() {
-        // Makes no sense because help doesn't have a help message
-        assertEquals(Message.HELP_HELP, CommandType.HELP.getHelp());
+    public void GIVEN_HELP_WHEN_getDescription_THEN_return_correct_description() {
+        assertEquals(Message.HELP_DESCRIPTION, CommandType.HELP.getDescription());
     }
 
     @Test
