@@ -3,22 +3,23 @@ package killerm.minecraft.data;
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public enum DiaConfig {
-    SPAWN_AQUA(Location.class),
-    SPAWN_LAVA(Location.class),
-    SECONDS_UNTIL_START(Integer.class);
+    WORLD_NAME("world", String.class),
+    SECONDS_UNTIL_START(60, Integer.class),
+    SPAWN_AQUA(new Location(Bukkit.getWorld((String) DiaConfig.WORLD_NAME.get()), 0, 0, 0), Location.class),
+    SPAWN_LAVA(new Location(Bukkit.getWorld((String) DiaConfig.WORLD_NAME.get()), 0, 0, 0), Location.class);
 
-    private DiaHuntPlugin diaHuntPlugin;
-    private FileConfiguration config;
+    private DiaHuntPlugin diaHuntPlugin = DiaHuntPlugin.getInstance();
+    private FileConfiguration config = diaHuntPlugin.getConfig();
     private Class T;
 
-    private DiaConfig(Class T) {
-        diaHuntPlugin = DiaHuntPlugin.getInstance();
-        config = diaHuntPlugin.getConfig();
+    private DiaConfig(Object defaultValue, Class T) {
         this.T = T;
+        set(defaultValue);
     }
 
     public <U> void set(U value) {
