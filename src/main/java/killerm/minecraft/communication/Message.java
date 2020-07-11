@@ -19,6 +19,11 @@ public class Message {
     public static final String TEAM_AQUA = BLUE;
     public static final String TEAM_LAVA = RED;
 
+    public static final String PREFIX_BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
+    public static final String PREFIX_BROADCAST_ERROR = PREFIX_BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
+    public static final String PREFIX_TELL = AQUA + FAT + "◆" + GREY;
+    public static final String PREFIX_TELL_ERROR = PREFIX_TELL + RESET + DARK_RED + " ERROR: " + GREY;
+
     public static final String COLLECTION_DELIMITER = ", ";
     public static final String VALID_COMMANDTYPES = "Valid commands: " + CollectionDelimiter.delimit(CommandType.values(), CommandType::getCommandInChat);
     public static final String COMMANDTYPE_NOT_VALID = "This command isn't valid! " + VALID_COMMANDTYPES;
@@ -28,9 +33,4 @@ public class Message {
     public static final String VALID_DIACONFIGS = "Valid configurations: " + CollectionDelimiter.delimit(DiaConfig.values(), DiaConfig::getName);
     public static final String DIACONFIG_NOT_VALID = "This command isn't valid! " + VALID_DIACONFIGS;
     public static final String DIACONFIG_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
-
-    public static final String PREFIX_BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
-    public static final String PREFIX_BROADCAST_ERROR = PREFIX_BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
-    public static final String PREFIX_TELL = AQUA + FAT + "◆" + GREY;
-    public static final String PREFIX_TELL_ERROR = PREFIX_TELL + RESET + DARK_RED + " ERROR: " + GREY;
 }
