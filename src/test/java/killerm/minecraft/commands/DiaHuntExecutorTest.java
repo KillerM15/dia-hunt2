@@ -11,7 +11,8 @@ import static org.powermock.api.mockito.PowerMockito.*;
 
 class DiaHuntExecutorTest {
     private Printer printer = mock(Printer.class);
-    private DiaHuntExecutor diaHuntExecutor = new DiaHuntExecutor(printer);
+    private Tester tester = mock(Tester.class);
+    private DiaHuntExecutor diaHuntExecutor = new DiaHuntExecutor(tester, printer);
 
     @Test
     void GIVEN_command_help_WHEN_onCommand_THEN_tell_player_valid_commands() {
