@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public enum DiaConfig {
     WORLD_NAME("world", String.class),
-    SECONDS_UNTIL_START(60, Integer.class),
+    SECONDS_UNTIL_START(60, Double.class),
     SPAWN_AQUA(new Location(null, 0, 0, 0), Location.class),
     SPAWN_LAVA(new Location(null, 0, 0, 0), Location.class),
     MAP_POS1(new Location(null, 0, 0, 0), Location.class),
@@ -33,7 +33,7 @@ public enum DiaConfig {
 
     private void throwIfWrongType(Class U) {
         if (!U.equals(T)) {
-            throw new RuntimeException("Type " + U.getName() + " and " + T.getName() + " are not the same type");
+            throw new DiaHuntParameterException(U.getName() + Message.AND + T.getName() + Message.NOT_SAME_TYPE);
         }
     }
 
