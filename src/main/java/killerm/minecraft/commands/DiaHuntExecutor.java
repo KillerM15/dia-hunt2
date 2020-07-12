@@ -39,12 +39,12 @@ public class DiaHuntExecutor implements CommandExecutor {
 
             try {
                 Command command = new Command(args);
-                if (command.isHelpCommand()) {
+
+                if (command.needsHelp()) {
                     printHelpCommand(player, command);
                 } else {
                     sendToController(player, command);
                 }
-
             } catch (DiaHuntParameterException | DiaHuntLogicException e) {
                 printer.tellError(player, e.getMessage());
             }
