@@ -1,26 +1,46 @@
 package killerm.minecraft.game;
 
-import org.bukkit.Location;
 
-import java.util.ArrayList;
-import java.util.List;
+import killerm.minecraft.communication.Message;
+import killerm.minecraft.communication.NameChanger;
+import killerm.minecraft.communication.Printer;
+import killerm.minecraft.utilities.Team;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.entity.Player;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameData {
-    volatile static GameStatus gameStatus = GameStatus.OFF;
-    private volatile static List<Location> shulkerBoxLocations = new ArrayList<>(); //das in listener hinein
-    /*
     private Map<Player, Team> playerTeams = new ConcurrentHashMap<>();
+    private volatile GameStatus gameStatus = GameStatus.OFF;
     private Printer printer;
     private NameChanger nameChanger;
 
-    public GamePlayerData() {
+    public GameData() {
         this.printer = new Printer();
         this.nameChanger = new NameChanger();
     }
 
-    public GamePlayerData(Printer printer, NameChanger nameChanger) {
+    public GameData(Printer printer, NameChanger nameChanger) {
         this.printer = printer;
         this.nameChanger = nameChanger;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void add(Player player) {
+        if (amountOfPlayers(Team.AQUA) < amountOfPlayers(Team.LAVA)) {
+            add(player, Team.AQUA);
+        } else {
+            add(player, Team.LAVA);
+        }
     }
 
     public void add(Player player, Team team) {
@@ -33,54 +53,53 @@ public class GameData {
     }
 
     private String generateJoinMessage(Player player, Team team) {
-        String message = Messages.GREEN_RIGHT_ERROR
-                + Messages.Color.GOLD
-                + player.getDisplayName()
-                + Messages.GREEN_LEFT_ERROR
-                + Messages.Color.DARK_AQUA
-                + Messages.JOINED_TEAM;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Message.GREEN_RIGHT_ARROW);
+        sb.append(Message.GOLD);
+        sb.append(player.getDisplayName());
+        sb.append(Message.GREEN_LEFT_ARROW);
+        sb.append(Message.DARK_AQUA);
+        sb.append(Message.JOINED_TEAM);
 
         if (team == Team.LAVA) {
-            message += Messages.Color.TEAM_LAVA;
+            sb.append(Message.TEAM_LAVA);
         } else {
-            message += Messages.Color.TEAM_AQUA;
+            sb.append(Message.TEAM_AQUA);
         }
 
-        message += StringUtils.capitalize(team.toString());
+        sb.append(StringUtils.capitalize(team.toString()));
 
-        return message;
+        return sb.toString();
     }
 
-    public void add(Player player) {
-        if (amountOfPlayers(Team.AQUA) < amountOfPlayers(Team.LAVA)) {
-            add(player, Team.AQUA);
-        } else {
-            add(player, Team.LAVA);
-        }
-    }
-
-    public static void remove(Player player) {
+    public void remove(Player player) {
         playerTeams.remove(player);
 
-        Printer.printWithSound(Messages.RED_RIGHT_ERROR
-                + Messages.Color.GOLD
-                + player.getDisplayName()
-                + Messages.RED_LEFT_ERROR
-                + Messages.Color.DARK_AQUA
-                + Messages.LEFT);
+        String joinMessage = generateLeaveMessage(player);
+        printer.broadcast(joinMessage);
 
-        NameChanger.reset(player);
+        nameChanger.reset(player);
     }
 
-    public static boolean hasPlayers() {
-        return !playerTeams.isEmpty();
+    private String generateLeaveMessage(Player player) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Message.RED_RIGHT_ARROW);
+        sb.append(Message.GOLD);
+        sb.append(player.getDisplayName());
+        sb.append(Message.RED_LEFT_ARROW);
+        sb.append(Message.DARK_AQUA);
+        sb.append(Message.LEFT);
+
+        return sb.toString();
     }
 
-    public static Collection<Player> players() {
+    public Collection<Player> players() {
         return playerTeams.keySet();
     }
 
-    public static Collection<Player> players(Team team) {
+    public Collection<Player> players(Team team) {
         Collection<Player> players = new HashSet<>();
 
         for (Player player : players()) {
@@ -92,24 +111,32 @@ public class GameData {
         return players;
     }
 
-    public static int amountOfPlayers(Team team) {
-        return players(team).size();
-    }
-
-    public static int amountOfPlayers() {
-        return players().size();
-    }
-
-    public static Team team(Player player) {
+    public Team team(Player player) {
         return playerTeams.get(player);
     }
 
-    public static Player randomPlayer(Team team) {
+    public boolean contains(Player player) {
+        return players().contains(player);
+    }
+
+    public boolean hasPlayers() {
+        return !playerTeams.isEmpty();
+    }
+
+    public int amountOfPlayers() {
+        return players().size();
+    }
+
+    public int amountOfPlayers(Team team) {
+        return players(team).size();
+    }
+
+    public Player randomPlayer(Team team) {
         Collection<Player> playersInTeam = players(team);
         return randomPlayer(playersInTeam);
     }
 
-    private static Player randomPlayer(Collection<Player> players) {
+    private Player randomPlayer(Collection<Player> players) {
         if (players.size() == 0) {
             return null;
         }
@@ -119,10 +146,7 @@ public class GameData {
 
         List<Player> playersList = new ArrayList<>();
         playersList.addAll(players);
+
         return playersList.get(randomIndex);
     }
-
-    public static boolean contains(Player player) {
-        return players().contains(player);
-    }*/
 }
