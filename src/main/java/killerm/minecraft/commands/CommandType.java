@@ -4,9 +4,10 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
 
 public enum CommandType {
-    HELP(Message.HELP_DESCRIPTION),
-    TEST1(""),
-    TEST2("");
+    HELP(Message.DESCRIPTION_EMPTY),
+    TEST1(Message.DESCRIPTION_EMPTY),
+    TEST2(Message.DESCRIPTION_EMPTY),
+    CONFIG(Message.DESCRIPTION_CONFIG);
 
     private String description;
 

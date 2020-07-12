@@ -14,7 +14,7 @@ class CommandTypeTest {
 
     @Test
     public void GIVEN_HELP_WHEN_getDescription_THEN_return_correct_description() {
-        assertEquals(Message.HELP_DESCRIPTION, CommandType.HELP.getDescription());
+        assertEquals(Message.DESCRIPTION_EMPTY, CommandType.HELP.getDescription());
     }
 
     @Test

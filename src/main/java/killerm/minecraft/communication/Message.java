@@ -32,11 +32,14 @@ public class Message {
     public static final String VALID_COMMANDTYPES = "Valid commands: " + CollectionDelimiter.delimit(CommandType.values(), CommandType::toString);
     public static final String COMMANDTYPE_NOT_VALID = "This command isn't valid! " + VALID_COMMANDTYPES;
     public static final String COMMAND_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
-    public static final String HELP_DESCRIPTION = "";
-
     public static final String VALID_DIACONFIGS = "Valid configurations: " + CollectionDelimiter.delimit(DiaConfig.values(), DiaConfig::toString);
     public static final String DIACONFIG_NOT_VALID = "This command isn't valid! " + VALID_DIACONFIGS;
     public static final String DIACONFIG_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
     public static final String VALID_TEAMS = "Valid teams: " + CollectionDelimiter.delimit(Team.values(), Team::toString);
     public static final String TEAM_NOT_VALID = "This team isn't valid! " + VALID_TEAMS;
+    public static final String IS_SET_TO = " is set to ";
+    public static final String CONFIG_LOCATION_INDICATOR = "location";
+
+    public static final String DESCRIPTION_EMPTY = "";
+    public static final String DESCRIPTION_CONFIG = "Change config values. Usage: /diahunt config KEY (VALUE)";
 }
