@@ -45,5 +45,7 @@ public class Message {
     public static final String TOO_MANY_ARGS = "You entered too many arguments!";
     public static final String AND = " and ";
     public static final String NOT_SAME_TYPE = " are not the same type!";
-    //public static final String WRONG_TYPE = "You didn't enter a value!";
+    public static final String SYMBOL_FIRE = "ᐃ";
+    public static final String SYMBOL_WATER = "ᐁ";
+    public static final String SPACE = " ";
 }
