@@ -1,16 +1,14 @@
 package killerm.minecraft.utilities;
 
-import killerm.minecraft.controller.ConfigController;
-
-public class ConfigDeducer {
+public class ConfigValueTypeDeducer {
     private String locationIndicator;
 
-    public ConfigDeducer(String locationIndicator) {
+    public ConfigValueTypeDeducer(String locationIndicator) {
         this.locationIndicator = locationIndicator;
     }
 
     public boolean isLocation(String value) {
-        if (value == locationIndicator) {
+        if (value.equals(locationIndicator)) {
             return true;
         }
 
