@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.*;
 
-class DiaHuntExecutorTest { //tests
+class DiaHuntExecutorTest {
     private Printer printer = mock(Printer.class);
     private Tester tester = mock(Tester.class);
     private ConfigController configController = mock(ConfigController.class);
