@@ -19,7 +19,7 @@ class DiaHuntExecutorTest {
     private DiaHuntExecutor diaHuntExecutor = new DiaHuntExecutor(tester, printer, configController, configValidator);
 
     @Test
-    void GIVEN_command_help_WHEN_onCommand_THEN_tell_player_valid_commands() {
+    public void GIVEN_command_help_WHEN_onCommand_THEN_tell_player_valid_commands() {
         // GIVEN
         String[] commandEntered = new String[]{"help", "1", "2", "3"};
         Player player = mock(Player.class);
@@ -30,5 +30,5 @@ class DiaHuntExecutorTest {
 
         // THEN
         Mockito.verify(printer, times(1)).tell(player, Message.VALID_COMMANDTYPES);
-    } //tests
+    }
 }
