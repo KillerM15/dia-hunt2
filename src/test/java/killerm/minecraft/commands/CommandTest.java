@@ -42,4 +42,31 @@ class CommandTest {
         // THEN
         assertEquals(CommandType.HELP, command.getCommandType());
     }
+
+    @Test
+    void GIVEN_command_help_args_WHEN_isHelpCommand_THEN_true() {
+        // GIVEN
+        String args[] = {"config", "help", "123"};
+
+        // WHEN
+        Command command = new Command(args);
+        boolean isHelpCommand = command.isHelpCommand();
+
+        // THEN
+        assert(isHelpCommand);
+    }
+
+
+    @Test
+    void GIVEN_command_with_empty_param_WHEN_isHelpCommand_THEN_true() {
+        // GIVEN
+        String args[] = {"config"};
+
+        // WHEN
+        Command command = new Command(args);
+        boolean isHelpCommand = command.isHelpCommand();
+
+        // THEN
+        assert(isHelpCommand);
+    }
 }

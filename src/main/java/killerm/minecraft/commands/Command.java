@@ -8,14 +8,14 @@ public class Command {
 
     Command(String[] args) {
         if (args.length == 0) {
-            constructHelpCommand();
+            constructCommandTypeHelp();
         } else {
             commandType = CommandType.getCommandType(args[0]);
             parameter = Arrays.copyOfRange(args, 1, args.length);
         }
     }
 
-    private void constructHelpCommand() {
+    private void constructCommandTypeHelp() {
         commandType = CommandType.HELP;
         parameter = new String[]{};
     }
@@ -26,5 +26,9 @@ public class Command {
 
     public String[] getParameter() {
         return parameter;
+    }
+
+    public boolean isHelpCommand() {
+        return parameter.length == 0 || parameter[0].equals("help");
     }
 }
