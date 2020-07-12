@@ -7,17 +7,25 @@ public class Command {
     private String[] parameter;
 
     Command(String[] args) {
-        if (args.length == 0) {
+        if (isGeneralHelpCommand(args)) {
             constructCommandTypeHelp();
         } else {
-            commandType = CommandType.getCommandType(args[0]);
-            parameter = Arrays.copyOfRange(args, 1, args.length);
+            constructCommandTypeFromArgs(args);
         }
+    }
+
+    private boolean isGeneralHelpCommand(String[] args) {
+        return args.length == 0 || args[0].equals(CommandType.HELP.toString());
     }
 
     private void constructCommandTypeHelp() {
         commandType = CommandType.HELP;
-        parameter = new String[]{};
+        parameter = new String[]{""};
+    }
+
+    private void constructCommandTypeFromArgs(String[] args) {
+        commandType = CommandType.getCommandType(args[0]);
+        parameter = Arrays.copyOfRange(args, 1, args.length);
     }
 
     public CommandType getCommandType() {
@@ -28,7 +36,7 @@ public class Command {
         return parameter;
     }
 
-    public boolean isHelpCommand() {
+    public boolean needsHelp() {
         return parameter.length == 0 || parameter[0].equals("help");
     }
 }

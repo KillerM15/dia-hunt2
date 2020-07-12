@@ -20,7 +20,7 @@ class CommandTest {
     @Test
     void GIVEN_command_args_WHEN_construct_Command_with_args_THEN_correct_parameters_saved() {
         // GIVENp
-        String args[] = {"help", "parameter0", "parameter1", "parameter2"};
+        String args[] = {"config", "parameter0", "parameter1", "parameter2"};
 
         // WHEN
         Command command = new Command(args);
@@ -50,7 +50,7 @@ class CommandTest {
 
         // WHEN
         Command command = new Command(args);
-        boolean isHelpCommand = command.isHelpCommand();
+        boolean isHelpCommand = command.needsHelp();
 
         // THEN
         assert(isHelpCommand);
@@ -64,7 +64,7 @@ class CommandTest {
 
         // WHEN
         Command command = new Command(args);
-        boolean isHelpCommand = command.isHelpCommand();
+        boolean isHelpCommand = command.needsHelp();
 
         // THEN
         assert(isHelpCommand);
