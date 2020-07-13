@@ -3,9 +3,9 @@ package killerm.minecraft.data;
 import killerm.minecraft.utilities.ItemStackCopy;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class PlayerBackup {
     private Map<Player, PlayerData> savedPlayers = new HashMap<>();
@@ -19,7 +19,7 @@ public class PlayerBackup {
         this.itemStackCopy = itemStackCopy;
     }
 
-    public void backup(Set<Player> players) {
+    public void backup(Collection<Player> players) {
         for (Player player : players) {
             backup(player);
         }
