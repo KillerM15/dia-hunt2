@@ -48,10 +48,12 @@ public class Message {
     public static final String SYMBOL_FIRE = "ᐃ";
     public static final String SYMBOL_WATER = "ᐁ";
     public static final String SPACE = " ";
-    public static final String RED_RIGHT_ARROW = "§c§l→";
+    public static final String RED_RIGHT_ARROW = "§c§l→"; // TODO: Remove colors from here
     public static final String RED_LEFT_ARROW = "§c§l←";
     public static final String GREEN_RIGHT_ARROW = "§a§l→";
     public static final String GREEN_LEFT_ARROW = "§a§l←";
     public static final String JOINED_TEAM = " has joined team ";
     public static final String LEFT = " has left Dia Hunt!";
+    public static final String DIA_CHEST = "Dia Chest";
+    public static final String DIAMOND = "Diamond";
 }
