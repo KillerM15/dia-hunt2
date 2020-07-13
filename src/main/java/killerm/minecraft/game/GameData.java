@@ -1,6 +1,7 @@
 package killerm.minecraft.game;
 
 
+import com.sun.istack.internal.Nullable;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.NameChanger;
 import killerm.minecraft.communication.Printer;
@@ -64,16 +65,18 @@ public class GameData {
         sb.append(Message.LEFT_ARROW);
         sb.append(Message.DARK_AQUA);
         sb.append(Message.JOINED_TEAM);
-
-        if (team == Team.LAVA) {
-            sb.append(Message.TEAM_LAVA);
-        } else {
-            sb.append(Message.TEAM_AQUA);
-        }
-
+        sb.append(teamColor(team));
         sb.append(StringUtils.capitalize(team.toString()));
 
         return sb.toString();
+    }
+
+    private String teamColor(Team team) {
+        if (team == Team.LAVA) {
+            return Message.TEAM_LAVA;
+        }
+
+        return Message.TEAM_AQUA;
     }
 
     public void remove(Player player) {
@@ -137,11 +140,26 @@ public class GameData {
         return players(team).size();
     }
 
+    @Nullable
     public Player randomPlayer(Team team) {
         Collection<Player> playersInTeam = players(team);
-        return randomPlayer(playersInTeam);
+        Player player = randomPlayer(playersInTeam);
+
+        if (player == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(Message.COULD_NOT_RANDOM_PLAYER);
+            sb.append(teamColor(team));
+            sb.append(StringUtils.capitalize(team.toString()));
+            sb.append(Message.DARK_AQUA);
+            sb.append(Message.IS_EMPTY);
+
+            printer.broadcastError(sb.toString());
+        }
+
+        return player;
     }
 
+    @Nullable
     private Player randomPlayer(Collection<Player> players) {
         if (players.size() == 0) {
             return null;

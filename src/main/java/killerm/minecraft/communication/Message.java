@@ -53,4 +53,6 @@ public class Message {
     public static final String LEFT = " has left Dia Hunt!";
     public static final String DIA_CHEST = "Dia Chest";
     public static final String DIAMOND = "Diamond";
+    public static final String COULD_NOT_RANDOM_PLAYER = "Couldn't generate random player because team ";
+    public static final String IS_EMPTY = " is empty!";
 }
