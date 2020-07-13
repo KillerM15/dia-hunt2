@@ -55,4 +55,16 @@ public class Message {
     public static final String DIAMOND = "Diamond";
     public static final String COULD_NOT_RANDOM_PLAYER = "Couldn't generate random player because team ";
     public static final String IS_EMPTY = " is empty!";
+    public static final String DIA_LINE = "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆";
+    public static final String GAME_STARTED_BY = "§lGame started by ";
+    public static final String EXMARK = "!";
+    public static final String YOU_ARE_INVITED = "You have been invited in a Dia Hunt game!";
+    public static final String ACCEPT = "§a§l→JOIN←";
+    public static final String HAVE_BEEN_INVITED = " have been invited";
+    public static final String HAS_BEEN_INVITED = " has been invited";
+    public static final String GAME_START_IN = "Game will start in ";
+    public static final String SECONDS = " seconds!";
+    public static final String START_DIA = "◆Start!◆";
+    public static final String GET_DIAS = "Get all the diamonds!";
+    public static final String GAME_STARTED = "DiaHunt has been started!";
 }
