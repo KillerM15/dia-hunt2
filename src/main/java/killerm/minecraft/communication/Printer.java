@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import static killerm.minecraft.utilities.MinecraftConstants.ticksPerSecond;
+
 public class Printer {
     Sounds sounds = new Sounds();
 
@@ -39,4 +41,25 @@ public class Printer {
         sounds.play(player, Sound.BLOCK_STONE_BUTTON_CLICK_OFF, (float) 1.8);
         sounds.play(player, Sound.BLOCK_STONE_BUTTON_CLICK_OFF);
     }
+
+    public void printDashes() {
+        Bukkit.broadcastMessage(Message.AQUA + Message.DIA_LINE);
+    }
+
+    public void broadcastTitle(String title, String subtitle) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            tellTitle(player, title, subtitle);
+        }
+    }
+
+    public void tellTitle(Player player, String title, String subtitle) {
+        player.sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
+
+        // Notes: F A C E F# -> 0.95 1.2 1.4 1.8 2
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 0, (float) 0.95);
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 3, (float) 1.2);
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 6, (float) 1.4);
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 9, (float) 1.8);
+    }
 }
+
