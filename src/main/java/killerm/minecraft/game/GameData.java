@@ -55,10 +55,13 @@ public class GameData {
     private String generateJoinMessage(Player player, Team team) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(Message.GREEN_RIGHT_ARROW);
-        sb.append(Message.GOLD);
+        sb.append(Message.GREEN);
+        sb.append(Message.BOLD);
+        sb.append(Message.RIGHT_ARROW);
         sb.append(player.getDisplayName());
-        sb.append(Message.GREEN_LEFT_ARROW);
+        sb.append(Message.GREEN);
+        sb.append(Message.BOLD);
+        sb.append(Message.LEFT_ARROW);
         sb.append(Message.DARK_AQUA);
         sb.append(Message.JOINED_TEAM);
 
@@ -74,10 +77,10 @@ public class GameData {
     }
 
     public void remove(Player player) {
-        playerTeams.remove(player);
+        String leaveMessage = generateLeaveMessage(player);
+        printer.broadcast(leaveMessage);
 
-        String joinMessage = generateLeaveMessage(player);
-        printer.broadcast(joinMessage);
+        playerTeams.remove(player);
 
         nameChanger.reset(player);
     }
@@ -85,10 +88,13 @@ public class GameData {
     private String generateLeaveMessage(Player player) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(Message.RED_RIGHT_ARROW);
-        sb.append(Message.GOLD);
+        sb.append(Message.RED);
+        sb.append(Message.BOLD);
+        sb.append(Message.RIGHT_ARROW);
         sb.append(player.getDisplayName());
-        sb.append(Message.RED_LEFT_ARROW);
+        sb.append(Message.RED);
+        sb.append(Message.BOLD);
+        sb.append(Message.LEFT_ARROW);
         sb.append(Message.DARK_AQUA);
         sb.append(Message.LEFT);
 

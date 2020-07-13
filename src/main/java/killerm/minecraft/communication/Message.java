@@ -5,9 +5,6 @@ import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.helper.CollectionDelimiter;
 import killerm.minecraft.utilities.Team;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 // Intentional code duplication and ugly inner class to increase readability
 public class Message {
     public static final String GOLD = "§6";
@@ -17,15 +14,17 @@ public class Message {
     public static final String DARK_BLUE = "§1";
     public static final String AQUA = "§b";
     public static final String BLUE = "§9";
+    public static final String GREEN = "§a";
     public static final String DARK_AQUA = "§3";
-    public static final String FAT = "§l";
+    public static final String BOLD = "§l";
+    public static final String STRIKE = "§m";
     public static final String RESET = "§r";
     public static final String TEAM_AQUA = BLUE;
     public static final String TEAM_LAVA = RED;
 
-    public static final String PREFIX_BROADCAST = AQUA + FAT + "◆Dia Hunt◆ " + DARK_AQUA;
+    public static final String PREFIX_BROADCAST = AQUA + BOLD + "◆Dia Hunt◆ " + DARK_AQUA;
     public static final String PREFIX_BROADCAST_ERROR = PREFIX_BROADCAST + DARK_RED + "ERROR: " + DARK_AQUA;
-    public static final String PREFIX_TELL = AQUA + FAT + "◆ " + GREY;
+    public static final String PREFIX_TELL = AQUA + BOLD + "◆ " + GREY;
     public static final String PREFIX_TELL_ERROR = PREFIX_TELL + RESET + DARK_RED + "ERROR: " + GREY;
 
     public static final String COLLECTION_DELIMITER = ", ";
@@ -48,10 +47,8 @@ public class Message {
     public static final String SYMBOL_FIRE = "ᐃ";
     public static final String SYMBOL_WATER = "ᐁ";
     public static final String SPACE = " ";
-    public static final String RED_RIGHT_ARROW = "§c§l→"; // TODO: Remove colors from here
-    public static final String RED_LEFT_ARROW = "§c§l←";
-    public static final String GREEN_RIGHT_ARROW = "§a§l→";
-    public static final String GREEN_LEFT_ARROW = "§a§l←";
+    public static final String RIGHT_ARROW = "→";
+    public static final String LEFT_ARROW = "←";
     public static final String JOINED_TEAM = " has joined team ";
     public static final String LEFT = " has left Dia Hunt!";
     public static final String DIA_CHEST = "Dia Chest";
