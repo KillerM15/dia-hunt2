@@ -1,9 +1,11 @@
 package killerm.minecraft.communication;
 
+import killerm.minecraft.DiaHuntPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
@@ -35,5 +37,14 @@ public class Sounds {
     public void play(Player player, Sound sound, float pitch) {
         World world = player.getWorld();
         world.playSound(player.getLocation(), sound, 1, pitch);
+    }
+
+    public void playDelayedSound(Player player, Sound sound, int afterTicks, float pitch) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                play(player, sound, pitch);
+            }
+        }.runTaskLater(DiaHuntPlugin.getInstance(), afterTicks);
     }
 }
