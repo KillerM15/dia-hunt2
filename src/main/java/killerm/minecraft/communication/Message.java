@@ -35,7 +35,11 @@ public class Message {
     public static final String DIACONFIG_NOT_VALID = "This configuration isn't valid! " + VALID_DIACONFIGS;
     public static final String DIACONFIG_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
     public static final String DESCRIPTION_EMPTY = "";
-    public static final String DESCRIPTION_CONFIG = "Change config values. Usage: /diahunt config KEY (VALUE)";
+    public static final String DESCRIPTION_CONFIG = "Change config values. Usage: /diahunt config KEY <value>";
+    public static final String DESCRIPTION_START = "Start a Dia Hunt game. Usage: /diahunt start <Player1> <Player2> ..";
+    public static final String DESCRIPTION_JOIN = "Join a Dia Hunt game. Usage: /diahunt join <Team>";
+    public static final String DESCRIPTION_LEAVE = "Leave a Dia Hunt game. Usage: /diahunt leave";
+    public static final String DESCRIPTION_STOP = "Stop a Dia Hunt game. Usage: /diahunt stop";
 
     public static final String VALID_TEAMS = "Valid teams: " + CollectionDelimiter.delimit(Team.values(), Team::toString);
     public static final String TEAM_NOT_VALID = "This team isn't valid! " + VALID_TEAMS;
@@ -74,4 +78,6 @@ public class Message {
     public static final String GAME_ALREADY_RUNNING = "Game is already running!";
     public static final String INVALID_GAME_STATUS = "Invalid game status!";
     public static final String NO_GAME_IN_PROGRESS = "No game in Progress!";
+    public static final String IS_NO_PLAYER = " is not a valid player!";
+    public static final String TOO_MANY_INPUTS = "Too many inputs!";
 }
