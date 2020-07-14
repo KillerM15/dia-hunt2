@@ -12,8 +12,9 @@ public enum DiaConfig {
     SPAWN_LAVA(new Location(null, 0, 0, 0), Location.class),
     MAP_POS1(new Location(null, 0, 0, 0), Location.class),
     MAP_POS2(new Location(null, 0, 0, 0), Location.class),
-    TICKS_PER_DIAMOND(80, Double.class),
-    SECONDS_UNTIL_START(60, Double.class);
+    TICKS_PER_DIAMOND(80.0, Double.class),
+    SECONDS_UNTIL_START(60.0, Double.class),
+    SECONDS_COUNTS_AS_KILL(13.0, Double.class);
 
     private Class T;
     private Object defaultValue;
