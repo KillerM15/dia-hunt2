@@ -2,6 +2,7 @@ package killerm.minecraft.game;
 
 import killerm.minecraft.utilities.Team;
 import org.bukkit.Location;
+import org.bukkit.block.ShulkerBox;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,11 +25,31 @@ public class DiaChestGameData {
         Set<Location> chestLocationsTeam = new HashSet<>();
 
         for (Location location : getLocations()) {
-            if(chestLocations.get(location) == team){
+            if (chestLocations.get(location) == team) {
                 chestLocationsTeam.add(location);
             }
         }
 
         return chestLocationsTeam;
+    }
+
+    public Set<ShulkerBox> getShulkerBoxes() {
+        Set<ShulkerBox> shulkerBoxes = new HashSet<>();
+
+        for (Location location : getLocations()) {
+            shulkerBoxes.add((ShulkerBox) location.getBlock().getState());
+        }
+
+        return shulkerBoxes;
+    }
+
+    public Set<ShulkerBox> getShulkerBoxes(Team team) {
+        Set<ShulkerBox> shulkerBoxes = new HashSet<>();
+
+        for (Location location : getLocations(team)) {
+            shulkerBoxes.add((ShulkerBox) location.getBlock().getState());
+        }
+
+        return shulkerBoxes;
     }
 }
