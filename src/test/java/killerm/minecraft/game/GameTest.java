@@ -5,6 +5,7 @@ import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.PlayerBackup;
 import killerm.minecraft.data.RegionBackup;
 import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.helper.PlayerNameFixer;
 import killerm.minecraft.utilities.Team;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,8 @@ class GameTest {
     private LocationSetter locationSetter = mock(LocationSetter.class);
     private StatsGiver statsGiver = mock(StatsGiver.class);
     private ItemGiver itemGiver = mock(ItemGiver.class);
-    private Game game = new Game(printer, diaHuntGameState, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver);
+    private PlayerNameFixer playerNameFixer = mock(PlayerNameFixer.class);
+    private Game game = new Game(printer, diaHuntGameState, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver, playerNameFixer);
 
     @BeforeEach
     public void setup() {

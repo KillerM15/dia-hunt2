@@ -3,9 +3,14 @@ package killerm.minecraft.commands;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.controller.ConfigController;
+import killerm.minecraft.controller.GameController;
 import killerm.minecraft.error.DiaHuntLogicException;
 import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.game.DiaChestGameData;
+import killerm.minecraft.game.DiaHuntGameState;
+import killerm.minecraft.game.PlayerGameData;
 import killerm.minecraft.validator.ConfigValidator;
+import killerm.minecraft.validator.GameValidator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,22 +19,29 @@ public class DiaHuntExecutor implements CommandExecutor {
     private Tester tester; //TODO: Remove tester when Plugin is finished
     private Printer printer;
 
-    private ConfigController configController;
-
     private ConfigValidator configValidator;
+    private GameValidator gameValidator;
 
-    public DiaHuntExecutor() {
+    private ConfigController configController;
+    private GameController gameController;
+
+    public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.tester = new Tester();
         this.printer = new Printer();
-        this.configController = new ConfigController();
         this.configValidator = new ConfigValidator();
+        this.gameValidator = new GameValidator();
+        this.configController = new ConfigController();
+        this.gameController = new GameController(diaHuntGameState, playerGameData, diaChestGameData);
     }
 
-    public DiaHuntExecutor(Tester tester, Printer printer, ConfigController configController, ConfigValidator configValidator) {
+    // For tests
+    public DiaHuntExecutor(Tester tester, Printer printer, ConfigValidator configValidator, GameValidator gameValidator, ConfigController configController, GameController gameController) {
         this.tester = tester;
         this.printer = printer;
-        this.configController = configController;
         this.configValidator = configValidator;
+        this.gameValidator = gameValidator;
+        this.configController = configController;
+        this.gameController = gameController;
     }
 
     @Override
@@ -75,6 +87,22 @@ public class DiaHuntExecutor implements CommandExecutor {
                 break;
             case TEST4:
                 tester.test4(player);
+                break;
+            case PLAY:
+                gameValidator.validateStart(params);
+                gameController.play(player, params);
+                break;
+            case JOIN:
+                gameValidator.validateJoin(params);
+                gameController.join(player, params);
+                break;
+            case LEAVE:
+                gameValidator.validateLeave(params);
+                gameController.leave(player);
+                break;
+            case STOP:
+                gameValidator.validateStop(params);
+                gameController.stop();
                 break;
             default:
                 throw new DiaHuntParameterException(Message.COMMAND_NOT_IMPLEMENTED);

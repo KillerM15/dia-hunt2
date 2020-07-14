@@ -5,11 +5,12 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.helper.PlayerNameFixer;
 import killerm.minecraft.utilities.MinecraftConstants;
 import killerm.minecraft.utilities.Team;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Collection;
 
@@ -23,6 +24,8 @@ public class Game {
     private LocationSetter locationSetter;
     private StatsGiver statsGiver;
     private ItemGiver itemGiver;
+    private PlayerNameFixer playerNameFixer;
+    private BukkitTask startingTask;
 
     public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.printer = new Printer();
@@ -34,9 +37,11 @@ public class Game {
         this.locationSetter = new LocationSetter();
         this.statsGiver = new StatsGiver();
         this.itemGiver = new ItemGiver();
+        this.playerNameFixer = new PlayerNameFixer();
     }
 
-    public Game(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver) {
+    // This is why you should use dependency injection frameworks
+    public Game(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer) {
         this.printer = printer;
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
@@ -46,6 +51,7 @@ public class Game {
         this.locationSetter = locationSetter;
         this.statsGiver = statsGiver;
         this.itemGiver = itemGiver;
+        this.playerNameFixer = playerNameFixer;
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
@@ -56,38 +62,19 @@ public class Game {
     }
 
     private void printCountDown(Player gameStarter, String[] invitedPlayerNames) {
-        invitedPlayerNames = fixCaseOfPlayerNames(invitedPlayerNames);
+        invitedPlayerNames = playerNameFixer.fixCase(invitedPlayerNames);
 
         gameInitPrinter.printGameInit(gameStarter.getDisplayName(), invitedPlayerNames);
-    }
-
-    // Fixes Case, Ex.: killerM -> KillerM
-    private String[] fixCaseOfPlayerNames(String[] playerNames) {
-        String[] fixedPlayerNames = new String[playerNames.length];
-
-        for (int i = 0; i < playerNames.length; i++) {
-            Player player = Bukkit.getPlayer(playerNames[i]);
-
-            fixedPlayerNames[i] = player.getDisplayName();
-        }
-
-        return fixedPlayerNames;
     }
 
     private void startGameAfterDelay() {
         // Added 1 tick extra because GameInitPrinter needs unstarted game after 60 seconds
         int delay = (int) (double) DiaConfig.SECONDS_UNTIL_START.get() * MinecraftConstants.ticksPerSecond + 1;
 
-        new BukkitRunnable() {
+        this.startingTask = new BukkitRunnable() {
             @Override
             public void run() {
                 if (diaHuntGameState.getGameStatus() != GameStatus.STARTING) {
-                    return;
-                }
-
-                if (oneTeamNoPlayers()) {
-                    printer.broadcastError(Message.ONE_TEAM_NO_PLAYERS);
-                    stop();
                     return;
                 }
 
@@ -153,8 +140,22 @@ public class Game {
         }
 
         if (!playerGameData.hasPlayers()) {
-            stop();
+            printer.broadcast(Message.NO_PLAYERS_LEFT);
+            endGame();
         }
+    }
+
+    private void endGame() {
+        if (diaHuntGameState.getGameStatus() == GameStatus.STARTING) {
+            gameInitPrinter.stop();
+            startingTask.cancel();
+        } else if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
+            gameBackup.getMapBackup().restore();
+            diamondIncreaser.stop();
+        }
+
+        printer.broadcast(Message.STOPPED);
+        diaHuntGameState.setGameStatus(GameStatus.OFF);
     }
 
     private void throwIfNotIngame(Player player) {
@@ -165,14 +166,6 @@ public class Game {
 
     public void stop() {
         leave(playerGameData.players());
-        printer.broadcast(Message.STOPPED);
-
-        if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
-            gameBackup.getMapBackup().restore();
-            diamondIncreaser.stop();
-        }
-
-        diaHuntGameState.setGameStatus(GameStatus.OFF);
     }
 
     private void leave(Collection<Player> players) {

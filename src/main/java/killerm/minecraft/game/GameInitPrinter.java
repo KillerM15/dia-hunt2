@@ -8,13 +8,17 @@ import killerm.minecraft.utilities.MinecraftConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class GameInitPrinter {
     private Printer printer = new Printer();
     private DiaHuntGameState diaHuntGameState;
     private PlayerGameData playerGameData;
+    private List<BukkitTask> tasks = new ArrayList<>();
 
     public GameInitPrinter(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData) {
         this.diaHuntGameState = diaHuntGameState;
@@ -101,28 +105,34 @@ public class GameInitPrinter {
         for (int s : seconds) {
             int secondsToWait = maxS - s;
 
-            new BukkitRunnable() {
+            BukkitTask task = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (diaHuntGameState.getGameStatus() == GameStatus.STARTING)
-                        printer.broadcast(Message.GAME_START_IN + String.valueOf(s) + Message.SECONDS);
+                    printer.broadcast(Message.GAME_START_IN + String.valueOf(s) + Message.SECONDS);
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * secondsToWait);
+
+            tasks.add(task);
         }
     }
 
     private void printStart(int seconds) {
-        new BukkitRunnable() {
+        BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {
-                if (diaHuntGameState.getGameStatus() == GameStatus.STARTING) {
-                    printer.broadcast(Message.GAME_STARTED);
-                    for (Player player : playerGameData.players()) {
-                        printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
-                    }
+                printer.broadcast(Message.GAME_STARTED);
+                for (Player player : playerGameData.players()) {
+                    printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
                 }
             }
         }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * seconds);
+
+        tasks.add(task);
     }
 
+    public void stop() {
+        for (BukkitTask task : tasks) {
+            task.cancel();
+        }
+    }
 }

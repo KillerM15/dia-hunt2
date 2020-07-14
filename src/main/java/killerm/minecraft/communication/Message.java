@@ -36,7 +36,7 @@ public class Message {
     public static final String DIACONFIG_NOT_IMPLEMENTED = "This command hasn't been implemented yet!";
     public static final String DESCRIPTION_EMPTY = "";
     public static final String DESCRIPTION_CONFIG = "Change config values. Usage: /diahunt config KEY <value>";
-    public static final String DESCRIPTION_START = "Start a Dia Hunt game. Usage: /diahunt start <Player1> <Player2> ..";
+    public static final String DESCRIPTION_START = "Start a Dia Hunt game. Usage: /diahunt play <Player1> <Player2> ..";
     public static final String DESCRIPTION_JOIN = "Join a Dia Hunt game. Usage: /diahunt join <Team>";
     public static final String DESCRIPTION_LEAVE = "Leave a Dia Hunt game. Usage: /diahunt leave";
     public static final String DESCRIPTION_STOP = "Stop a Dia Hunt game. Usage: /diahunt stop";
@@ -71,7 +71,6 @@ public class Message {
     public static final String START_DIA = "◆Start!◆";
     public static final String GET_DIAS = "Get all the diamonds!";
     public static final String GAME_STARTED = "DiaHunt has been started!";
-    public static final String ONE_TEAM_NO_PLAYERS = "One Team has no players!";
     public static final String STOPPED = "Game has been stopped!";
     public static final String NOT_INGAME = "You are not ingame!";
     public static final String GAME_ALREADY_STARTING = "Game is already starting!";
@@ -80,4 +79,6 @@ public class Message {
     public static final String NO_GAME_IN_PROGRESS = "No game in Progress!";
     public static final String IS_NO_PLAYER = " is not a valid player!";
     public static final String TOO_MANY_INPUTS = "Too many inputs!";
+    public static final String PLAYER_NOT_FOUND = "Couldn't fix case of player!";
+    public static final String NO_PLAYERS_LEFT = "There is no player left!";
 }
