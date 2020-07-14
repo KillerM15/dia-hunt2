@@ -6,7 +6,9 @@ import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.error.DiaHuntParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
+import killerm.minecraft.utilities.ItemRemover;
 import killerm.minecraft.utilities.MinecraftConstants;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -25,6 +27,7 @@ public class Game {
     private ItemGiver itemGiver;
     private PlayerNameFixer playerNameFixer;
     private BukkitTask startingTask;
+    private ItemRemover itemRemover;
 
     public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.printer = new Printer();
@@ -37,10 +40,11 @@ public class Game {
         this.statsGiver = new StatsGiver();
         this.itemGiver = new ItemGiver();
         this.playerNameFixer = new PlayerNameFixer();
+        this.itemRemover = new ItemRemover();
     }
 
     // This is why you should use dependency injection frameworks
-    public Game(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer) {
+    public Game(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, ItemRemover itemRemover) {
         this.printer = printer;
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
@@ -51,6 +55,7 @@ public class Game {
         this.statsGiver = statsGiver;
         this.itemGiver = itemGiver;
         this.playerNameFixer = playerNameFixer;
+        this.itemRemover = itemRemover;
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
@@ -88,6 +93,8 @@ public class Game {
 
     private void startGame() {
         diaHuntGameState.setGameStatus(GameStatus.RUNNING);
+
+        itemRemover.remove(Bukkit.getWorld(DiaConfig.WORLD_NAME.get().toString()));
 
         gameBackup.getMapBackup().backup();
         gameBackup.getPlayerBackup().backup(playerGameData.players());
@@ -149,6 +156,7 @@ public class Game {
             gameInitPrinter.stop();
             startingTask.cancel();
         } else if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
+            itemRemover.remove(Bukkit.getWorld(DiaConfig.WORLD_NAME.get().toString()));
             gameBackup.getMapBackup().restore();
             diamondIncreaser.stop();
         }
