@@ -7,12 +7,12 @@ import killerm.minecraft.utilities.Region;
 import org.bukkit.Location;
 
 public class GameBackup {
-    public PlayerBackup playerBackup;
-    public RegionBackup regionBackup;
+    private PlayerBackup playerBackup;
+    private RegionBackup mapBackup;
 
     public GameBackup() {
         playerBackup = new PlayerBackup();
-        regionBackup = new RegionBackup(retrieveMap());
+        mapBackup = new RegionBackup(retrieveMap());
     }
 
     private Region retrieveMap() {
@@ -23,6 +23,14 @@ public class GameBackup {
     }
 
     public void reloadMapRegionFromConfig() {
-        regionBackup.setRegion(retrieveMap());
+        mapBackup.setRegion(retrieveMap());
+    }
+
+    public PlayerBackup getPlayerBackup() {
+        return playerBackup;
+    }
+
+    public RegionBackup getMapBackup() {
+        return mapBackup;
     }
 }
