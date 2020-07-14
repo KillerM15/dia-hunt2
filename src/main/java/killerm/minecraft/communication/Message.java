@@ -81,4 +81,5 @@ public class Message {
     public static final String TOO_MANY_INPUTS = "Too many inputs!";
     public static final String PLAYER_NOT_FOUND = "Couldn't fix case of player!";
     public static final String NO_PLAYERS_LEFT = "There is no player left!";
+    public static final String SYMBOL_DIAMOND = "◆";
 }
