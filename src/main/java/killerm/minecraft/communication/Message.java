@@ -70,4 +70,8 @@ public class Message {
     public static final String ONE_TEAM_NO_PLAYERS = "One Team has no players!";
     public static final String STOPPED = "Game has been stopped!";
     public static final String NOT_INGAME = "You are not ingame!";
+    public static final String GAME_ALREADY_STARTING = "Game is already starting!";
+    public static final String GAME_ALREADY_RUNNING = "Game is already running!";
+    public static final String INVALID_GAME_STATUS = "Invalid game status!";
+    public static final String NO_GAME_IN_PROGRESS = "No game in Progress!";
 }
