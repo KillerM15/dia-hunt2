@@ -12,28 +12,19 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GameData {
+public class PlayerGameData {
     private Map<Player, Team> playerTeams = new ConcurrentHashMap<>();
-    private volatile GameStatus gameStatus = GameStatus.OFF;
     private Printer printer;
     private NameChanger nameChanger;
 
-    public GameData() {
+    public PlayerGameData() {
         this.printer = new Printer();
         this.nameChanger = new NameChanger();
     }
 
-    public GameData(Printer printer, NameChanger nameChanger) {
+    public PlayerGameData(Printer printer, NameChanger nameChanger) {
         this.printer = printer;
         this.nameChanger = nameChanger;
-    }
-
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public GameStatus getGameStatus() {
-        return gameStatus;
     }
 
     public void add(Player player) {

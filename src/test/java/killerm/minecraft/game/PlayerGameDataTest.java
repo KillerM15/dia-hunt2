@@ -11,10 +11,10 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
-class GameDataTest {
+class PlayerGameDataTest {
     private Printer printer = mock(Printer.class);
     private NameChanger nameChanger = mock(NameChanger.class);
-    private GameData gameData = new GameData(printer, nameChanger);
+    private PlayerGameData playerGameData = new PlayerGameData(printer, nameChanger);
 
     @Test
     public void GIVEN_player_WHEN_add_THEN_contains_player() {
@@ -22,10 +22,10 @@ class GameDataTest {
         Player player = mock(Player.class);
 
         // WHEN
-        gameData.add(player);
+        playerGameData.add(player);
 
         // THEN
-        assert (gameData.contains(player));
+        assert (playerGameData.contains(player));
     }
 
     @Test
@@ -33,10 +33,10 @@ class GameDataTest {
         // GIVEN
         Team team = Team.LAVA;
         Player player = mock(Player.class);
-        gameData.add(player, team);
+        playerGameData.add(player, team);
 
         // WHEN
-        Team actualTeam = gameData.team(player);
+        Team actualTeam = playerGameData.team(player);
 
         //THEN
         assertEquals(team, actualTeam);
@@ -46,13 +46,13 @@ class GameDataTest {
     public void GIVEN_added_player_WHEN_remove_THEN_does_not_contain() {
         // GIVEN
         Player player = mock(Player.class);
-        gameData.add(player);
+        playerGameData.add(player);
 
         // WHEN
-        gameData.remove(player);
+        playerGameData.remove(player);
 
         // THEN
-        assert (!gameData.contains(player));
+        assert (!playerGameData.contains(player));
     }
 
     @Test
@@ -60,11 +60,11 @@ class GameDataTest {
         // GIVEN
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
-        gameData.add(player1);
-        gameData.add(player2);
+        playerGameData.add(player1);
+        playerGameData.add(player2);
 
         // WHEN
-        Collection actualPlayers = gameData.players();
+        Collection actualPlayers = playerGameData.players();
 
         // THEN
         assert (actualPlayers.contains(player1));
@@ -77,12 +77,12 @@ class GameDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        gameData.add(player1, Team.LAVA);
-        gameData.add(player2, Team.LAVA);
-        gameData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        Collection players = gameData.players(Team.LAVA);
+        Collection players = playerGameData.players(Team.LAVA);
 
         // THEN
         assert (players.contains(player1));
@@ -94,21 +94,21 @@ class GameDataTest {
     public void GIVEN_player_added_WHEN_hasPlayers_THEN_true() {
         // GIVEN
         Player player = mock(Player.class);
-        gameData.add(player, Team.LAVA);
+        playerGameData.add(player, Team.LAVA);
 
         // WHEN / THEN
-        assert (gameData.hasPlayers());
+        assert (playerGameData.hasPlayers());
     }
 
     @Test
     public void GIVEN_player_removed_WHEN_hasPlayers_THEN_false() {
         // GIVEN
         Player player = mock(Player.class);
-        gameData.add(player, Team.LAVA);
-        gameData.remove(player);
+        playerGameData.add(player, Team.LAVA);
+        playerGameData.remove(player);
 
         // WHEN / THEN
-        assert (!gameData.hasPlayers());
+        assert (!playerGameData.hasPlayers());
     }
 
     @Test
@@ -117,12 +117,12 @@ class GameDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        gameData.add(player1, Team.LAVA);
-        gameData.add(player2, Team.LAVA);
-        gameData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        int amount = gameData.amountOfPlayers();
+        int amount = playerGameData.amountOfPlayers();
 
         // THEN
         assertEquals(3, amount);
@@ -134,12 +134,12 @@ class GameDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        gameData.add(player1, Team.LAVA);
-        gameData.add(player2, Team.LAVA);
-        gameData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        int amount = gameData.amountOfPlayers(Team.LAVA);
+        int amount = playerGameData.amountOfPlayers(Team.LAVA);
 
         // THEN
         assertEquals(2, amount);
@@ -151,12 +151,12 @@ class GameDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        gameData.add(player1, Team.LAVA);
-        gameData.add(player2, Team.LAVA);
-        gameData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        Player randomPlayer = gameData.randomPlayer(Team.LAVA);
+        Player randomPlayer = playerGameData.randomPlayer(Team.LAVA);
 
         // THEN
         assert (randomPlayer.equals(player1) || randomPlayer.equals(player2));
@@ -165,7 +165,7 @@ class GameDataTest {
     @Test
     public void WHEN_randomPlayer_THEN_null() {
         // WHEN
-        Player randomPlayer = gameData.randomPlayer(Team.LAVA);
+        Player randomPlayer = playerGameData.randomPlayer(Team.LAVA);
 
         // THEN
         assert (randomPlayer == null);

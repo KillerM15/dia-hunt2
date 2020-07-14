@@ -14,11 +14,11 @@ import java.util.Arrays;
 public class GameInitPrinter {
     private Printer printer = new Printer();
     private DiaHuntGameState diaHuntGameState;
-    private GameData gameData;
+    private PlayerGameData playerGameData;
 
-    public GameInitPrinter(DiaHuntGameState diaHuntGameState, GameData gameData, String gameStarterName, String[] invitedPlayers) {
+    public GameInitPrinter(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, String gameStarterName, String[] invitedPlayers) {
         this.diaHuntGameState = diaHuntGameState;
-        this.gameData = gameData;
+        this.playerGameData = playerGameData;
         printGameInit(gameStarterName, invitedPlayers);
     }
 
@@ -107,7 +107,7 @@ public class GameInitPrinter {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (Player player : gameData.players()) {
+                for (Player player : playerGameData.players()) {
                     printer.broadcast(Message.GAME_STARTED);
                     printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
                 }
