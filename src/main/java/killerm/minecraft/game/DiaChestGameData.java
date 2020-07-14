@@ -16,6 +16,10 @@ public class DiaChestGameData {
         chestLocations.put(location, team);
     }
 
+    public void removeLocation(Location location) {
+        chestLocations.remove(location);
+    }
+
     public Collection<Location> getLocations() {
         return chestLocations.keySet();
     }

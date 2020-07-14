@@ -72,4 +72,26 @@ class DiaChestGameDataTest {
         assert (shulkerBoxes.contains(shulkerBox3));
     }
 
+    @Test
+    public void GIVEN_1_shulkerbox_lava_2_shulkerboxes_aqua_added_and_removed_WHEN_getShulkerBoxes_THEN_size_0() {
+        // GIVEN
+
+        Location loc1 = mock(Location.class);
+        Location loc2 = mock(Location.class);
+        Location loc3 = mock(Location.class);
+
+        diaChestGameData.addLocation(loc1, Team.AQUA);
+        diaChestGameData.addLocation(loc2, Team.AQUA);
+        diaChestGameData.addLocation(loc3, Team.LAVA);
+
+        diaChestGameData.removeLocation(loc1);
+        diaChestGameData.removeLocation(loc2);
+        diaChestGameData.removeLocation(loc3);
+
+        // WHEN
+        Collection<ShulkerBox> shulkerBoxes = diaChestGameData.getShulkerBoxes(Team.LAVA);
+
+        // THEN
+        assertEquals(0, shulkerBoxes.size());
+    }
 }
