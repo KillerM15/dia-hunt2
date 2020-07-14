@@ -8,10 +8,11 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
+// Ugly
 public class ScoreboardManager {
-    private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static volatile Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-    public ScoreboardManager() {
+    static {
         Objective objective1 = scoreboard.registerNewObjective("diamonds1", "dummy", Message.AQUA + Message.SYMBOL_DIAMOND);
         objective1.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective1.setDisplayName(Message.AQUA + Message.SYMBOL_DIAMOND);
@@ -21,7 +22,7 @@ public class ScoreboardManager {
         objective2.setDisplayName(Message.AQUA + Message.SYMBOL_DIAMOND);
     }
 
-    public void setDiamonds(Player player, int amountOfDiamonds) {
+    public static void setDiamonds(Player player, int amountOfDiamonds) {
         Score score1 = scoreboard.getObjective("diamonds1").getScore(player);
         score1.setScore(amountOfDiamonds);
 
@@ -31,7 +32,7 @@ public class ScoreboardManager {
         player.setScoreboard(scoreboard);
     }
 
-    public void clear(Player player) {
+    public static void clear(Player player) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
         player.setScoreboard(board);
     }
