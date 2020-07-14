@@ -12,7 +12,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 public class GameItem { // TODO: Nice descriptions and effects with enchantments
     public static ItemStack diamond() {
         ItemStack diamond = new ItemStack(Material.DIAMOND, 1);
-        setCustomName(diamond, Message.DIAMOND);
+        setCustomName(diamond, Message.ITEM_DIAMOND);
 
         return diamond;
     }
@@ -35,12 +35,12 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
 
         if (team == Team.AQUA) {
             diaChest = new ItemStack(Material.BLUE_SHULKER_BOX, 1);
-            setCustomName(diaChest, Message.DIA_CHEST);
+            setCustomName(diaChest, Message.ITEM_DIA_CHEST);
         }
 
         if (team == Team.LAVA) {
             diaChest = new ItemStack(Material.RED_SHULKER_BOX, 1);
-            setCustomName(diaChest, Message.DIA_CHEST);
+            setCustomName(diaChest, Message.ITEM_DIA_CHEST);
         }
 
         return diaChest;

@@ -51,8 +51,8 @@ public class Message {
     public static final String LEFT_ARROW = "←";
     public static final String JOINED_TEAM = " has joined team ";
     public static final String LEFT = " has left Dia Hunt!";
-    public static final String DIA_CHEST = "Dia Chest";
-    public static final String DIAMOND = "Diamond";
+    public static final String ITEM_DIA_CHEST = AQUA + "Dia Chest";
+    public static final String ITEM_DIAMOND = AQUA + "Diamond";
     public static final String COULD_NOT_RANDOM_PLAYER = "Couldn't generate random player because team ";
     public static final String IS_EMPTY = " is empty!";
     public static final String DIA_LINE = "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆";
@@ -67,4 +67,7 @@ public class Message {
     public static final String START_DIA = "◆Start!◆";
     public static final String GET_DIAS = "Get all the diamonds!";
     public static final String GAME_STARTED = "DiaHunt has been started!";
+    public static final String ONE_TEAM_NO_PLAYERS = "One Team has no players!";
+    public static final String STOPPED = "Game has been stopped!";
+    public static final String NOT_INGAME = "You are not ingame!";
 }
