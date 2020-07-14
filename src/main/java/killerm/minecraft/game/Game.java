@@ -7,7 +7,6 @@ import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.error.DiaHuntParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
 import killerm.minecraft.utilities.MinecraftConstants;
-import killerm.minecraft.utilities.Team;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;

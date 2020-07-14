@@ -6,7 +6,6 @@ import killerm.minecraft.data.PlayerBackup;
 import killerm.minecraft.data.RegionBackup;
 import killerm.minecraft.error.DiaHuntParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
-import killerm.minecraft.utilities.Team;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

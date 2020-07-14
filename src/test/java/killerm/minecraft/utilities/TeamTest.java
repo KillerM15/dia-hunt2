@@ -2,6 +2,7 @@ package killerm.minecraft.utilities;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.game.Team;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

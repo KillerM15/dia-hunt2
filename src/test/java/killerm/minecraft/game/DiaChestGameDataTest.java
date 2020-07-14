@@ -1,6 +1,5 @@
 package killerm.minecraft.game;
 
-import killerm.minecraft.utilities.Team;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.ShulkerBox;

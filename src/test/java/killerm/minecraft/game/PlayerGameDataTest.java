@@ -2,7 +2,6 @@ package killerm.minecraft.game;
 
 import killerm.minecraft.communication.NameChanger;
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.utilities.Team;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 

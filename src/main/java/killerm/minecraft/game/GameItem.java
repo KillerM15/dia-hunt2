@@ -1,7 +1,6 @@
 package killerm.minecraft.game;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.utilities.Team;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

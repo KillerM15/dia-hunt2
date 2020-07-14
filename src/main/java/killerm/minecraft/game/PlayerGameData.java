@@ -5,7 +5,6 @@ import com.sun.istack.internal.Nullable;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.NameChanger;
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.utilities.Team;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 

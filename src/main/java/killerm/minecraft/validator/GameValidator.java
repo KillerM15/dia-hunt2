@@ -2,7 +2,7 @@ package killerm.minecraft.validator;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
-import killerm.minecraft.utilities.Team;
+import killerm.minecraft.game.Team;
 import org.bukkit.Bukkit;
 
 import java.util.Arrays;

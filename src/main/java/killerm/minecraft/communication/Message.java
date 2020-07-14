@@ -3,7 +3,7 @@ package killerm.minecraft.communication;
 import killerm.minecraft.commands.CommandType;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.helper.CollectionDelimiter;
-import killerm.minecraft.utilities.Team;
+import killerm.minecraft.game.Team;
 
 // Intentional code duplication and ugly inner class to increase readability
 public class Message {

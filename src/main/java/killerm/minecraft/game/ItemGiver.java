@@ -1,7 +1,6 @@
 package killerm.minecraft.game;
 
 import killerm.minecraft.manager.ItemManager;
-import killerm.minecraft.utilities.Team;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 

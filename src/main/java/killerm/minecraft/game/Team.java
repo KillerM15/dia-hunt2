@@ -1,4 +1,4 @@
-package killerm.minecraft.utilities;
+package killerm.minecraft.game;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
