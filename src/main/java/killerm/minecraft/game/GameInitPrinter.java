@@ -13,9 +13,11 @@ import java.util.Arrays;
 
 public class GameInitPrinter {
     private Printer printer = new Printer();
+    private DiaHuntGameState diaHuntGameState;
     private GameData gameData;
 
-    public GameInitPrinter(GameData gameData, String gameStarterName, String[] invitedPlayers) {
+    public GameInitPrinter(DiaHuntGameState diaHuntGameState, GameData gameData, String gameStarterName, String[] invitedPlayers) {
+        this.diaHuntGameState = diaHuntGameState;
         this.gameData = gameData;
         printGameInit(gameStarterName, invitedPlayers);
     }
@@ -96,7 +98,7 @@ public class GameInitPrinter {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (gameData.getGameStatus() == GameStatus.STARTING)
+                    if (diaHuntGameState.getGameStatus() == GameStatus.STARTING)
                         printer.broadcast(Message.GAME_START_IN + String.valueOf(s) + Message.SECONDS);
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * secondsToWait);

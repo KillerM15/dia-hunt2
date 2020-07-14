@@ -17,23 +17,6 @@ class GameDataTest {
     private GameData gameData = new GameData(printer, nameChanger);
 
     @Test
-    public void WHEN_getGameStatus_THEN_return_OFF() {
-        assertEquals(GameStatus.OFF, gameData.getGameStatus());
-    }
-
-    @Test
-    public void GIVEN_GameStatus_WHEN_getGameStatus_THEN_return_gameStatus() {
-        // GIVEN
-        GameStatus gameStatus = GameStatus.STARTING;
-
-        // WHEN
-        gameData.setGameStatus(gameStatus);
-
-        // THEN
-        assertEquals(gameStatus, gameData.getGameStatus());
-    }
-
-    @Test
     public void GIVEN_player_WHEN_add_THEN_contains_player() {
         // GIVEN
         Player player = mock(Player.class);
