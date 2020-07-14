@@ -16,19 +16,18 @@ public class GameInitPrinter {
     private DiaHuntGameState diaHuntGameState;
     private PlayerGameData playerGameData;
 
-    public GameInitPrinter(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, String gameStarterName, String[] invitedPlayers) {
+    public GameInitPrinter(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData) {
         this.diaHuntGameState = diaHuntGameState;
-        this.playerGameData = playerGameData;
-        printGameInit(gameStarterName, invitedPlayers);
+        this.playerGameData = playerGameData; //gameinit printer und diaincreaser testen
     }
 
-    private void printGameInit(String gameStarterName, String[] invitedPlayerNames) {
+    public void printGameInit(String gameStarterName, String[] invitedPlayerNames) {
         printDashes();
         printStarted(gameStarterName);
         printInvitedPlayerOrPlayers(invitedPlayerNames);
         printYouInvited(invitedPlayerNames);
         printAccept();
-        printCountdownAndStartTitle(60, 30, 10, 5, 4, 3, 2, 1);
+        printCountdownAndStartTitle(60, 30, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
     }
 
     private void printDashes() {
@@ -90,6 +89,13 @@ public class GameInitPrinter {
     }
 
     private void printCountdownAndStartTitle(int... seconds) {
+        printCountDown(seconds);
+
+        int maxSecond = Arrays.stream(seconds).max().getAsInt();
+        printStart(maxSecond);
+    }
+
+    private void printCountDown(int... seconds) {
         int maxS = Arrays.stream(seconds).max().getAsInt();
 
         for (int s : seconds) {
@@ -103,16 +109,20 @@ public class GameInitPrinter {
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * secondsToWait);
         }
+    }
 
+    private void printStart(int seconds) {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for (Player player : playerGameData.players()) {
+                if (diaHuntGameState.getGameStatus() == GameStatus.STARTING) {
                     printer.broadcast(Message.GAME_STARTED);
-                    printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
+                    for (Player player : playerGameData.players()) {
+                        printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
+                    }
                 }
             }
-        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * maxS);
+        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * seconds);
     }
 
 }
