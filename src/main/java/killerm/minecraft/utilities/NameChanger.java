@@ -1,5 +1,6 @@
-package killerm.minecraft.communication;
+package killerm.minecraft.utilities;
 
+import killerm.minecraft.communication.Message;
 import killerm.minecraft.game.Team;
 import org.bukkit.entity.Player;
 

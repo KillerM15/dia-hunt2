@@ -3,7 +3,7 @@ package killerm.minecraft.game;
 
 import com.sun.istack.internal.Nullable;
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.communication.NameChanger;
+import killerm.minecraft.utilities.NameChanger;
 import killerm.minecraft.communication.Printer;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
