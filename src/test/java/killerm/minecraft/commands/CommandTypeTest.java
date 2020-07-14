@@ -38,7 +38,7 @@ class CommandTypeTest {
         DiaHuntParameterException thrown = assertThrows(
                 DiaHuntParameterException.class,
                 () -> CommandType.getCommandType(commandTypeString),
-                "Expected getCommandType to throw, but it didn't"
+                "Expected to throw, but didn't"
         );
 
         // THEN

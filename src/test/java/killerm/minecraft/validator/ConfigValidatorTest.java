@@ -1,11 +1,11 @@
 package killerm.minecraft.validator;
 
-import killerm.minecraft.commands.CommandType;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConfigValidatorTest {
     ConfigValidator configValidator = new ConfigValidator();
@@ -19,7 +19,7 @@ class ConfigValidatorTest {
         DiaHuntParameterException thrown = assertThrows(
                 DiaHuntParameterException.class,
                 () -> configValidator.validateExecute(params),
-                "Expected getCommandType to throw, but it didn't"
+                "Expected to throw, but didn't"
         );
 
         // THEN

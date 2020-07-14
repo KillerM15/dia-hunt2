@@ -27,7 +27,7 @@ class TeamTest {
         DiaHuntParameterException thrown = assertThrows(
                 DiaHuntParameterException.class,
                 () -> Team.getTeam(teamString),
-                "Expected getTeam to throw, but it didn't"
+                "Expected to throw, but didn't"
         );
 
         // THEN
