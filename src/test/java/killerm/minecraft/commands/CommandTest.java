@@ -56,9 +56,8 @@ class CommandTest {
         assert (isHelpCommand);
     }
 
-
     @Test
-    public void GIVEN_command_with_empty_param_WHEN_isHelpCommand_THEN_true() {
+    public void GIVEN_command_with_empty_param_with_isEmptyCommandEqualsHelp_true_WHEN_isHelpCommand_THEN_true() {
         // GIVEN
         String args[] = {"config"};
 
@@ -68,5 +67,18 @@ class CommandTest {
 
         // THEN
         assert (isHelpCommand);
+    }
+
+    @Test
+    public void GIVEN_command_with_empty_param_with_isEmptyCommandEqualsHelp_false_WHEN_isHelpCommand_THEN_false() {
+        // GIVEN
+        String args[] = {"stop"};
+
+        // WHEN
+        Command command = new Command(args);
+        boolean isHelpCommand = command.needsHelp();
+
+        // THEN
+        assert (!isHelpCommand);
     }
 }

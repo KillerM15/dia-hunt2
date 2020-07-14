@@ -37,6 +37,14 @@ public class Command {
     }
 
     public boolean needsHelp() {
-        return parameter.length == 0 || parameter[0].equals("help");
+        if (parameter.length == 0 && commandType.isEmptyCommandEqualsHelp()) {
+            return true;
+        }
+
+        if(parameter.length > 0 && parameter[0].equals("help")){
+            return true;
+        }
+
+        return false;
     }
 }

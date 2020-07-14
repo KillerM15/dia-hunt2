@@ -44,4 +44,14 @@ class CommandTypeTest {
         // THEN
         assertTrue(thrown.getMessage().equals(Message.COMMANDTYPE_NOT_VALID));
     }
+
+    @Test
+    public void GIVEN_HELP_WHEN_isEmptyCommandEqualsHelp_THEN_return_true() {
+        assertEquals(true, CommandType.HELP.isEmptyCommandEqualsHelp());
+    }
+
+    @Test
+    public void GIVEN_STOP_WHEN_isEmptyCommandEqualsHelp_THEN_return_false() {
+        assertEquals(false, CommandType.STOP.isEmptyCommandEqualsHelp());
+    }
 }

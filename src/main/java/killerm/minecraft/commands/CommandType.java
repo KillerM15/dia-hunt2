@@ -4,17 +4,23 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.DiaHuntParameterException;
 
 public enum CommandType {
-    HELP(Message.DESCRIPTION_EMPTY),
-    TEST1(Message.DESCRIPTION_EMPTY),
-    TEST2(Message.DESCRIPTION_EMPTY),
-    TEST3(Message.DESCRIPTION_EMPTY),
-    TEST4(Message.DESCRIPTION_EMPTY),
-    CONFIG(Message.DESCRIPTION_CONFIG);
+    HELP(Message.DESCRIPTION_EMPTY, true),
+    TEST1(Message.DESCRIPTION_EMPTY, false),
+    TEST2(Message.DESCRIPTION_EMPTY, false),
+    TEST3(Message.DESCRIPTION_EMPTY, false),
+    TEST4(Message.DESCRIPTION_EMPTY, false),
+    CONFIG(Message.DESCRIPTION_CONFIG, true),
+    PLAY(Message.DESCRIPTION_START, false),
+    JOIN(Message.DESCRIPTION_JOIN, false),
+    LEAVE(Message.DESCRIPTION_LEAVE, false),
+    STOP(Message.DESCRIPTION_STOP, false);
 
     private String description;
+    private boolean emptyCommandEqualsHelp; // "/diahunt command" -> results in help, if true
 
-    private CommandType(String description) {
+    private CommandType(String description, boolean emptyCommandEqualsHelp) {
         this.description = description;
+        this.emptyCommandEqualsHelp = emptyCommandEqualsHelp;
     }
 
     @Override
@@ -34,5 +40,9 @@ public enum CommandType {
         }
 
         throw new DiaHuntParameterException(Message.COMMANDTYPE_NOT_VALID);
+    }
+
+    public boolean isEmptyCommandEqualsHelp() {
+        return emptyCommandEqualsHelp;
     }
 }
