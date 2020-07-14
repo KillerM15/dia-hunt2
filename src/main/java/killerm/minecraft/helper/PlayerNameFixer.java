@@ -19,7 +19,7 @@ public class PlayerNameFixer {
                 printer.broadcastError(Message.PLAYER_NOT_FOUND);
                 fixedPlayerNames[i] = null;
             } else {
-                fixedPlayerNames[i] = player.getDisplayName();
+                fixedPlayerNames[i] = player.getName();
             }
         }
 
