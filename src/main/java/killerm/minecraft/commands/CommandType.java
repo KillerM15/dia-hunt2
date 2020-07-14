@@ -7,6 +7,8 @@ public enum CommandType {
     HELP(Message.DESCRIPTION_EMPTY),
     TEST1(Message.DESCRIPTION_EMPTY),
     TEST2(Message.DESCRIPTION_EMPTY),
+    TEST3(Message.DESCRIPTION_EMPTY),
+    TEST4(Message.DESCRIPTION_EMPTY),
     CONFIG(Message.DESCRIPTION_CONFIG);
 
     private String description;

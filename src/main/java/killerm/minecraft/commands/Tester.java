@@ -12,4 +12,10 @@ public class Tester {
 
     public void test2(Player player) {
     }
+
+    public void test3(Player player) {
+    }
+
+    public void test4(Player player) {
+    }
 }

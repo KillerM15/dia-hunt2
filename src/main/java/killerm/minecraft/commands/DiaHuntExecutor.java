@@ -70,6 +70,12 @@ public class DiaHuntExecutor implements CommandExecutor {
             case TEST2:
                 tester.test2(player);
                 break;
+            case TEST3:
+                tester.test3(player);
+                break;
+            case TEST4:
+                tester.test4(player);
+                break;
             default:
                 throw new DiaHuntParameterException(Message.COMMAND_NOT_IMPLEMENTED);
         }
