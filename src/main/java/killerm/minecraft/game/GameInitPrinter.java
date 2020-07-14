@@ -134,5 +134,7 @@ public class GameInitPrinter {
         for (BukkitTask task : tasks) {
             task.cancel();
         }
+
+        tasks.clear();
     }
 }
