@@ -11,6 +11,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DiaChestGameData {
     private Map<Location, Team> chestLocations = new ConcurrentHashMap();
+    private DiamondIndicator diamondIndicator;
+
+    public DiaChestGameData() {
+        this.diamondIndicator = new DiamondIndicator();
+    }
+
+    public DiaChestGameData(DiamondIndicator diamondIndicator) {
+        this.diamondIndicator = diamondIndicator;
+    }
 
     public void addLocation(Location location, Team team) {
         chestLocations.put(location, team);
@@ -54,5 +63,19 @@ public class DiaChestGameData {
         }
 
         return shulkerBoxes;
+    }
+
+    public boolean containsDias(Team team) {
+        for (ShulkerBox shulkerBox : getShulkerBoxes(team)) {
+            if (diamondIndicator.hasDiamonds(shulkerBox)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void clear() {
+        chestLocations.clear();
     }
 }
