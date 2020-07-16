@@ -18,26 +18,26 @@ class CommandTypeTest {
     }
 
     @Test
-    public void GIVEN_valid_commandTypeString_WHEN_getCommandType_THEN_return_correct_CommandType() {
+    public void GIVEN_valid_commandTypeString_WHEN_getInstance_THEN_return_correct_CommandType() {
         // GIVEN
         String commandTypeString = "help";
 
         // WHEN
-        CommandType commandType = CommandType.getCommandType(commandTypeString);
+        CommandType commandType = CommandType.getInstance(commandTypeString);
 
         // THEN
         assertEquals(CommandType.HELP, commandType);
     }
 
     @Test
-    public void GIVEN_invalid_commandTypeString_WHEN_getCommandType_THEN_Exception() {
+    public void GIVEN_invalid_commandTypeString_WHEN_getInstance_THEN_Exception() {
         // GIVEN
         String commandTypeString = "helpp";
 
         // WHEN
         DiaHuntParameterException thrown = assertThrows(
                 DiaHuntParameterException.class,
-                () -> CommandType.getCommandType(commandTypeString),
+                () -> CommandType.getInstance(commandTypeString),
                 "Expected to throw, but didn't"
         );
 

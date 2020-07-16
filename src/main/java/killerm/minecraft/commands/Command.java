@@ -24,7 +24,7 @@ public class Command {
     }
 
     private void constructCommandTypeFromArgs(String[] args) {
-        commandType = CommandType.getCommandType(args[0]);
+        commandType = CommandType.getInstance(args[0]);
         parameter = Arrays.copyOfRange(args, 1, args.length);
     }
 

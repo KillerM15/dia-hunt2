@@ -32,7 +32,7 @@ public enum CommandType {
         return description;
     }
 
-    public static CommandType getCommandType(String commandTypeString) {
+    public static CommandType getInstance(String commandTypeString) {
         for (CommandType d : CommandType.values()) {
             if (commandTypeString.equals(d.toString())) {
                 return d;
