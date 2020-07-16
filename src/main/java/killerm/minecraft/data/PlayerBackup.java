@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PlayerBackup {
     private Map<Player, PlayerData> savedPlayers = new HashMap<>();
-    private ItemStackCopy itemStackCopy = new ItemStackCopy();
+    private ItemStackCopy itemStackCopy;
 
     public PlayerBackup() {
         this.itemStackCopy = new ItemStackCopy();
