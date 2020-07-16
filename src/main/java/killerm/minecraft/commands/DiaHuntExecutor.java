@@ -16,7 +16,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class DiaHuntExecutor implements CommandExecutor {
-    private Tester tester; //TODO: Remove tester when Plugin is finished
     private Printer printer;
 
     private ConfigValidator configValidator;
@@ -24,6 +23,8 @@ public class DiaHuntExecutor implements CommandExecutor {
 
     private ConfigController configController;
     private GameController gameController;
+
+    private Tester tester; //TODO: Remove tester when Plugin is finished
 
     public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.tester = new Tester();
@@ -48,21 +49,34 @@ public class DiaHuntExecutor implements CommandExecutor {
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-
-            try {
-                Command command = new Command(args);
-
-                if (command.needsHelp()) {
-                    printHelpCommand(player, command);
-                } else {
-                    sendToController(player, command);
-                }
-            } catch (DiaHuntParameterException | DiaHuntLogicException e) {
-                printer.tellError(player, e.getMessage());
-            }
+            executeCommandAsPlayer(player, args);
+        } else {
+            executeCommandAsServer(args);
         }
 
         return true;
+    }
+
+    private void executeCommandAsPlayer(Player player, String[] args) {
+        try {
+            Command command = new Command(args);
+            if (command.needsHelp()) {
+                printHelpCommand(player, command);
+            } else {
+                sendToController(player, command);
+            }
+        } catch (DiaHuntParameterException | DiaHuntLogicException e) {
+            printer.tellError(player, e.getMessage());
+        }
+    }
+
+    private void executeCommandAsServer(String[] args) {
+        try {
+            Command command = new Command(args);
+            sendToController(null, command);
+        } catch (DiaHuntParameterException | DiaHuntLogicException e) {
+            printer.broadcastError(e.getMessage());
+        }
     }
 
     private void sendToController(Player player, Command command) {
