@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DamageRecorder {
     private Map<Player, Player> lastDamagers = new ConcurrentHashMap<>();
+    private Map<Player, BukkitRunnable> lastDamagerRemoverTasks = new ConcurrentHashMap<>();
     private DiaHuntGameState diaHuntGameState;
     private int secondsUntilDelete;
 
@@ -21,20 +22,33 @@ public class DamageRecorder {
         this.secondsUntilDelete = secondsUntilDelete;
     }
 
-    public final void put(Player receiver, Player damager) {
+    public void put(Player receiver, Player damager) {
         lastDamagers.put(receiver, damager);
+        deleteRemoverTaskIfExists(receiver);
+        initializeRemoverTask(receiver, damager);
+    }
 
-        new BukkitRunnable() {
+    private void deleteRemoverTaskIfExists(Player receiver) {
+        if (lastDamagerRemoverTasks.get(receiver) != null) {
+            lastDamagerRemoverTasks.get(receiver).cancel();
+        }
+    }
+
+    private void initializeRemoverTask(Player receiver, Player damager) {
+        BukkitRunnable removerTask = new BukkitRunnable() {
             @Override
             public void run() {
                 if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING)
                     lastDamagers.remove(receiver, damager);
             }
-        }.runTaskLater(DiaHuntPlugin.getInstance(), secondsUntilDelete * MinecraftConstants.ticksPerSecond);
+        };
+
+        removerTask.runTaskLater(DiaHuntPlugin.getInstance(), secondsUntilDelete * MinecraftConstants.ticksPerSecond);
+        lastDamagerRemoverTasks.put(receiver, removerTask);
     }
 
     @Nullable
-    public final Player getDamager(Player receiver) {
+    public Player getDamager(Player receiver) {
         return lastDamagers.get(receiver);
     }
 }
