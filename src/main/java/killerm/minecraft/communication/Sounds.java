@@ -1,7 +1,7 @@
 package killerm.minecraft.communication;
 
 import killerm.minecraft.DiaHuntPlugin;
-import org.bukkit.Bukkit;
+import killerm.minecraft.utilities.PlayerRetriever;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -10,12 +10,22 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 
 public class Sounds {
+    private PlayerRetriever playerRetriever;
+
+    public Sounds() {
+        this.playerRetriever = new PlayerRetriever();
+    }
+
+    public Sounds(PlayerRetriever playerRetriever) {
+        this.playerRetriever = playerRetriever;
+    }
+
     public void play(Sound sound) {
-        play((Collection<Player>) Bukkit.getOnlinePlayers(), sound);
+        play(sound, (float) 1.0);
     }
 
     public void play(Sound sound, float pitch) {
-        play((Collection<Player>) Bukkit.getOnlinePlayers(), sound, pitch);
+        play(playerRetriever.retrieveOnlinePlayers(), sound, pitch);
     }
 
     public void play(Collection<Player> players, Sound sound, float pitch) {
@@ -39,7 +49,7 @@ public class Sounds {
         world.playSound(player.getLocation(), sound, 1, pitch);
     }
 
-    public void playDelayedSound(Player player, Sound sound, int afterTicks, float pitch) {
+    public void playDelayedSound(Player player, Sound sound, float pitch, int afterTicks) {
         new BukkitRunnable() {
             @Override
             public void run() {
