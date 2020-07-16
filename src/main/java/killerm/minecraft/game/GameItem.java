@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 public class GameItem { // TODO: Nice descriptions and effects with enchantments
     public static ItemStack diamond() {
         ItemStack diamond = new ItemStack(Material.DIAMOND, 1);
-        setCustomName(diamond, Message.ITEM_DIAMOND);
+        setDisplayName(diamond, Message.ITEM_DIAMOND);
 
         return diamond;
     }
@@ -23,7 +23,7 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         return knockbackStick;
     }
 
-    private static void setCustomName(ItemStack itemStack, String name) {
+    private static void setDisplayName(ItemStack itemStack, String name) {
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(name);
         itemStack.setItemMeta(meta);
@@ -34,12 +34,12 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
 
         if (team == Team.AQUA) {
             diaChest = new ItemStack(Material.BLUE_SHULKER_BOX, 1);
-            setCustomName(diaChest, Message.ITEM_DIA_CHEST);
+            setDisplayName(diaChest, Message.ITEM_DIA_CHEST);
         }
 
         if (team == Team.LAVA) {
             diaChest = new ItemStack(Material.RED_SHULKER_BOX, 1);
-            setCustomName(diaChest, Message.ITEM_DIA_CHEST);
+            setDisplayName(diaChest, Message.ITEM_DIA_CHEST);
         }
 
         return diaChest;
@@ -59,5 +59,17 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         chestplate.setItemMeta(meta);
 
         return chestplate;
+    }
+
+    public static ItemStack stone() {
+        ItemStack diamond = new ItemStack(Material.PURPLE_WOOL, 64);
+
+        return diamond;
+    }
+
+    public static ItemStack diamondSword() {
+        ItemStack diamond = new ItemStack(Material.DIAMOND_SWORD, 1);
+
+        return diamond;
     }
 }
