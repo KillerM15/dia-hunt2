@@ -1,21 +1,38 @@
 package killerm.minecraft.communication;
 
+import killerm.minecraft.utilities.PlayerRetriever;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import static killerm.minecraft.utilities.MinecraftConstants.ticksPerSecond;
 
 public class Printer {
-    Sounds sounds = new Sounds();
+    private Sounds sounds;
+    private PlayerRetriever playerRetriever;
+
+    public Printer() {
+        sounds = new Sounds();
+        playerRetriever = new PlayerRetriever();
+    }
+
+    public Printer(Sounds sounds, PlayerRetriever playerRetriever) {
+        this.sounds = sounds;
+        this.playerRetriever = playerRetriever;
+    }
 
     public void broadcast(String message) {
-        Bukkit.broadcastMessage(Message.PREFIX_BROADCAST + message);
+        tellAllPlayers(Message.PREFIX_BROADCAST + message);
         sounds.play(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, (float) 1.8);
         sounds.play(Sound.BLOCK_STONE_BUTTON_CLICK_OFF, (float) 1.8);
+    }
+
+    private void tellAllPlayers(String message) {
+        for (Player player : playerRetriever.retrieveOnlinePlayers()) {
+            player.sendMessage(message);
+        }
     }
 
     public void tell(Player player, String message) {
@@ -24,13 +41,19 @@ public class Printer {
     }
 
     public void broadcastError(String message) {
-        Bukkit.broadcastMessage(Message.PREFIX_BROADCAST_ERROR + message);
+        tellAllPlayers(Message.PREFIX_BROADCAST_ERROR + message);
         sounds.play(Sound.BLOCK_SLIME_BLOCK_FALL, (float) 0.5);
     }
 
     public void tellError(Player player, String message) {
         player.sendMessage(Message.PREFIX_TELL_ERROR + message);
-        sounds.play(Sound.BLOCK_SLIME_BLOCK_FALL, (float) 0.5);
+        sounds.play(player, Sound.BLOCK_SLIME_BLOCK_FALL, (float) 0.5);
+    }
+
+    public void broadcastClickable(String messageToDisplay, String commandToExecute) {
+        for (Player player : playerRetriever.retrieveOnlinePlayers()) {
+            tellClickable(player, messageToDisplay, commandToExecute);
+        }
     }
 
     public void tellClickable(Player player, String messageToDisplay, String commandToExecute) {
@@ -43,11 +66,11 @@ public class Printer {
     }
 
     public void printDashes() {
-        Bukkit.broadcastMessage(Message.AQUA + Message.DIA_LINE);
+        tellAllPlayers(Message.AQUA + Message.DIA_LINE);
     }
 
     public void broadcastTitle(String title, String subtitle) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : playerRetriever.retrieveOnlinePlayers()) {
             tellTitle(player, title, subtitle);
         }
     }
@@ -55,11 +78,8 @@ public class Printer {
     public void tellTitle(Player player, String title, String subtitle) {
         player.sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
 
-        // Notes: F A C E F# -> 0.95 1.2 1.4 1.8 2
-        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 0, (float) 0.95);
-        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 3, (float) 1.2);
-        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 6, (float) 1.4);
-        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, 9, (float) 1.8);
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, (float) 0.95, 0);
+        sounds.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, (float) 1.8, 3);
     }
 }
 
