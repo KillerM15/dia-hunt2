@@ -1,6 +1,7 @@
-package killerm.minecraft.utilities;
+package killerm.minecraft.manager;
 
 import killerm.minecraft.communication.Message;
+import killerm.minecraft.game.DiamondIndicator;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -8,7 +9,8 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-// Ugly
+import java.util.Collection;
+
 public class ScoreboardManager {
     private static volatile Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
@@ -22,7 +24,17 @@ public class ScoreboardManager {
         objective2.setDisplayName(Message.AQUA + Message.SYMBOL_DIAMOND);
     }
 
-    public static void setDiamonds(Player player, int amountOfDiamonds) {
+    public static void refresh(Collection<Player> players) {
+        for (Player player : players) {
+            refresh(player);
+        }
+    }
+
+    public static void refresh(Player player) {
+        setDiamonds(player, new DiamondIndicator().amount(player));
+    }
+
+    private static void setDiamonds(Player player, int amountOfDiamonds) {
         Score score1 = scoreboard.getObjective("diamonds1").getScore(player);
         score1.setScore(amountOfDiamonds);
 
@@ -30,6 +42,12 @@ public class ScoreboardManager {
         score2.setScore(amountOfDiamonds);
 
         player.setScoreboard(scoreboard);
+    }
+
+    public static void clear(Collection<Player> players) {
+        for (Player player : players) {
+            clear(player);
+        }
     }
 
     public static void clear(Player player) {

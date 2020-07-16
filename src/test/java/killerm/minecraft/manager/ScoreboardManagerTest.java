@@ -1,4 +1,4 @@
-package killerm.minecraft.utilities;
+package killerm.minecraft.manager;
 
 class ScoreboardManagerTest {
     // Tested in game
