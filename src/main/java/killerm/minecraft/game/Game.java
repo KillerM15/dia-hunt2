@@ -182,7 +182,7 @@ public class Game {
     }
 
     private void throwIfNotIngame(Player player) {
-        if (!playerGameData.contains(player)) {
+        if (!playerGameData.inGame(player)) {
             throw new DiaHuntParameterException(Message.NOT_INGAME);
         }
     }

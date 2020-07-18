@@ -120,7 +120,7 @@ public class PlayerGameData {
         return playerTeams.get(player);
     }
 
-    public boolean contains(Player player) {
+    public boolean inGame(Player player) {
         return players().contains(player);
     }
 

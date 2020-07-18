@@ -63,7 +63,7 @@ public class DiaRespawner {
             BukkitTask task = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (playerGameData.contains(player)) {
+                    if (playerGameData.inGame(player)) {
                         printer.tellTitle(player, Message.AQUA + String.valueOf(s), Message.DARK_AQUA + Message.UNTIL_RESPAWN);
                     }
                 }
@@ -77,7 +77,7 @@ public class DiaRespawner {
         BukkitTask task = new BukkitRunnable() {
             @Override
             public void run() {
-                if (!playerGameData.contains(player)) {
+                if (!playerGameData.inGame(player)) {
                     return;
                 }
 

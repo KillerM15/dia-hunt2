@@ -109,7 +109,7 @@ class GameTest {
         // GIVEN
         doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
         Player player = mock(Player.class);
-        doReturn(true).when(playerGameData).contains(player);
+        doReturn(true).when(playerGameData).inGame(player);
 
         // WHEN
         game.leave(player);
@@ -197,7 +197,7 @@ class GameTest {
 
         doReturn(players).when(playerGameData).players();
         doReturn(GameStatus.STARTING).when(diaHuntGameState).getGameStatus();
-        doReturn(true).when(playerGameData).contains(player);
+        doReturn(true).when(playerGameData).inGame(player);
 
         // WHEN
         game.stop();

@@ -18,7 +18,7 @@ class PlayerGameDataTest {
     private PlayerGameData playerGameData = new PlayerGameData(printer, nameChanger, diamondIndicator);
 
     @Test
-    public void GIVEN_player_WHEN_add_THEN_contains_player() {
+    public void GIVEN_player_WHEN_add_THEN_player_inGame() {
         // GIVEN
         Player player = mock(Player.class);
 
@@ -26,7 +26,7 @@ class PlayerGameDataTest {
         playerGameData.add(player);
 
         // THEN
-        assert (playerGameData.contains(player));
+        assert (playerGameData.inGame(player));
     }
 
     @Test
@@ -53,7 +53,7 @@ class PlayerGameDataTest {
         playerGameData.remove(player);
 
         // THEN
-        assert (!playerGameData.contains(player));
+        assert (!playerGameData.inGame(player));
     }
 
     @Test
