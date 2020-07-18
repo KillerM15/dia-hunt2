@@ -104,6 +104,7 @@ public class Game {
 
     private void startGame() {
         diaHuntGameState.setGameStatus(GameStatus.RUNNING);
+        gameBackup.reloadMapRegionFromConfig();
 
         itemRemover.remove(worldProvider.getWorld());
 
