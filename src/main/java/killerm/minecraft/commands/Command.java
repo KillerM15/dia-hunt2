@@ -10,7 +10,7 @@ public class Command {
         if (isGeneralHelpCommand(args)) {
             constructCommandTypeHelp();
         } else {
-            constructCommandTypeFromArgs(args);
+            constructCommandFromArgs(args);
         }
     }
 
@@ -23,7 +23,7 @@ public class Command {
         parameter = new String[]{""};
     }
 
-    private void constructCommandTypeFromArgs(String[] args) {
+    private void constructCommandFromArgs(String[] args) {
         commandType = CommandType.getInstance(args[0]);
         parameter = Arrays.copyOfRange(args, 1, args.length);
     }
