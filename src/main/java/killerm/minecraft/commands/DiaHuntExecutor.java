@@ -35,7 +35,6 @@ public class DiaHuntExecutor implements CommandExecutor {
         this.gameController = new GameController(diaHuntGameState, playerGameData, diaChestGameData);
     }
 
-    // For tests
     public DiaHuntExecutor(Tester tester, Printer printer, ConfigValidator configValidator, GameValidator gameValidator, ConfigController configController, GameController gameController) {
         this.tester = tester;
         this.printer = printer;

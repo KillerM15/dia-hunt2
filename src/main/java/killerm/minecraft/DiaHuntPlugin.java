@@ -4,13 +4,16 @@ import killerm.minecraft.commands.DiaHuntExecutor;
 import killerm.minecraft.game.DiaChestGameData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.PlayerGameData;
+import killerm.minecraft.listener.DiaHuntListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DiaHuntPlugin extends JavaPlugin {
     private volatile static DiaHuntPlugin instance;
-    private DiaHuntGameState diaHuntGameState = new DiaHuntGameState();
-    private PlayerGameData playerGameData = new PlayerGameData();
-    private DiaChestGameData diaChestGameData = new DiaChestGameData();
+    private DiaHuntGameState diaHuntGameState;
+    private PlayerGameData playerGameData;
+    private DiaChestGameData diaChestGameData;
+    private DiaHuntExecutor diaHuntExecutor;
+    private DiaHuntListener diaHuntListener;
 
     public static DiaHuntPlugin getInstance() {
         return instance;
@@ -18,20 +21,34 @@ public class DiaHuntPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
+        prepareInstance();
+        initializeGame();
         initializeExecutor();
         initializeListener();
     }
 
+    private void prepareInstance() {
+        instance = this;
+    }
+
+    private void initializeGame() {
+        diaHuntGameState = new DiaHuntGameState();
+        playerGameData = new PlayerGameData();
+        diaChestGameData = new DiaChestGameData();
+    }
+
     private void initializeExecutor() {
-        this.getCommand("diahunt").setExecutor(new DiaHuntExecutor(diaHuntGameState, playerGameData, diaChestGameData));
+        diaHuntExecutor = new DiaHuntExecutor(diaHuntGameState, playerGameData, diaChestGameData);
+        this.getCommand("diahunt").setExecutor(diaHuntExecutor);
     }
 
     private void initializeListener() {
-        // TODO: DiaHuntListener
+        diaHuntListener = new DiaHuntListener(diaHuntGameState, playerGameData, diaChestGameData);
+        this.getServer().getPluginManager().registerEvents(diaHuntListener, this);
     }
 
     @Override
     public void onDisable() {
+        // diaHuntExecutor.onCommand(null, ) // TODO: stop command
     }
 }
