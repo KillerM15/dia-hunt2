@@ -51,6 +51,8 @@ public class ConfigController {
             diaConfig.set(params[1]);
         }
 
+        printer.tell(player, Message.NEW_CONFIG_VALUE);
+
         executeGet(player, params);
     }
 }
