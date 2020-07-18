@@ -11,6 +11,11 @@ class ConfigValueTypeDeducerTest {
     }
 
     @Test
+    public void GIVEN_random_string_WHEN_isLocation_THEN_false() {
+        assert(!configValueTypeDeducer.isLocation("llocation"));
+    }
+
+    @Test
     public void GIVEN_double_WHEN_isNumber_THEN_true() {
         assert(configValueTypeDeducer.isNumber("2229.9930"));
     }
