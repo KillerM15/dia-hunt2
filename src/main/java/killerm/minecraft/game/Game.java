@@ -6,9 +6,10 @@ import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.error.DiaHuntParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
+import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.ItemRemover;
 import killerm.minecraft.utilities.MinecraftConstants;
-import org.bukkit.Bukkit;
+import killerm.minecraft.utilities.WorldProvider;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -19,6 +20,7 @@ public class Game {
     private Printer printer;
     private DiaHuntGameState diaHuntGameState;
     private PlayerGameData playerGameData;
+    private DiaChestGameData diaChestGameData;
     private GameBackup gameBackup;
     private GameInitPrinter gameInitPrinter;
     private DiamondIncreaser diamondIncreaser;
@@ -28,11 +30,14 @@ public class Game {
     private PlayerNameFixer playerNameFixer;
     private BukkitTask startingTask;
     private ItemRemover itemRemover;
+    private ScoreboardManager scoreboardManager;
+    private WorldProvider worldProvider;
 
     public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.printer = new Printer();
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
+        this.diaChestGameData = diaChestGameData;
         this.gameBackup = new GameBackup();
         this.gameInitPrinter = new GameInitPrinter(diaHuntGameState, playerGameData);
         this.diamondIncreaser = new DiamondIncreaser(playerGameData, diaChestGameData);
@@ -41,12 +46,15 @@ public class Game {
         this.itemGiver = new ItemGiver();
         this.playerNameFixer = new PlayerNameFixer();
         this.itemRemover = new ItemRemover();
+        this.scoreboardManager = new ScoreboardManager();
+        this.worldProvider = new WorldProvider();
     }
 
     // This is why you should use dependency injection frameworks
-    public Game(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, ItemRemover itemRemover) {
+    public Game(Printer printer, DiaHuntGameState diaHuntGameState, DiaChestGameData diaChestGameData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
         this.printer = printer;
         this.diaHuntGameState = diaHuntGameState;
+        this.diaChestGameData = diaChestGameData;
         this.playerGameData = playerGameData;
         this.gameBackup = gameBackup;
         this.gameInitPrinter = gameInitPrinter;
@@ -55,7 +63,10 @@ public class Game {
         this.statsGiver = statsGiver;
         this.itemGiver = itemGiver;
         this.playerNameFixer = playerNameFixer;
+        this.startingTask = startingTask;
         this.itemRemover = itemRemover;
+        this.scoreboardManager = scoreboardManager;
+        this.worldProvider = worldProvider;
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
@@ -65,10 +76,18 @@ public class Game {
         join(gameStarter, null);
     }
 
+    // For testing, without threads
+    public void startInitializeMocked(Player gameStarter, String[] invitedPlayerNames) {
+        diaHuntGameState.setGameStatus(GameStatus.STARTING);
+        printCountDown(gameStarter, invitedPlayerNames);
+        startGame();
+        join(gameStarter, null);
+    }
+
     private void printCountDown(Player gameStarter, String[] invitedPlayerNames) {
         invitedPlayerNames = playerNameFixer.fixCase(invitedPlayerNames);
 
-        gameInitPrinter.printGameInit(gameStarter.getDisplayName(), invitedPlayerNames);
+        gameInitPrinter.printGameInit(gameStarter.getName(), invitedPlayerNames);
     }
 
     private void startGameAfterDelay() {
@@ -78,23 +97,17 @@ public class Game {
         this.startingTask = new BukkitRunnable() {
             @Override
             public void run() {
-                if (diaHuntGameState.getGameStatus() != GameStatus.STARTING) {
-                    return;
-                }
-
                 startGame();
             }
         }.runTaskLater(DiaHuntPlugin.getInstance(), delay);
     }
 
-    private boolean oneTeamNoPlayers() {
-        return playerGameData.amountOfPlayers(Team.AQUA) == 0 || playerGameData.amountOfPlayers(Team.LAVA) == 0;
-    }
-
     private void startGame() {
         diaHuntGameState.setGameStatus(GameStatus.RUNNING);
 
-        itemRemover.remove(Bukkit.getWorld(DiaConfig.WORLD_NAME.get().toString()));
+        itemRemover.remove(worldProvider.getWorld());
+
+        diaChestGameData.clear();
 
         gameBackup.getMapBackup().backup();
         gameBackup.getPlayerBackup().backup(playerGameData.players());
@@ -112,6 +125,7 @@ public class Game {
         itemGiver.giveBaseAquaItems(playerGameData.players(Team.AQUA));
         itemGiver.giveBaseLavaItems(playerGameData.players(Team.LAVA));
         itemGiver.giveDia(playerGameData.players());
+        scoreboardManager.refresh(playerGameData.players());
 
         for (int i = 0; i < 2; i++) {
             Player aquaPlayer = playerGameData.randomPlayer(Team.AQUA);
@@ -143,6 +157,7 @@ public class Game {
 
         if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
             gameBackup.getPlayerBackup().restore(player);
+            scoreboardManager.clear(player);
         }
 
         if (!playerGameData.hasPlayers()) {
@@ -156,7 +171,7 @@ public class Game {
             gameInitPrinter.stop();
             startingTask.cancel();
         } else if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
-            itemRemover.remove(Bukkit.getWorld(DiaConfig.WORLD_NAME.get().toString()));
+            itemRemover.remove(worldProvider.getWorld());
             gameBackup.getMapBackup().restore();
             diamondIncreaser.stop();
         }
