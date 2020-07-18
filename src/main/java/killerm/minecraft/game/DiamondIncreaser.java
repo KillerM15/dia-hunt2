@@ -8,23 +8,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class DiamondIncreaser {
-    private DiaPlayerData diaPlayerData;
+    private PlayerGameData playerGameData;
     private DiaChestGameData diaChestGameData;
     private DiamondIndicator diamondIndicator;
     private ItemGiver itemGiver;
     private BukkitRunnable increaserThread;
     private ScoreboardManager scoreboardManager;
 
-    public DiamondIncreaser(DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData) {
-        this.diaPlayerData = diaPlayerData;
+    public DiamondIncreaser(PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+        this.playerGameData = playerGameData;
         this.diaChestGameData = diaChestGameData;
         this.diamondIndicator = new DiamondIndicator();
         this.itemGiver = new ItemGiver();
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DiamondIncreaser(DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData, DiamondIndicator diamondIndicator, ItemGiver itemGiver, ScoreboardManager scoreboardManager) {
-        this.diaPlayerData = diaPlayerData;
+    public DiamondIncreaser(PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DiamondIndicator diamondIndicator, ItemGiver itemGiver, ScoreboardManager scoreboardManager) {
+        this.playerGameData = playerGameData;
         this.diaChestGameData = diaChestGameData;
         this.diamondIndicator = diamondIndicator;
         this.itemGiver = itemGiver;
@@ -53,7 +53,7 @@ public class DiamondIncreaser {
     }
 
     private void addDiamondsToPlayers() {
-        for (Player player : diaPlayerData.players()) {
+        for (Player player : playerGameData.players()) {
             if (!diamondIndicator.hasDiamonds(player)) {
                 continue;
             }
@@ -70,7 +70,7 @@ public class DiamondIncreaser {
             }
 
             // Chest gets amountOfPlayers diamonds
-            for (int i = 0; i < diaPlayerData.amountOfPlayers(); i++) {
+            for (int i = 0; i < playerGameData.amountOfPlayers(); i++) {
                 itemGiver.giveDia(shulkerBox);
             }
         }

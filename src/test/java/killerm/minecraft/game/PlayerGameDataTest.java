@@ -10,10 +10,11 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
-class DiaPlayerDataTest {
+class PlayerGameDataTest {
     private Printer printer = mock(Printer.class);
     private NameChanger nameChanger = mock(NameChanger.class);
-    private DiaPlayerData diaPlayerData = new DiaPlayerData(printer, nameChanger);
+    private DiamondIndicator diamondIndicator = mock(DiamondIndicator.class);
+    private PlayerGameData playerGameData = new PlayerGameData(printer, nameChanger, diamondIndicator);
 
     @Test
     public void GIVEN_player_WHEN_add_THEN_contains_player() {
@@ -21,10 +22,10 @@ class DiaPlayerDataTest {
         Player player = mock(Player.class);
 
         // WHEN
-        diaPlayerData.add(player);
+        playerGameData.add(player);
 
         // THEN
-        assert (diaPlayerData.contains(player));
+        assert (playerGameData.contains(player));
     }
 
     @Test
@@ -32,10 +33,10 @@ class DiaPlayerDataTest {
         // GIVEN
         Team team = Team.LAVA;
         Player player = mock(Player.class);
-        diaPlayerData.add(player, team);
+        playerGameData.add(player, team);
 
         // WHEN
-        Team actualTeam = diaPlayerData.team(player);
+        Team actualTeam = playerGameData.team(player);
 
         //THEN
         assertEquals(team, actualTeam);
@@ -45,13 +46,13 @@ class DiaPlayerDataTest {
     public void GIVEN_added_player_WHEN_remove_THEN_does_not_contain() {
         // GIVEN
         Player player = mock(Player.class);
-        diaPlayerData.add(player);
+        playerGameData.add(player);
 
         // WHEN
-        diaPlayerData.remove(player);
+        playerGameData.remove(player);
 
         // THEN
-        assert (!diaPlayerData.contains(player));
+        assert (!playerGameData.contains(player));
     }
 
     @Test
@@ -59,11 +60,11 @@ class DiaPlayerDataTest {
         // GIVEN
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
-        diaPlayerData.add(player1);
-        diaPlayerData.add(player2);
+        playerGameData.add(player1);
+        playerGameData.add(player2);
 
         // WHEN
-        Collection actualPlayers = diaPlayerData.players();
+        Collection actualPlayers = playerGameData.players();
 
         // THEN
         assert (actualPlayers.contains(player1));
@@ -76,12 +77,12 @@ class DiaPlayerDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        diaPlayerData.add(player1, Team.LAVA);
-        diaPlayerData.add(player2, Team.LAVA);
-        diaPlayerData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        Collection players = diaPlayerData.players(Team.LAVA);
+        Collection players =playerGameData.players(Team.LAVA);
 
         // THEN
         assert (players.contains(player1));
@@ -93,21 +94,21 @@ class DiaPlayerDataTest {
     public void GIVEN_player_added_WHEN_hasPlayers_THEN_true() {
         // GIVEN
         Player player = mock(Player.class);
-        diaPlayerData.add(player, Team.LAVA);
+        playerGameData.add(player, Team.LAVA);
 
         // WHEN / THEN
-        assert (diaPlayerData.hasPlayers());
+        assert (playerGameData.hasPlayers());
     }
 
     @Test
     public void GIVEN_player_removed_WHEN_hasPlayers_THEN_false() {
         // GIVEN
         Player player = mock(Player.class);
-        diaPlayerData.add(player, Team.LAVA);
-        diaPlayerData.remove(player);
+        playerGameData.add(player, Team.LAVA);
+        playerGameData.remove(player);
 
         // WHEN / THEN
-        assert (!diaPlayerData.hasPlayers());
+        assert (!playerGameData.hasPlayers());
     }
 
     @Test
@@ -116,12 +117,12 @@ class DiaPlayerDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        diaPlayerData.add(player1, Team.LAVA);
-        diaPlayerData.add(player2, Team.LAVA);
-        diaPlayerData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        int amount = diaPlayerData.amountOfPlayers();
+        int amount = playerGameData.amountOfPlayers();
 
         // THEN
         assertEquals(3, amount);
@@ -133,12 +134,12 @@ class DiaPlayerDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        diaPlayerData.add(player1, Team.LAVA);
-        diaPlayerData.add(player2, Team.LAVA);
-        diaPlayerData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        int amount = diaPlayerData.amountOfPlayers(Team.LAVA);
+        int amount = playerGameData.amountOfPlayers(Team.LAVA);
 
         // THEN
         assertEquals(2, amount);
@@ -150,12 +151,12 @@ class DiaPlayerDataTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
         Player player3 = mock(Player.class);
-        diaPlayerData.add(player1, Team.LAVA);
-        diaPlayerData.add(player2, Team.LAVA);
-        diaPlayerData.add(player3, Team.AQUA);
+        playerGameData.add(player1, Team.LAVA);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        Player randomPlayer = diaPlayerData.randomPlayer(Team.LAVA);
+        Player randomPlayer = playerGameData.randomPlayer(Team.LAVA);
 
         // THEN
         assert (randomPlayer.equals(player1) || randomPlayer.equals(player2));
@@ -164,7 +165,7 @@ class DiaPlayerDataTest {
     @Test
     public void WHEN_randomPlayer_THEN_null() {
         // WHEN
-        Player randomPlayer = diaPlayerData.randomPlayer(Team.LAVA);
+        Player randomPlayer = playerGameData.randomPlayer(Team.LAVA);
 
         // THEN
         assert (randomPlayer == null);

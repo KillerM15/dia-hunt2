@@ -8,7 +8,7 @@ import killerm.minecraft.error.DiaHuntLogicException;
 import killerm.minecraft.error.DiaHuntParameterException;
 import killerm.minecraft.game.DiaChestGameData;
 import killerm.minecraft.game.DiaHuntGameState;
-import killerm.minecraft.game.DiaPlayerData;
+import killerm.minecraft.game.PlayerGameData;
 import killerm.minecraft.validator.ConfigValidator;
 import killerm.minecraft.validator.GameValidator;
 import org.bukkit.command.CommandExecutor;
@@ -26,13 +26,13 @@ public class DiaHuntExecutor implements CommandExecutor {
 
     private Tester tester; //TODO: Remove tester when Plugin is finished
 
-    public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData) {
+    public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
         this.tester = new Tester();
         this.printer = new Printer();
         this.configValidator = new ConfigValidator();
         this.gameValidator = new GameValidator();
         this.configController = new ConfigController();
-        this.gameController = new GameController(diaHuntGameState, diaPlayerData, diaChestGameData);
+        this.gameController = new GameController(diaHuntGameState, playerGameData, diaChestGameData);
     }
 
     // For tests

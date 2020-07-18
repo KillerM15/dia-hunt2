@@ -11,19 +11,23 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DiaPlayerData {
+public class PlayerGameData { // TODO: Alle klassen tests nicht vergessen! bei neuen methoden
     private Map<Player, Team> playerTeams = new ConcurrentHashMap<>();
+    private Map<Player, Condition> playerConditions = new ConcurrentHashMap<>();
     private Printer printer;
     private NameChanger nameChanger;
+    private DiamondIndicator diamondIndicator;
 
-    public DiaPlayerData() {
+    public PlayerGameData() {
         this.printer = new Printer();
         this.nameChanger = new NameChanger();
+        this.diamondIndicator = new DiamondIndicator();
     }
 
-    public DiaPlayerData(Printer printer, NameChanger nameChanger) {
+    public PlayerGameData(Printer printer, NameChanger nameChanger, DiamondIndicator diamondIndicator) {
         this.printer = printer;
         this.nameChanger = nameChanger;
+        this.diamondIndicator = diamondIndicator;
     }
 
     public void add(Player player) {
@@ -36,6 +40,7 @@ public class DiaPlayerData {
 
     public void add(Player player, Team team) {
         playerTeams.put(player, team);
+        playerConditions.put(player, Condition.ALIVE);
 
         nameChanger.setPlayerColor(player, team);
 
@@ -74,6 +79,7 @@ public class DiaPlayerData {
         printer.broadcast(leaveMessage);
 
         playerTeams.remove(player);
+        playerConditions.remove(player);
 
         nameChanger.reset(player);
     }
@@ -162,5 +168,33 @@ public class DiaPlayerData {
         playersList.addAll(players);
 
         return playersList.get(randomIndex);
+    }
+
+    public void setCondition(Player player, Condition condition) {
+        playerConditions.put(player, condition);
+    }
+
+    public boolean isAlive(Player player) {
+        return playerConditions.get(player) != Condition.DEAD && playerConditions.get(player) != Condition.RESPAWNING;
+    }
+
+    public boolean allPlayersDead(Team team) {
+        for (Player player : players(team)) {
+            if (playerConditions.get(player) == Condition.ALIVE) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean carriesDias(Team team) {
+        for (Player player : players(team)) {
+            if (diamondIndicator.hasDiamonds(player)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
