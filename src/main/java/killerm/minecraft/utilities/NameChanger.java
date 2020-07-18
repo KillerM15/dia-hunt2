@@ -5,7 +5,7 @@ import killerm.minecraft.game.Team;
 import org.bukkit.entity.Player;
 
 public class NameChanger {
-    public void setPlayerColor(Player player, Team team) {
+    public void setPlayerInGameName(Player player, Team team) {
         StringBuilder sb = new StringBuilder();
 
         if (team == Team.AQUA) {

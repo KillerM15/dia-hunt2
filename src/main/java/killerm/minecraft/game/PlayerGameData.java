@@ -42,7 +42,7 @@ public class PlayerGameData {
         playerTeams.put(player, team);
         playerConditions.put(player, Condition.ALIVE);
 
-        nameChanger.setPlayerColor(player, team);
+        nameChanger.setPlayerInGameName(player, team);
 
         String joinMessage = generateJoinMessage(player, team);
         printer.broadcast(joinMessage);
