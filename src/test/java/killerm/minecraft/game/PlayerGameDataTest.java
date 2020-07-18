@@ -1,13 +1,14 @@
 package killerm.minecraft.game;
 
-import killerm.minecraft.utilities.NameChanger;
 import killerm.minecraft.communication.Printer;
+import killerm.minecraft.utilities.NameChanger;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 class PlayerGameDataTest {
@@ -82,7 +83,7 @@ class PlayerGameDataTest {
         playerGameData.add(player3, Team.AQUA);
 
         // WHEN
-        Collection players =playerGameData.players(Team.LAVA);
+        Collection players = playerGameData.players(Team.LAVA);
 
         // THEN
         assert (players.contains(player1));
@@ -169,5 +170,198 @@ class PlayerGameDataTest {
 
         // THEN
         assert (randomPlayer == null);
+    }
+
+    @Test
+    public void GIVEN_player_with_Condition_ALIVE_WHEN_isAlive_THEN_true() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.setCondition(player, Condition.ALIVE);
+
+        // WHEN / THEN
+        assert (playerGameData.isAlive(player));
+    }
+
+    @Test
+    public void GIVEN_player_with_Condition_RESPAWNING_WHEN_isAlive_THEN_false() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.setCondition(player, Condition.RESPAWNING);
+
+        // WHEN / THEN
+        assert (!playerGameData.isAlive(player));
+    }
+
+    @Test
+    public void GIVEN_player_with_Condition_DEAD_WHEN_isAlive_THEN_false() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.setCondition(player, Condition.DEAD);
+
+        // WHEN / THEN
+        assert (!playerGameData.isAlive(player));
+    }
+
+    @Test
+    public void GIVEN_player_added_to_Team_AQUA_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.add(player, Team.AQUA);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_player_added_to_Team_AQUA_with_Condition_ALIVE_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.add(player, Team.AQUA);
+        playerGameData.setCondition(player, Condition.ALIVE);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_player_added_to_Team_AQUA_with_Condition_DEAD_WHEN_allPlayersDead_THEN_true() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.add(player, Team.AQUA);
+        playerGameData.setCondition(player, Condition.DEAD);
+
+        // WHEN / THEN
+        assert (playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_player_added_to_Team_AQUA_with_Condition_RESPAWNING_and_player_added_to_Team_AQUA_with_Condition_DEAD_WHEN_allPlayersDead_AQUA_THEN_false() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+        playerGameData.setCondition(player1, Condition.RESPAWNING);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.LAVA);
+        playerGameData.setCondition(player2, Condition.DEAD);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_player_added_to_Team_AQUA_with_Condition_RESPAWNING_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player = mock(Player.class);
+        playerGameData.add(player, Team.AQUA);
+        playerGameData.setCondition(player, Condition.RESPAWNING);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_to_Team_AQUA_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_to_Team_AQUA_with_Condition_RESPAWNING_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+        playerGameData.setCondition(player1, Condition.RESPAWNING);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+        playerGameData.setCondition(player2, Condition.RESPAWNING);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_to_Team_AQUA_with_Condition_DEAD_WHEN_allPlayersDead_THEN_true() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+        playerGameData.setCondition(player1, Condition.DEAD);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+        playerGameData.setCondition(player2, Condition.DEAD);
+
+        // WHEN / THEN
+        assert (playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_to_Team_AQUA_1_with_Condition_DEAD_1_with_Condition_RESPAWNING_WHEN_allPlayersDead_THEN_false() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+        playerGameData.setCondition(player1, Condition.DEAD);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+        playerGameData.setCondition(player2, Condition.RESPAWNING);
+
+        // WHEN / THEN
+        assert (!playerGameData.allPlayersDead(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_AND_1_with_Diamonds_WHEN_carriesDias_THEN_true() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+
+        Mockito.doReturn(true).when(diamondIndicator).hasDiamonds(player1);
+
+        // WHEN / THEN
+        assert (playerGameData.carriesDias(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_AND_2_with_Diamonds_WHEN_carriesDias_THEN_true() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+
+        Mockito.doReturn(true).when(diamondIndicator).hasDiamonds(player1);
+        Mockito.doReturn(true).when(diamondIndicator).hasDiamonds(player2);
+
+        // WHEN / THEN
+        assert (playerGameData.carriesDias(Team.AQUA));
+    }
+
+    @Test
+    public void GIVEN_2_player_added_AND_0_with_Diamonds_WHEN_carriesDias_THEN_false() {
+        // GIVEN
+        Player player1 = mock(Player.class);
+        playerGameData.add(player1, Team.AQUA);
+
+        Player player2 = mock(Player.class);
+        playerGameData.add(player2, Team.AQUA);
+
+        Mockito.doReturn(false).when(diamondIndicator).hasDiamonds(player1);
+        Mockito.doReturn(false).when(diamondIndicator).hasDiamonds(player2);
+
+        // WHEN / THEN
+        assert (!playerGameData.carriesDias(Team.AQUA));
     }
 }

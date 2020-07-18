@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerGameData { // TODO: Alle klassen tests nicht vergessen! bei neuen methoden
+public class PlayerGameData {
     private Map<Player, Team> playerTeams = new ConcurrentHashMap<>();
     private Map<Player, Condition> playerConditions = new ConcurrentHashMap<>();
     private Printer printer;
@@ -175,12 +175,12 @@ public class PlayerGameData { // TODO: Alle klassen tests nicht vergessen! bei n
     }
 
     public boolean isAlive(Player player) {
-        return playerConditions.get(player) != Condition.DEAD && playerConditions.get(player) != Condition.RESPAWNING;
+        return playerConditions.get(player) == Condition.ALIVE;
     }
 
     public boolean allPlayersDead(Team team) {
         for (Player player : players(team)) {
-            if (playerConditions.get(player) == Condition.ALIVE) {
+            if (playerConditions.get(player) != Condition.DEAD) {
                 return false;
             }
         }
