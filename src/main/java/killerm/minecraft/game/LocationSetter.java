@@ -27,4 +27,12 @@ public class LocationSetter {
     public void teleport(Player player, DiaConfig diaConfig) {
         player.teleport((Location) diaConfig.get());
     }
+
+    public void teleportToAquaSpawn(Player player) {
+        teleport(player, DiaConfig.SPAWN_AQUA);
+    }
+
+    public void teleportToLavaSpawn(Player player) {
+        teleport(player, DiaConfig.SPAWN_LAVA);
+    }
 }
