@@ -37,5 +37,9 @@ public class StatsGiver {
             player.removePotionEffect(potionEffect.getType());
         }
     }
+
+    public void giveSpectatorStats(Player player) {
+        player.setGameMode(GameMode.SPECTATOR);
+    }
 }
 
