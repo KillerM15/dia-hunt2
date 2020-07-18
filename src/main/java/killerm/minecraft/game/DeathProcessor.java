@@ -2,6 +2,7 @@ package killerm.minecraft.game;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
+import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.DamageRecorder;
 import killerm.minecraft.utilities.InventoryCopy;
@@ -17,6 +18,7 @@ public class DeathProcessor {
     private StatsGiver statsGiver;
     private InventoryCopy inventoryCopy;
     private ScoreboardManager scoreboardManager;
+    private LocationSetter locationSetter;
 
     public DeathProcessor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DamageRecorder damageRecorder) {
         this.printer = new Printer();
@@ -28,9 +30,10 @@ public class DeathProcessor {
         this.statsGiver = new StatsGiver();
         this.inventoryCopy = new InventoryCopy();
         this.scoreboardManager = new ScoreboardManager();
+        this.locationSetter = new LocationSetter();
     }
 
-    public DeathProcessor(Printer printer, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DiaRespawner diaRespawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager) {
+    public DeathProcessor(Printer printer, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DiaRespawner diaRespawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager, LocationSetter locationSetter) {
         this.printer = printer;
         this.playerGameData = playerGameData;
         this.diaChestGameData = diaChestGameData;
@@ -40,6 +43,20 @@ public class DeathProcessor {
         this.statsGiver = statsGiver;
         this.inventoryCopy = inventoryCopy;
         this.scoreboardManager = scoreboardManager;
+        this.locationSetter = locationSetter;
+    }
+
+    public void processDeathInVoid(Player player) {
+        teleportToTeamSpawn(player);
+        processDeath(player);
+    }
+
+    private void teleportToTeamSpawn(Player player) {
+        if (playerGameData.team(player) == Team.AQUA) {
+            locationSetter.teleport(player, DiaConfig.SPAWN_AQUA);
+        } else {
+            locationSetter.teleport(player, DiaConfig.SPAWN_LAVA);
+        }
     }
 
     public void processDeath(Player player) {

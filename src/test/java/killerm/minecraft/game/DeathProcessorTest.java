@@ -23,7 +23,8 @@ class DeathProcessorTest {
     private StatsGiver statsGiver = mock(StatsGiver.class);
     private InventoryCopy inventoryCopy = mock(InventoryCopy.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, diaChestGameData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager);
+    private LocationSetter locationSetter = mock(LocationSetter.class);
+    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, diaChestGameData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager, locationSetter);
 
     @Test
     public void GIVEN_player_and_killer_WHEN_processDeath_THEN_give_killer_diamonds_and_print_correct_message_and_refresh_killer_scoreboard() {
@@ -38,7 +39,6 @@ class DeathProcessorTest {
         // THEN
         Mockito.verify(printer).broadcast(killer.getDisplayName() + Message.DARK_AQUA + Message.KILLED + player.getDisplayName());
         Mockito.verify(inventoryCopy).copyItemstacksWithName(player, killer, Message.ITEM_DIAMOND);
-        ;
         Mockito.verify(scoreboardManager).refresh(killer);
     }
 
