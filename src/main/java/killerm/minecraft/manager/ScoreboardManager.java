@@ -2,6 +2,7 @@ package killerm.minecraft.manager;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.game.DiamondIndicator;
+import killerm.minecraft.utilities.DiaHuntScoreboardProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -10,11 +11,23 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ScoreboardManager {
-    private static volatile Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+    private DiaHuntScoreboardProvider diaHuntScoreboardProvider;
+    private static AtomicBoolean initialized = new AtomicBoolean(false);
 
-    static {
+    public ScoreboardManager() {
+        diaHuntScoreboardProvider = new DiaHuntScoreboardProvider();
+        if (!initialized.get()) {
+            initializeScoreboard();
+            initialized.set(true);
+        }
+    }
+
+    private void initializeScoreboard() {
+        Scoreboard scoreboard = diaHuntScoreboardProvider.getScoreboard();
+
         Objective objective1 = scoreboard.registerNewObjective("diamonds1", "dummy", Message.AQUA + Message.SYMBOL_DIAMOND);
         objective1.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         objective1.setDisplayName(Message.AQUA + Message.SYMBOL_DIAMOND);
@@ -24,17 +37,19 @@ public class ScoreboardManager {
         objective2.setDisplayName(Message.AQUA + Message.SYMBOL_DIAMOND);
     }
 
-    public static void refresh(Collection<Player> players) {
+    public void refresh(Collection<Player> players) {
         for (Player player : players) {
             refresh(player);
         }
     }
 
-    public static void refresh(Player player) {
+    public void refresh(Player player) {
         setDiamonds(player, new DiamondIndicator().amount(player));
     }
 
-    private static void setDiamonds(Player player, int amountOfDiamonds) {
+    private void setDiamonds(Player player, int amountOfDiamonds) {
+        Scoreboard scoreboard = diaHuntScoreboardProvider.getScoreboard();
+
         Score score1 = scoreboard.getObjective("diamonds1").getScore(player);
         score1.setScore(amountOfDiamonds);
 
@@ -44,13 +59,13 @@ public class ScoreboardManager {
         player.setScoreboard(scoreboard);
     }
 
-    public static void clear(Collection<Player> players) {
+    public void clear(Collection<Player> players) {
         for (Player player : players) {
             clear(player);
         }
     }
 
-    public static void clear(Player player) {
+    public void clear(Player player) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
         player.setScoreboard(board);
     }
