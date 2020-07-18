@@ -82,4 +82,9 @@ public class Message {
     public static final String PLAYER_NOT_FOUND = "Couldn't fix case of player!";
     public static final String NO_PLAYERS_LEFT = "There is no player left!";
     public static final String SYMBOL_DIAMOND = "◆";
+    public static final String KILLED = " has killed ";
+    public static final String HAS_DIED = " has died! Loser haha!";
+    public static final String UNTIL_RESPAWN = "seconds until respawn";
+    public static final String GO = "Go!";
+    public static final String NEW_CONFIG_VALUE = "New config value has been set";
 }
