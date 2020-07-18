@@ -7,7 +7,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class DiamondIndicator {
     public boolean hasDiamonds(Player player) {
+        return amount(player) > 0;
+    }
+
+    public int amount(Player player) {
         ItemStack[] content = player.getInventory().getContents();
+        int amount = 0;
 
         for (ItemStack itemStack : content) {
             if (itemStack == null) {
@@ -15,11 +20,11 @@ public class DiamondIndicator {
             }
 
             if (itemStack.getItemMeta().getDisplayName().equals(Message.ITEM_DIAMOND)) {
-                return true;
+                amount += itemStack.getAmount();
             }
         }
 
-        return false;
+        return amount;
     }
 
     public boolean hasDiamonds(ShulkerBox shulkerBox) {
