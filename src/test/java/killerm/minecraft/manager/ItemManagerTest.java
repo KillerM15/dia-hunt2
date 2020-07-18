@@ -12,7 +12,7 @@ import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 class ItemManagerTest {
-    ItemManager itemManager = new ItemManager();
+    private ItemManager itemManager = new ItemManager();
 
     @Test
     public void GIVEN_player_and_itemStack_WHEN_setChestplate_THEN_itemStack_as_chestplate_set() {
