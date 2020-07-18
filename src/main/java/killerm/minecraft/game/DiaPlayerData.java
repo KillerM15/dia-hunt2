@@ -11,17 +11,17 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class PlayerGameData {
+public class DiaPlayerData {
     private Map<Player, Team> playerTeams = new ConcurrentHashMap<>();
     private Printer printer;
     private NameChanger nameChanger;
 
-    public PlayerGameData() {
+    public DiaPlayerData() {
         this.printer = new Printer();
         this.nameChanger = new NameChanger();
     }
 
-    public PlayerGameData(Printer printer, NameChanger nameChanger) {
+    public DiaPlayerData(Printer printer, NameChanger nameChanger) {
         this.printer = printer;
         this.nameChanger = nameChanger;
     }

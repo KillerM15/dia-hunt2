@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class DeathProcessor {
     private Printer printer;
-    private PlayerGameData playerGameData;
+    private DiaPlayerData diaPlayerData;
     private DiaChestGameData diaChestGameData;
     private DiaRespawner diaRespawner;
     private DamageRecorder damageRecorder;
@@ -18,11 +18,11 @@ public class DeathProcessor {
     private InventoryCopy inventoryCopy;
     private ScoreboardManager scoreboardManager;
 
-    public DeathProcessor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DamageRecorder damageRecorder) {
+    public DeathProcessor(DiaHuntGameState diaHuntGameState, DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData, DamageRecorder damageRecorder) {
         this.printer = new Printer();
-        this.playerGameData = playerGameData;
+        this.diaPlayerData = diaPlayerData;
         this.diaChestGameData = diaChestGameData;
-        this.diaRespawner = new DiaRespawner(diaHuntGameState, playerGameData, diaChestGameData);
+        this.diaRespawner = new DiaRespawner(diaHuntGameState, diaPlayerData, diaChestGameData);
         this.damageRecorder = damageRecorder;
         this.winner = new Winner();
         this.statsGiver = new StatsGiver();
@@ -30,9 +30,9 @@ public class DeathProcessor {
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DeathProcessor(Printer printer, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DiaRespawner diaRespawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager) {
+    public DeathProcessor(Printer printer, DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData, DiaRespawner diaRespawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager) {
         this.printer = printer;
-        this.playerGameData = playerGameData;
+        this.diaPlayerData = diaPlayerData;
         this.diaChestGameData = diaChestGameData;
         this.diaRespawner = diaRespawner;
         this.damageRecorder = damageRecorder;
@@ -46,7 +46,7 @@ public class DeathProcessor {
         giveKillerItemsAndPrint(player);
         givePlayerDeadStats(player);
 
-        if (hasNoDias(playerGameData.team(player)))
+        if (hasNoDias(diaPlayerData.team(player)))
             setDead(player);
         else
             respawn(player);
@@ -73,23 +73,23 @@ public class DeathProcessor {
     }
 
     private boolean hasNoDias(Team team) {
-        return !playerGameData.carriesDias(team) && !diaChestGameData.containsDias(team);
+        return !diaPlayerData.carriesDias(team) && !diaChestGameData.containsDias(team);
     }
 
     private void respawn(Player player) {
-        playerGameData.setCondition(player, Condition.RESPAWNING);
+        diaPlayerData.setCondition(player, Condition.RESPAWNING);
         diaRespawner.startRespawning(player);
     }
 
     private void setDead(Player player) {
-        playerGameData.setCondition(player, Condition.DEAD);
+        diaPlayerData.setCondition(player, Condition.DEAD);
         diaRespawner.startRespawningWhenTeamHasDias(player);
     }
 
     private void endGameIfLost(Player player) {
-        Team team = playerGameData.team(player);
+        Team team = diaPlayerData.team(player);
 
-        if (playerGameData.allPlayersDead(team) && hasNoDias(team)) {
+        if (diaPlayerData.allPlayersDead(team) && hasNoDias(team)) {
             diaRespawner.cancelAllRespawns();
             winner.win(team.getEnemy());
         }

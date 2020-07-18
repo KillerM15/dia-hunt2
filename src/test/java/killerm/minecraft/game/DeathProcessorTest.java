@@ -15,7 +15,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 class DeathProcessorTest {
     private Printer printer = mock(Printer.class);
-    private PlayerGameData playerGameData = mock(PlayerGameData.class);
+    private DiaPlayerData diaPlayerData = mock(DiaPlayerData.class);
     private DiaChestGameData diaChestGameData = mock(DiaChestGameData.class);
     private DiaRespawner diaRespawner = mock(DiaRespawner.class);
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
@@ -23,7 +23,7 @@ class DeathProcessorTest {
     private StatsGiver statsGiver = mock(StatsGiver.class);
     private InventoryCopy inventoryCopy = mock(InventoryCopy.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, diaChestGameData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager);
+    private DeathProcessor deathProcessor = new DeathProcessor(printer, diaPlayerData, diaChestGameData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager);
 
     @Test
     public void GIVEN_player_and_killer_WHEN_processDeath_THEN_give_killer_diamonds_and_print_correct_message_and_refresh_killer_scoreboard() {
@@ -74,10 +74,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).allPlayersDead(team);
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).allPlayersDead(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -93,10 +93,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).allPlayersDead(team);
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).allPlayersDead(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -112,10 +112,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).allPlayersDead(team);
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).allPlayersDead(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -131,10 +131,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).allPlayersDead(team);
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).allPlayersDead(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -150,10 +150,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).allPlayersDead(team);
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).allPlayersDead(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -169,10 +169,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).allPlayersDead(team);
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).allPlayersDead(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -189,10 +189,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).allPlayersDead(team);
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).allPlayersDead(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -208,10 +208,10 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).allPlayersDead(team);
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).allPlayersDead(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
@@ -227,16 +227,16 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(playerGameData).setCondition(player, Condition.DEAD);
+        Mockito.verify(diaPlayerData).setCondition(player, Condition.DEAD);
         Mockito.verify(diaRespawner).startRespawningWhenTeamHasDias(player);
     }
 
@@ -245,16 +245,16 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(false).when(diaChestGameData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
+        Mockito.verify(diaPlayerData).setCondition(player, Condition.RESPAWNING);
         Mockito.verify(diaRespawner).startRespawning(player);
     }
 
@@ -263,16 +263,16 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(false).when(playerGameData).carriesDias(team);
+        doReturn(false).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
+        Mockito.verify(diaPlayerData).setCondition(player, Condition.RESPAWNING);
         Mockito.verify(diaRespawner).startRespawning(player);
     }
 
@@ -281,16 +281,16 @@ class DeathProcessorTest {
         // GIVEN
         Player player = mock(Player.class);
         Team team = Team.AQUA;
-        doReturn(team).when(playerGameData).team(player);
+        doReturn(team).when(diaPlayerData).team(player);
 
-        doReturn(true).when(playerGameData).carriesDias(team);
+        doReturn(true).when(diaPlayerData).carriesDias(team);
         doReturn(true).when(diaChestGameData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
+        Mockito.verify(diaPlayerData).setCondition(player, Condition.RESPAWNING);
         Mockito.verify(diaRespawner).startRespawning(player);
     }
 }

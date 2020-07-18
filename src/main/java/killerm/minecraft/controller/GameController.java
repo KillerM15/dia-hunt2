@@ -5,16 +5,16 @@ import killerm.minecraft.error.DiaHuntLogicException;
 import killerm.minecraft.game.DiaChestGameData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.Game;
-import killerm.minecraft.game.PlayerGameData;
+import killerm.minecraft.game.DiaPlayerData;
 import org.bukkit.entity.Player;
 
 public class GameController {
     private DiaHuntGameState diaHuntGameState;
     private Game game;
 
-    public GameController(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public GameController(DiaHuntGameState diaHuntGameState, DiaPlayerData diaPlayerData, DiaChestGameData diaChestGameData) {
         this.diaHuntGameState = diaHuntGameState;
-        this.game = new Game(diaHuntGameState, playerGameData, diaChestGameData);
+        this.game = new Game(diaHuntGameState, diaPlayerData, diaChestGameData);
     }
 
     // This one is for tests
