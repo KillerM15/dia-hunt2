@@ -34,4 +34,10 @@ class TeamTest {
         // THEN
         assertTrue(thrown.getMessage().equals(Message.TEAM_NOT_VALID));
     }
+
+    @Test
+    public void GIVEN_team_WHEN_getEnemy_THEN_correct_enemy_team_returned() {
+        assertEquals(Team.LAVA, Team.AQUA.getEnemy());
+        assertEquals(Team.AQUA, Team.LAVA.getEnemy());
+    }
 }

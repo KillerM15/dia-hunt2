@@ -20,4 +20,12 @@ public enum Team {
 
         throw new DiaHuntParameterException(Message.TEAM_NOT_VALID);
     }
+
+    public Team getEnemy() {
+        if (this == Team.AQUA) {
+            return Team.LAVA;
+        }
+
+        return Team.AQUA;
+    }
 }
