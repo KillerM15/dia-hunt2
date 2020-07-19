@@ -3,8 +3,8 @@ package killerm.minecraft.utilities;
 
 import com.sun.istack.internal.Nullable;
 import killerm.minecraft.DiaHuntPlugin;
-import killerm.minecraft.game.GameStatus;
-import killerm.minecraft.game.GameStatusType;
+import killerm.minecraft.game.data.GameStatus;
+import killerm.minecraft.game.flow.GameStatusType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 

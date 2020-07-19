@@ -2,9 +2,9 @@ package killerm.minecraft.controller;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.LogicException;
-import killerm.minecraft.game.GameStatus;
-import killerm.minecraft.game.Game;
-import killerm.minecraft.game.GameStatusType;
+import killerm.minecraft.game.data.GameStatus;
+import killerm.minecraft.game.flow.Game;
+import killerm.minecraft.game.flow.GameStatusType;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

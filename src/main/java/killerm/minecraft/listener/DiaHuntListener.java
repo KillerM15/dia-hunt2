@@ -3,7 +3,12 @@ package killerm.minecraft.listener;
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
-import killerm.minecraft.game.*;
+import killerm.minecraft.game.data.ChestGameData;
+import killerm.minecraft.game.data.PlayerGameData;
+import killerm.minecraft.game.data.Team;
+import killerm.minecraft.game.flow.DeathProcessor;
+import killerm.minecraft.game.data.GameStatus;
+import killerm.minecraft.game.flow.GameStatusType;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.DamageRecorder;
 import org.bukkit.Location;
@@ -169,6 +174,14 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+
+        printer.broadcast(e.getCurrentItem().toString());
+       // e.getAction() == InventoryAction.PICKUP_ALL && e.getClickedInventory() -> maybe in klasse prüfen ob es das richtige ist
+                //get who clicked -> ingame -> instan of player (so wie unten)
+
+
+
+
         // Update diamond scoreboard
         if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getWhoClicked() instanceof Player
@@ -183,6 +196,7 @@ public class DiaHuntListener implements Listener {
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), 1);
         }
+
     }
 
     @EventHandler

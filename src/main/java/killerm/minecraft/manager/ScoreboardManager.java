@@ -1,7 +1,7 @@
 package killerm.minecraft.manager;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.game.DiamondIndicator;
+import killerm.minecraft.game.flow.DiamondIndicator;
 import killerm.minecraft.utilities.DiaHuntScoreboardProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

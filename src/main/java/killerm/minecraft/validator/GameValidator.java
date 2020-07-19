@@ -2,7 +2,7 @@ package killerm.minecraft.validator;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.ParameterException;
-import killerm.minecraft.game.Team;
+import killerm.minecraft.game.data.Team;
 import org.bukkit.Bukkit;
 
 import java.util.Arrays;

@@ -1,7 +1,11 @@
 package killerm.minecraft.listener;
 
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.game.*;
+import killerm.minecraft.game.data.ChestGameData;
+import killerm.minecraft.game.data.PlayerGameData;
+import killerm.minecraft.game.flow.DeathProcessor;
+import killerm.minecraft.game.data.GameStatus;
+import killerm.minecraft.game.flow.GameStatusType;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.DamageRecorder;
 import org.bukkit.entity.Player;

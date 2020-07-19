@@ -1,6 +1,6 @@
 package killerm.minecraft.communication;
 
-import killerm.minecraft.game.Team;
+import killerm.minecraft.game.data.Team;
 import org.bukkit.entity.Player;
 
 public class NameChanger {

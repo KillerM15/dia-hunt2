@@ -2,9 +2,9 @@ package killerm.minecraft;
 
 import killerm.minecraft.commands.DiaHuntExecutor;
 import killerm.minecraft.data.DiaConfig;
-import killerm.minecraft.game.ChestGameData;
-import killerm.minecraft.game.GameStatus;
-import killerm.minecraft.game.PlayerGameData;
+import killerm.minecraft.game.data.ChestGameData;
+import killerm.minecraft.game.data.GameStatus;
+import killerm.minecraft.game.data.PlayerGameData;
 import killerm.minecraft.listener.DiaHuntListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
