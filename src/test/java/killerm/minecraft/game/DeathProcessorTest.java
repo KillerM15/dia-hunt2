@@ -17,14 +17,14 @@ class DeathProcessorTest {
     private Printer printer = mock(Printer.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
     private ChestData chestData = mock(ChestData.class);
-    private DiaRespawner diaRespawner = mock(DiaRespawner.class);
+    private Respawner respawner = mock(Respawner.class);
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
     private Winner winner = mock(Winner.class);
     private StatsGiver statsGiver = mock(StatsGiver.class);
     private InventoryCopy inventoryCopy = mock(InventoryCopy.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
     private LocationSetter locationSetter = mock(LocationSetter.class);
-    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, chestData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager, locationSetter);
+    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, chestData, respawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager, locationSetter);
 
     @Test
     public void GIVEN_player_and_killer_WHEN_processDeath_THEN_give_killer_diamonds_and_print_correct_message_and_refresh_killer_scoreboard() {
@@ -84,7 +84,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -103,7 +103,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(1)).cancelAllRespawns();
+        Mockito.verify(respawner, times(1)).cancelAllRespawns();
         Mockito.verify(winner, times(1)).win(team.getEnemy());
     }
 
@@ -122,7 +122,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -141,7 +141,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -160,7 +160,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -179,7 +179,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -199,7 +199,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -218,7 +218,7 @@ class DeathProcessorTest {
         deathProcessor.processDeath(player);
 
         // THEN
-        Mockito.verify(diaRespawner, times(0)).cancelAllRespawns();
+        Mockito.verify(respawner, times(0)).cancelAllRespawns();
         Mockito.verify(winner, times(0)).win(team.getEnemy());
     }
 
@@ -237,7 +237,7 @@ class DeathProcessorTest {
 
         // THEN
         Mockito.verify(playerGameData).setCondition(player, Condition.DEAD);
-        Mockito.verify(diaRespawner).startRespawningWhenTeamHasDias(player);
+        Mockito.verify(respawner).startRespawningWhenTeamHasDias(player);
     }
 
     @Test
@@ -255,7 +255,7 @@ class DeathProcessorTest {
 
         // THEN
         Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
-        Mockito.verify(diaRespawner).startRespawning(player);
+        Mockito.verify(respawner).startRespawning(player);
     }
 
     @Test
@@ -273,7 +273,7 @@ class DeathProcessorTest {
 
         // THEN
         Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
-        Mockito.verify(diaRespawner).startRespawning(player);
+        Mockito.verify(respawner).startRespawning(player);
     }
 
     @Test
@@ -291,6 +291,6 @@ class DeathProcessorTest {
 
         // THEN
         Mockito.verify(playerGameData).setCondition(player, Condition.RESPAWNING);
-        Mockito.verify(diaRespawner).startRespawning(player);
+        Mockito.verify(respawner).startRespawning(player);
     }
 }

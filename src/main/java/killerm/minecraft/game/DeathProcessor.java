@@ -12,7 +12,7 @@ public class DeathProcessor {
     private Printer printer;
     private PlayerGameData playerGameData;
     private ChestData chestData;
-    private DiaRespawner diaRespawner;
+    private Respawner respawner;
     private DamageRecorder damageRecorder;
     private Winner winner;
     private StatsGiver statsGiver;
@@ -24,7 +24,7 @@ public class DeathProcessor {
         this.printer = new Printer();
         this.playerGameData = playerGameData;
         this.chestData = chestData;
-        this.diaRespawner = new DiaRespawner(gameState, playerGameData, chestData);
+        this.respawner = new Respawner(gameState, playerGameData, chestData);
         this.damageRecorder = damageRecorder;
         this.winner = new Winner();
         this.statsGiver = new StatsGiver();
@@ -33,11 +33,11 @@ public class DeathProcessor {
         this.locationSetter = new LocationSetter();
     }
 
-    public DeathProcessor(Printer printer, PlayerGameData playerGameData, ChestData chestData, DiaRespawner diaRespawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager, LocationSetter locationSetter) {
+    public DeathProcessor(Printer printer, PlayerGameData playerGameData, ChestData chestData, Respawner respawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager, LocationSetter locationSetter) {
         this.printer = printer;
         this.playerGameData = playerGameData;
         this.chestData = chestData;
-        this.diaRespawner = diaRespawner;
+        this.respawner = respawner;
         this.damageRecorder = damageRecorder;
         this.winner = winner;
         this.statsGiver = statsGiver;
@@ -95,19 +95,19 @@ public class DeathProcessor {
 
     private void respawn(Player player) {
         playerGameData.setCondition(player, Condition.RESPAWNING);
-        diaRespawner.startRespawning(player);
+        respawner.startRespawning(player);
     }
 
     private void setDead(Player player) {
         playerGameData.setCondition(player, Condition.DEAD);
-        diaRespawner.startRespawningWhenTeamHasDias(player);
+        respawner.startRespawningWhenTeamHasDias(player);
     }
 
     private void endGameIfLost(Player player) {
         Team team = playerGameData.team(player);
 
         if (playerGameData.allPlayersDead(team) && !hasNoDias(team)) {
-            diaRespawner.cancelAllRespawns();
+            respawner.cancelAllRespawns();
             winner.win(team.getEnemy());
         }
     }

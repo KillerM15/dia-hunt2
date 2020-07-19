@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class DiaRespawner {
+public class Respawner {
     private Printer printer = new Printer();
     private List<BukkitTask> tasks = Collections.synchronizedList(new ArrayList<>());
     private GameState gameState;
@@ -26,7 +26,7 @@ public class DiaRespawner {
     private DiamondIndicator diamondIndicator = new DiamondIndicator(); // TODO: maybe move in own class??
     private ScoreboardManager scoreboardManager = new ScoreboardManager();
 
-    public DiaRespawner(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
+    public Respawner(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
         this.gameState = gameState;
         this.playerGameData = playerGameData;
         this.chestData = chestData;
