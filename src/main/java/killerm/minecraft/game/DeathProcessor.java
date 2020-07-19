@@ -20,11 +20,11 @@ public class DeathProcessor {
     private ScoreboardManager scoreboardManager;
     private LocationSetter locationSetter;
 
-    public DeathProcessor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData, DamageRecorder damageRecorder) {
+    public DeathProcessor(GameState gameState, PlayerGameData playerGameData, ChestData chestData, DamageRecorder damageRecorder) {
         this.printer = new Printer();
         this.playerGameData = playerGameData;
         this.chestData = chestData;
-        this.diaRespawner = new DiaRespawner(diaHuntGameState, playerGameData, chestData);
+        this.diaRespawner = new DiaRespawner(gameState, playerGameData, chestData);
         this.damageRecorder = damageRecorder;
         this.winner = new Winner();
         this.statsGiver = new StatsGiver();

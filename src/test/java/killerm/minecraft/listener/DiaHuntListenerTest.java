@@ -18,19 +18,19 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 class DiaHuntListenerTest {
     private Printer printer = mock(Printer.class);
-    private DiaHuntGameState diaHuntGameState = mock(DiaHuntGameState.class);
+    private GameState gameState = mock(GameState.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
     private ChestData chestData = mock(ChestData.class);
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
     private DeathProcessor deathProcessor = mock(DeathProcessor.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, diaHuntGameState, playerGameData, chestData, damageRecorder, deathProcessor, scoreboardManager);
+    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, gameState, playerGameData, chestData, damageRecorder, deathProcessor, scoreboardManager);
 
     @Test
     public void GIVEN_EntityRegainHealthEvent_and_GameStatus_RUNNING_and_player_inGame_and_Regain_Reason_REGEN_WHEN_onPlayerRegainHealth_THEN_event_cancelled() {
         // GIVEN
         EntityRegainHealthEvent e = mock(EntityRegainHealthEvent.class);
-        doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
+        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);
@@ -47,7 +47,7 @@ class DiaHuntListenerTest {
     public void GIVEN_FoodLevelChangeEvent_and_GameStatus_RUNNING_and_player_inGame_WHEN_onHungerDeplete_THEN_event_cancelled() {
         // GIVEN
         FoodLevelChangeEvent e = mock(FoodLevelChangeEvent.class);
-        doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
+        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);
@@ -73,7 +73,7 @@ class DiaHuntListenerTest {
     public void GIVEN_GameStatus_RUNNING_and_damager_and_reciever_inGame_WHEN_onEntityDamageByEntity_THEN_damageRecorder_put_receiver_damager() {
         // GIVEN
         EntityDamageByEntityEvent e = mock(EntityDamageByEntityEvent.class);
-        doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
+        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
         Player receiver = mock(Player.class);
         Player damager = mock(Player.class);
         doReturn(receiver).when(e).getEntity();
@@ -97,7 +97,7 @@ class DiaHuntListenerTest {
     public void GIVEN_EntityDamageEvent_and_GameStatus_RUNNING_and_player_inGame_and_ALIVE_and_damageCause_VOID_WHEN_onDamageEvent_THEN_deathProcessor_processDeathInVoid() {
         // GIVEN
         EntityDamageEvent e = mock(EntityDamageEvent.class);
-        doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
+        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);
@@ -115,7 +115,7 @@ class DiaHuntListenerTest {
     public void GIVEN_EntityDamageEvent_and_GameStatus_RUNNING_and_player_inGame_and_ALIVE_and_damageCause_LIGHTNING_WHEN_onDamageEvent_THEN_nothing() {
         // GIVEN
         EntityDamageEvent e = mock(EntityDamageEvent.class);
-        doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
+        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);

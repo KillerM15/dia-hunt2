@@ -18,7 +18,7 @@ import java.util.Collection;
 
 public class Game {
     private Printer printer;
-    private DiaHuntGameState diaHuntGameState;
+    private GameState gameState;
     private PlayerGameData playerGameData;
     private ChestData chestData;
     private GameBackup gameBackup;
@@ -33,13 +33,13 @@ public class Game {
     private ScoreboardManager scoreboardManager;
     private WorldProvider worldProvider;
 
-    public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
+    public Game(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
         this.printer = new Printer();
-        this.diaHuntGameState = diaHuntGameState;
+        this.gameState = gameState;
         this.playerGameData = playerGameData;
         this.chestData = chestData;
         this.gameBackup = new GameBackup();
-        this.gameInitPrinter = new GameInitPrinter(diaHuntGameState, playerGameData);
+        this.gameInitPrinter = new GameInitPrinter(gameState, playerGameData);
         this.diamondIncreaser = new DiamondIncreaser(playerGameData, chestData);
         this.locationSetter = new LocationSetter();
         this.statsGiver = new StatsGiver();
@@ -51,9 +51,9 @@ public class Game {
     }
 
     // This is why you should use dependency injection frameworks
-    public Game(Printer printer, DiaHuntGameState diaHuntGameState, ChestData chestData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
+    public Game(Printer printer, GameState gameState, ChestData chestData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
         this.printer = printer;
-        this.diaHuntGameState = diaHuntGameState;
+        this.gameState = gameState;
         this.chestData = chestData;
         this.playerGameData = playerGameData;
         this.gameBackup = gameBackup;
@@ -70,7 +70,7 @@ public class Game {
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
-        diaHuntGameState.setGameStatus(GameStatus.STARTING);
+        gameState.setGameStatus(GameStatus.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGameAfterDelay();
         join(gameStarter, null);
@@ -78,7 +78,7 @@ public class Game {
 
     // For testing, without threads
     public void startInitializeMocked(Player gameStarter, String[] invitedPlayerNames) {
-        diaHuntGameState.setGameStatus(GameStatus.STARTING);
+        gameState.setGameStatus(GameStatus.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGame();
         join(gameStarter, null);
@@ -103,7 +103,7 @@ public class Game {
     }
 
     private void startGame() {
-        diaHuntGameState.setGameStatus(GameStatus.RUNNING);
+        gameState.setGameStatus(GameStatus.RUNNING);
         gameBackup.reloadMapRegionFromConfig();
 
         itemRemover.remove(worldProvider.getWorld());
@@ -156,7 +156,7 @@ public class Game {
         playerGameData.remove(player);
         statsGiver.clear(player);
 
-        if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
+        if (gameState.getGameStatus() == GameStatus.RUNNING) {
             gameBackup.getPlayerBackup().restore(player);
             scoreboardManager.clear(player);
         }
@@ -168,17 +168,17 @@ public class Game {
     }
 
     private void endGame() {
-        if (diaHuntGameState.getGameStatus() == GameStatus.STARTING) {
+        if (gameState.getGameStatus() == GameStatus.STARTING) {
             gameInitPrinter.stop();
             startingTask.cancel();
-        } else if (diaHuntGameState.getGameStatus() == GameStatus.RUNNING) {
+        } else if (gameState.getGameStatus() == GameStatus.RUNNING) {
             itemRemover.remove(worldProvider.getWorld());
             gameBackup.getMapBackup().restore();
             diamondIncreaser.stop();
         }
 
         printer.broadcast(Message.STOPPED);
-        diaHuntGameState.setGameStatus(GameStatus.OFF);
+        gameState.setGameStatus(GameStatus.OFF);
     }
 
     private void throwIfNotIngame(Player player) {

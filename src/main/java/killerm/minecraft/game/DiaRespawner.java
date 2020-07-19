@@ -17,7 +17,7 @@ import java.util.List;
 public class DiaRespawner {
     private Printer printer = new Printer();
     private List<BukkitTask> tasks = Collections.synchronizedList(new ArrayList<>());
-    private DiaHuntGameState diaHuntGameState;
+    private GameState gameState;
     private PlayerGameData playerGameData;
     private ChestData chestData;
     private ItemGiver itemGiver = new ItemGiver();
@@ -26,8 +26,8 @@ public class DiaRespawner {
     private DiamondIndicator diamondIndicator = new DiamondIndicator(); // TODO: maybe move in own class??
     private ScoreboardManager scoreboardManager = new ScoreboardManager();
 
-    public DiaRespawner(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
-        this.diaHuntGameState = diaHuntGameState;
+    public DiaRespawner(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
+        this.gameState = gameState;
         this.playerGameData = playerGameData;
         this.chestData = chestData;
     }
@@ -37,7 +37,7 @@ public class DiaRespawner {
 
         new BukkitRunnable() {
             public void run() {
-                if (diaHuntGameState.getGameStatus() != GameStatus.RUNNING) {
+                if (gameState.getGameStatus() != GameStatus.RUNNING) {
                     cancel();
                 }
 

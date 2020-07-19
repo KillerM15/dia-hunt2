@@ -2,14 +2,14 @@ package killerm.minecraft;
 
 import killerm.minecraft.commands.DiaHuntExecutor;
 import killerm.minecraft.game.ChestData;
-import killerm.minecraft.game.DiaHuntGameState;
+import killerm.minecraft.game.GameState;
 import killerm.minecraft.game.PlayerGameData;
 import killerm.minecraft.listener.DiaHuntListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DiaHuntPlugin extends JavaPlugin {
     private volatile static DiaHuntPlugin instance;
-    private DiaHuntGameState diaHuntGameState;
+    private GameState gameState;
     private PlayerGameData playerGameData;
     private ChestData chestData;
     private DiaHuntExecutor diaHuntExecutor;
@@ -32,18 +32,18 @@ public class DiaHuntPlugin extends JavaPlugin {
     }
 
     private void initializeGame() {
-        diaHuntGameState = new DiaHuntGameState();
+        gameState = new GameState();
         playerGameData = new PlayerGameData();
         chestData = new ChestData();
     }
 
     private void initializeExecutor() {
-        diaHuntExecutor = new DiaHuntExecutor(diaHuntGameState, playerGameData, chestData);
+        diaHuntExecutor = new DiaHuntExecutor(gameState, playerGameData, chestData);
         this.getCommand("diahunt").setExecutor(diaHuntExecutor);
     }
 
     private void initializeListener() {
-        diaHuntListener = new DiaHuntListener(diaHuntGameState, playerGameData, chestData);
+        diaHuntListener = new DiaHuntListener(gameState, playerGameData, chestData);
         this.getServer().getPluginManager().registerEvents(diaHuntListener, this);
     }
 

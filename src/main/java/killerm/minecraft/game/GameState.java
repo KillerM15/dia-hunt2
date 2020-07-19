@@ -1,6 +1,6 @@
 package killerm.minecraft.game;
 
-public class DiaHuntGameState {
+public class GameState {
     private volatile GameStatus gameStatus = GameStatus.OFF;
 
     public void setGameStatus(GameStatus gameStatus) {
