@@ -21,7 +21,7 @@ public enum DiaConfig {
     private Object defaultValue;
 
     public static void setPlugin(DiaHuntPlugin diaHuntPlugin) {
-        // Very bad design
+        // Very bad design, for testing
         plugin = diaHuntPlugin;
     }
 
