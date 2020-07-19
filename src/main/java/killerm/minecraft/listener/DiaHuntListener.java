@@ -25,26 +25,26 @@ public class DiaHuntListener implements Listener {
     private Printer printer;
     private DiaHuntGameState diaHuntGameState;
     private PlayerGameData playerGameData;
-    private DiaChestGameData diaChestGameData;
+    private ChestData chestData;
     private DamageRecorder damageRecorder;
     private DeathProcessor deathProcessor;
     private ScoreboardManager scoreboardManager;
 
-    public DiaHuntListener(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public DiaHuntListener(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
         this.printer = new Printer();
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.damageRecorder = new DamageRecorder(diaHuntGameState, (int) (double) DiaConfig.SECONDS_COUNTS_AS_KILL.get());
-        this.deathProcessor = new DeathProcessor(diaHuntGameState, playerGameData, diaChestGameData, damageRecorder);
+        this.deathProcessor = new DeathProcessor(diaHuntGameState, playerGameData, chestData, damageRecorder);
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DiaHuntListener(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
+    public DiaHuntListener(Printer printer, DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
         this.printer = printer;
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.damageRecorder = damageRecorder;
         this.deathProcessor = deathProcessor;
         this.scoreboardManager = scoreboardManager;
@@ -83,9 +83,9 @@ public class DiaHuntListener implements Listener {
             Location boxLocation = e.getBlock().getLocation();
 
             if (e.getBlock().getType() == Material.BLUE_SHULKER_BOX) {
-                diaChestGameData.addLocation(boxLocation, Team.AQUA);
+                chestData.addLocation(boxLocation, Team.AQUA);
             } else {
-                diaChestGameData.addLocation(boxLocation, Team.LAVA);
+                chestData.addLocation(boxLocation, Team.LAVA);
             }
         }
     }
@@ -97,7 +97,7 @@ public class DiaHuntListener implements Listener {
                 && (e.getBlock().getType() == Material.BLUE_SHULKER_BOX || e.getBlock().getType() == Material.RED_SHULKER_BOX)) {
 
             Location boxLocation = e.getBlock().getLocation();
-            diaChestGameData.removeLocation(boxLocation);
+            chestData.removeLocation(boxLocation);
         }
     }
 

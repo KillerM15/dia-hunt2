@@ -6,7 +6,7 @@ import killerm.minecraft.controller.ConfigController;
 import killerm.minecraft.controller.GameController;
 import killerm.minecraft.error.LogicException;
 import killerm.minecraft.error.ParameterException;
-import killerm.minecraft.game.DiaChestGameData;
+import killerm.minecraft.game.ChestData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.PlayerGameData;
 import killerm.minecraft.validator.ConfigValidator;
@@ -26,13 +26,13 @@ public class DiaHuntExecutor implements CommandExecutor {
 
     private Tester tester; //TODO: Remove tester when Plugin is finished
 
-    public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public DiaHuntExecutor(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
         this.tester = new Tester();
         this.printer = new Printer();
         this.configValidator = new ConfigValidator();
         this.gameValidator = new GameValidator();
         this.configController = new ConfigController();
-        this.gameController = new GameController(diaHuntGameState, playerGameData, diaChestGameData);
+        this.gameController = new GameController(diaHuntGameState, playerGameData, chestData);
     }
 
     public DiaHuntExecutor(Tester tester, Printer printer, ConfigValidator configValidator, GameValidator gameValidator, ConfigController configController, GameController gameController) {

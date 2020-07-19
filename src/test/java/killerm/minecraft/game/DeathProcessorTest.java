@@ -16,7 +16,7 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 class DeathProcessorTest {
     private Printer printer = mock(Printer.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
-    private DiaChestGameData diaChestGameData = mock(DiaChestGameData.class);
+    private ChestData chestData = mock(ChestData.class);
     private DiaRespawner diaRespawner = mock(DiaRespawner.class);
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
     private Winner winner = mock(Winner.class);
@@ -24,7 +24,7 @@ class DeathProcessorTest {
     private InventoryCopy inventoryCopy = mock(InventoryCopy.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
     private LocationSetter locationSetter = mock(LocationSetter.class);
-    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, diaChestGameData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager, locationSetter);
+    private DeathProcessor deathProcessor = new DeathProcessor(printer, playerGameData, chestData, diaRespawner, damageRecorder, winner, statsGiver, inventoryCopy, scoreboardManager, locationSetter);
 
     @Test
     public void GIVEN_player_and_killer_WHEN_processDeath_THEN_give_killer_diamonds_and_print_correct_message_and_refresh_killer_scoreboard() {
@@ -78,7 +78,7 @@ class DeathProcessorTest {
 
         doReturn(false).when(playerGameData).allPlayersDead(team);
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -97,7 +97,7 @@ class DeathProcessorTest {
 
         doReturn(true).when(playerGameData).allPlayersDead(team);
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -116,7 +116,7 @@ class DeathProcessorTest {
 
         doReturn(false).when(playerGameData).allPlayersDead(team);
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -135,7 +135,7 @@ class DeathProcessorTest {
 
         doReturn(true).when(playerGameData).allPlayersDead(team);
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -154,7 +154,7 @@ class DeathProcessorTest {
 
         doReturn(false).when(playerGameData).allPlayersDead(team);
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -173,7 +173,7 @@ class DeathProcessorTest {
 
         doReturn(true).when(playerGameData).allPlayersDead(team);
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -193,7 +193,7 @@ class DeathProcessorTest {
 
         doReturn(false).when(playerGameData).allPlayersDead(team);
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -212,7 +212,7 @@ class DeathProcessorTest {
 
         doReturn(true).when(playerGameData).allPlayersDead(team);
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -230,7 +230,7 @@ class DeathProcessorTest {
         doReturn(team).when(playerGameData).team(player);
 
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -248,7 +248,7 @@ class DeathProcessorTest {
         doReturn(team).when(playerGameData).team(player);
 
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(false).when(diaChestGameData).containsDias(team);
+        doReturn(false).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -266,7 +266,7 @@ class DeathProcessorTest {
         doReturn(team).when(playerGameData).team(player);
 
         doReturn(false).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);
@@ -284,7 +284,7 @@ class DeathProcessorTest {
         doReturn(team).when(playerGameData).team(player);
 
         doReturn(true).when(playerGameData).carriesDias(team);
-        doReturn(true).when(diaChestGameData).containsDias(team);
+        doReturn(true).when(chestData).containsDias(team);
 
         // WHEN
         deathProcessor.processDeath(player);

@@ -20,7 +20,7 @@ public class Game {
     private Printer printer;
     private DiaHuntGameState diaHuntGameState;
     private PlayerGameData playerGameData;
-    private DiaChestGameData diaChestGameData;
+    private ChestData chestData;
     private GameBackup gameBackup;
     private GameInitPrinter gameInitPrinter;
     private DiamondIncreaser diamondIncreaser;
@@ -33,14 +33,14 @@ public class Game {
     private ScoreboardManager scoreboardManager;
     private WorldProvider worldProvider;
 
-    public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public Game(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
         this.printer = new Printer();
         this.diaHuntGameState = diaHuntGameState;
         this.playerGameData = playerGameData;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.gameBackup = new GameBackup();
         this.gameInitPrinter = new GameInitPrinter(diaHuntGameState, playerGameData);
-        this.diamondIncreaser = new DiamondIncreaser(playerGameData, diaChestGameData);
+        this.diamondIncreaser = new DiamondIncreaser(playerGameData, chestData);
         this.locationSetter = new LocationSetter();
         this.statsGiver = new StatsGiver();
         this.itemGiver = new ItemGiver();
@@ -51,10 +51,10 @@ public class Game {
     }
 
     // This is why you should use dependency injection frameworks
-    public Game(Printer printer, DiaHuntGameState diaHuntGameState, DiaChestGameData diaChestGameData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
+    public Game(Printer printer, DiaHuntGameState diaHuntGameState, ChestData chestData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
         this.printer = printer;
         this.diaHuntGameState = diaHuntGameState;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.playerGameData = playerGameData;
         this.gameBackup = gameBackup;
         this.gameInitPrinter = gameInitPrinter;
@@ -108,7 +108,7 @@ public class Game {
 
         itemRemover.remove(worldProvider.getWorld());
 
-        diaChestGameData.clear();
+        chestData.clear();
 
         gameBackup.getMapBackup().backup();
         gameBackup.getPlayerBackup().backup(playerGameData.players());

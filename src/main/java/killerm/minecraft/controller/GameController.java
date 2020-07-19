@@ -2,7 +2,7 @@ package killerm.minecraft.controller;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.LogicException;
-import killerm.minecraft.game.DiaChestGameData;
+import killerm.minecraft.game.ChestData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.Game;
 import killerm.minecraft.game.PlayerGameData;
@@ -12,9 +12,9 @@ public class GameController {
     private DiaHuntGameState diaHuntGameState;
     private Game game;
 
-    public GameController(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public GameController(DiaHuntGameState diaHuntGameState, PlayerGameData playerGameData, ChestData chestData) {
         this.diaHuntGameState = diaHuntGameState;
-        this.game = new Game(diaHuntGameState, playerGameData, diaChestGameData);
+        this.game = new Game(diaHuntGameState, playerGameData, chestData);
     }
 
     // This one is for tests

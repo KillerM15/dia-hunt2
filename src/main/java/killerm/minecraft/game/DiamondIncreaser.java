@@ -9,23 +9,23 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class DiamondIncreaser {
     private PlayerGameData playerGameData;
-    private DiaChestGameData diaChestGameData;
+    private ChestData chestData;
     private DiamondIndicator diamondIndicator;
     private ItemGiver itemGiver;
     private BukkitRunnable increaserThread;
     private ScoreboardManager scoreboardManager;
 
-    public DiamondIncreaser(PlayerGameData playerGameData, DiaChestGameData diaChestGameData) {
+    public DiamondIncreaser(PlayerGameData playerGameData, ChestData chestData) {
         this.playerGameData = playerGameData;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.diamondIndicator = new DiamondIndicator();
         this.itemGiver = new ItemGiver();
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DiamondIncreaser(PlayerGameData playerGameData, DiaChestGameData diaChestGameData, DiamondIndicator diamondIndicator, ItemGiver itemGiver, ScoreboardManager scoreboardManager) {
+    public DiamondIncreaser(PlayerGameData playerGameData, ChestData chestData, DiamondIndicator diamondIndicator, ItemGiver itemGiver, ScoreboardManager scoreboardManager) {
         this.playerGameData = playerGameData;
-        this.diaChestGameData = diaChestGameData;
+        this.chestData = chestData;
         this.diamondIndicator = diamondIndicator;
         this.itemGiver = itemGiver;
         this.scoreboardManager = scoreboardManager;
@@ -64,7 +64,7 @@ public class DiamondIncreaser {
     }
 
     private void addDiamondsToChests() {
-        for (ShulkerBox shulkerBox : diaChestGameData.getShulkerBoxes()) {
+        for (ShulkerBox shulkerBox : chestData.getShulkerBoxes()) {
             if (!diamondIndicator.hasDiamonds(shulkerBox)) {
                 continue;
             }

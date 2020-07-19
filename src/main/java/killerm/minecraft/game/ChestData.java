@@ -9,15 +9,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DiaChestGameData {
+public class ChestData {
     private Map<Location, Team> chestLocations = new ConcurrentHashMap();
     private DiamondIndicator diamondIndicator;
 
-    public DiaChestGameData() {
+    public ChestData() {
         this.diamondIndicator = new DiamondIndicator();
     }
 
-    public DiaChestGameData(DiamondIndicator diamondIndicator) {
+    public ChestData(DiamondIndicator diamondIndicator) {
         this.diamondIndicator = diamondIndicator;
     }
 

@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
-class DiaChestGameDataTest {
+class ChestDataTest {
     private DiamondIndicator diamondIndicator = mock(DiamondIndicator.class);
-    private DiaChestGameData diaChestGameData = new DiaChestGameData(diamondIndicator);
+    private ChestData chestData = new ChestData(diamondIndicator);
 
     @Test
     public void GIVEN_1_location_lava_2_locations_aqua_added_WHEN_getLocations_LAVA_THEN_return_only_lava_location() {
@@ -22,12 +22,12 @@ class DiaChestGameDataTest {
         Location loc2 = mock(Location.class);
         Location loc3 = mock(Location.class);
 
-        diaChestGameData.addLocation(loc1, Team.AQUA);
-        diaChestGameData.addLocation(loc2, Team.AQUA);
-        diaChestGameData.addLocation(loc3, Team.LAVA);
+        chestData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc2, Team.AQUA);
+        chestData.addLocation(loc3, Team.LAVA);
 
         // WHEN
-        Collection<Location> locations = diaChestGameData.getLocations(Team.LAVA);
+        Collection<Location> locations = chestData.getLocations(Team.LAVA);
 
         // THEN
         assertEquals(1, locations.size());
@@ -59,12 +59,12 @@ class DiaChestGameDataTest {
         doReturn(block2).when(loc2).getBlock();
         doReturn(block3).when(loc3).getBlock();
 
-        diaChestGameData.addLocation(loc1, Team.AQUA);
-        diaChestGameData.addLocation(loc2, Team.AQUA);
-        diaChestGameData.addLocation(loc3, Team.LAVA);
+        chestData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc2, Team.AQUA);
+        chestData.addLocation(loc3, Team.LAVA);
 
         // WHEN
-        Collection<ShulkerBox> shulkerBoxes = diaChestGameData.getShulkerBoxes(Team.LAVA);
+        Collection<ShulkerBox> shulkerBoxes = chestData.getShulkerBoxes(Team.LAVA);
 
         // THEN
         assertEquals(1, shulkerBoxes.size());
@@ -81,16 +81,16 @@ class DiaChestGameDataTest {
         Location loc2 = mock(Location.class);
         Location loc3 = mock(Location.class);
 
-        diaChestGameData.addLocation(loc1, Team.AQUA);
-        diaChestGameData.addLocation(loc2, Team.AQUA);
-        diaChestGameData.addLocation(loc3, Team.LAVA);
+        chestData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc2, Team.AQUA);
+        chestData.addLocation(loc3, Team.LAVA);
 
-        diaChestGameData.removeLocation(loc1);
-        diaChestGameData.removeLocation(loc2);
-        diaChestGameData.removeLocation(loc3);
+        chestData.removeLocation(loc1);
+        chestData.removeLocation(loc2);
+        chestData.removeLocation(loc3);
 
         // WHEN
-        Collection<ShulkerBox> shulkerBoxes = diaChestGameData.getShulkerBoxes(Team.LAVA);
+        Collection<ShulkerBox> shulkerBoxes = chestData.getShulkerBoxes(Team.LAVA);
 
         // THEN
         assertEquals(0, shulkerBoxes.size());
@@ -119,12 +119,12 @@ class DiaChestGameDataTest {
         doReturn(block2).when(loc2).getBlock();
         doReturn(block3).when(loc3).getBlock();
 
-        diaChestGameData.addLocation(loc1, Team.AQUA);
-        diaChestGameData.addLocation(loc2, Team.AQUA);
-        diaChestGameData.addLocation(loc3, Team.LAVA);
+        chestData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc2, Team.AQUA);
+        chestData.addLocation(loc3, Team.LAVA);
 
         // WHEN
-        Collection<ShulkerBox> shulkerBoxes = diaChestGameData.getShulkerBoxes();
+        Collection<ShulkerBox> shulkerBoxes = chestData.getShulkerBoxes();
 
         // THEN
         assertEquals(3, shulkerBoxes.size());
@@ -141,11 +141,11 @@ class DiaChestGameDataTest {
         Location loc1 = mock(Location.class);
         doReturn(shulkerBox1).when(block1).getState();
         doReturn(block1).when(loc1).getBlock();
-        diaChestGameData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc1, Team.AQUA);
         doReturn(true).when(diamondIndicator).hasDiamonds(shulkerBox1);
 
         // WHEN / THEN
-        assert (diaChestGameData.containsDias(Team.AQUA));
+        assert (chestData.containsDias(Team.AQUA));
     }
 
     @Test
@@ -156,11 +156,11 @@ class DiaChestGameDataTest {
         Location loc1 = mock(Location.class);
         doReturn(shulkerBox1).when(block1).getState();
         doReturn(block1).when(loc1).getBlock();
-        diaChestGameData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc1, Team.AQUA);
         doReturn(true).when(diamondIndicator).hasDiamonds(shulkerBox1);
 
         // WHEN / THEN
-        assert (!diaChestGameData.containsDias(Team.LAVA));
+        assert (!chestData.containsDias(Team.LAVA));
     }
 
     @Test
@@ -171,11 +171,11 @@ class DiaChestGameDataTest {
         Location loc1 = mock(Location.class);
         doReturn(shulkerBox1).when(block1).getState();
         doReturn(block1).when(loc1).getBlock();
-        diaChestGameData.addLocation(loc1, Team.AQUA);
+        chestData.addLocation(loc1, Team.AQUA);
         doReturn(true).when(diamondIndicator).hasDiamonds(shulkerBox1);
-        diaChestGameData.clear();
+        chestData.clear();
 
         // WHEN / THEN
-        assert (!diaChestGameData.containsDias(Team.AQUA));
+        assert (!chestData.containsDias(Team.AQUA));
     }
 }
