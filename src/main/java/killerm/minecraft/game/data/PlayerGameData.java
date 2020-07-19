@@ -172,8 +172,8 @@ public class PlayerGameData {
         playerConditions.put(player, condition);
     }
 
-    public boolean isAlive(Player player) {
-        return playerConditions.get(player) == Condition.ALIVE;
+    public Condition getCondition(Player player) {
+        return playerConditions.get(player);
     }
 
     public boolean allPlayersDead(Team team) {
