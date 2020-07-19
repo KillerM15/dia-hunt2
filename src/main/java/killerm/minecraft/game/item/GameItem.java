@@ -2,6 +2,7 @@ package killerm.minecraft.game.item;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.game.data.Team;
+import killerm.minecraft.game.shop.ItemCategory;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -9,8 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class GameItem { // TODO: Nice descriptions and effects with enchantments
     public static ItemStack diamond() {
@@ -33,9 +33,9 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         itemStack.setItemMeta(meta);
     }
 
-    private static void setLore(ItemStack itemStack, List<String> lore) {
+    private static void setLore(ItemStack itemStack, String... lore) {
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setLore(lore);
+        meta.setLore(Arrays.asList(lore));
         itemStack.setItemMeta(meta);
     }
 
@@ -90,50 +90,50 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
             glassPane = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         }
 
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
+        setDisplayName(glassPane, " ");
+        setLore(glassPane);
         return glassPane;
     }
 
     public static ItemStack shopBuildingItem() {
         ItemStack itemStack = new ItemStack(Material.BRICKS);
-        setDisplayName(itemStack, "");
-        setLore(itemStack, new ArrayList<String>());
+        setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.BUILDING.toString());
+        setLore(itemStack, Message.GREY + ItemCategory.BUILDING.getDescription());
         return itemStack;
     }
 
     public static ItemStack shopMeleeItem() {
-        ItemStack glassPane = new ItemStack(Material.STONE_SWORD);
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
-        return glassPane;
+        ItemStack itemStack = new ItemStack(Material.STICK);
+        setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.MELEE.toString());
+        setLore(itemStack, Message.GREY + ItemCategory.MELEE.getDescription());
+        return itemStack;
     }
 
     public static ItemStack shopRangedItem() {
-        ItemStack glassPane = new ItemStack(Material.BOW);
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
-        return glassPane;
+        ItemStack itemStack = new ItemStack(Material.BOW);
+        setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.RANGED.toString());
+        setLore(itemStack, Message.GREY + ItemCategory.RANGED.getDescription());
+        return itemStack;
     }
 
     public static ItemStack shopEffectsItem() {
-        ItemStack glassPane = new ItemStack(Material.PLAYER_HEAD);
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
-        return glassPane;
+        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
+        setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.EFFECTS.toString());
+        setLore(itemStack, Message.GREY + ItemCategory.EFFECTS.getDescription());
+        return itemStack;
     }
 
     public static ItemStack shopProtectionItem() {
-        ItemStack glassPane = new ItemStack(Material.SHIELD);
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
-        return glassPane;
+        ItemStack itemStack = new ItemStack(Material.SHIELD);
+        setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.PROTECTION.toString());
+        setLore(itemStack, Message.GREY + ItemCategory.PROTECTION.getDescription());
+        return itemStack;
     }
 
     public static ItemStack shopTrickyItem() {
-        ItemStack glassPane = new ItemStack(Material.REDSTONE_TORCH);
-        setDisplayName(glassPane, "");
-        setLore(glassPane, new ArrayList<String>());
-        return glassPane;
+        ItemStack itemstack = new ItemStack(Material.REDSTONE_TORCH);
+        setDisplayName(itemstack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.TRICKY.toString());
+        setLore(itemstack, Message.GREY + ItemCategory.TRICKY.getDescription());
+        return itemstack;
     }
 }

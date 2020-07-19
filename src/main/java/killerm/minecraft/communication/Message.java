@@ -14,6 +14,7 @@ public class Message {
     public static final String DARK_BLUE = "§1";
     public static final String AQUA = "§b";
     public static final String BLUE = "§9";
+    public static final String YELLOW = "§e";
     public static final String GREEN = "§a";
     public static final String DARK_AQUA = "§3";
     public static final String BOLD = "§l";
@@ -87,11 +88,11 @@ public class Message {
     public static final String UNTIL_RESPAWN = "seconds until respawn";
     public static final String GO = "Go!";
     public static final String NEW_CONFIG_VALUE = "New config value has been set";
-    public static final String DESCRIPTION_BUILDING = "Buy blocks to build bridges like a 12 year old!";
-    public static final String DESCRIPTION_MELEE = "Buy melee weapons to f*** them at close range!";
-    public static final String DESCRIPTION_RANGED = "Buy ranged weapon to camp and snipe them!";
-    public static final String DESCRIPTION_EFFECTS = "Buy cool effects to dominate in every fight!";
-    public static final String DESCRIPTION_PROTECTION = "Buy some lame protection!";
-    public static final String DESCRIPTION_TRICKY = "Buy some cool items to outplay them!";
+    public static final String DESCRIPTION_BUILDING = "Build bridges like a 12 year old!";
+    public static final String DESCRIPTION_MELEE = "F*** them at close range!";
+    public static final String DESCRIPTION_RANGED = "Camp with ranged weapons!";
+    public static final String DESCRIPTION_EFFECTS = "Dominate fights with cool effects!";
+    public static final String DESCRIPTION_PROTECTION = "Get some lame protection!";
+    public static final String DESCRIPTION_TRICKY = "Outplay them with cool mechanics!";
     public static final String SHOP_NAME = "Shop";
 }
