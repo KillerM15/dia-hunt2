@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameStateTest {
-    private GameState gameState = new GameState();
+class GameStatusTest {
+    private GameStatus gameStatus = new GameStatus();
 
     @Test
     public void WHEN_getGameStatus_THEN_return_OFF() {
-        assertEquals(GameStatusType.OFF, gameState.getGameStatusType());
+        assertEquals(GameStatusType.OFF, gameStatus.getGameStatusType());
     }
 
     @Test
@@ -18,9 +18,9 @@ class GameStateTest {
         GameStatusType gameStatusType = GameStatusType.STARTING;
 
         // WHEN
-        gameState.setGameStatusType(gameStatusType);
+        gameStatus.setGameStatusType(gameStatusType);
 
         // THEN
-        assertEquals(gameStatusType, gameState.getGameStatusType());
+        assertEquals(gameStatusType, gameStatus.getGameStatusType());
     }
 }

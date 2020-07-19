@@ -18,7 +18,7 @@ import java.util.Collection;
 
 public class Game {
     private Printer printer;
-    private GameState gameState;
+    private GameStatus gameStatus;
     private PlayerGameData playerGameData;
     private ChestGameData chestGameData;
     private GameBackup gameBackup;
@@ -33,13 +33,13 @@ public class Game {
     private ScoreboardManager scoreboardManager;
     private WorldProvider worldProvider;
 
-    public Game(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
+    public Game(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
         this.printer = new Printer();
-        this.gameState = gameState;
+        this.gameStatus = gameStatus;
         this.playerGameData = playerGameData;
         this.chestGameData = chestGameData;
         this.gameBackup = new GameBackup();
-        this.gameInitPrinter = new GameInitPrinter(gameState, playerGameData);
+        this.gameInitPrinter = new GameInitPrinter(gameStatus, playerGameData);
         this.diamondIncreaser = new DiamondIncreaser(playerGameData, chestGameData);
         this.locationSetter = new LocationSetter();
         this.statsGiver = new StatsGiver();
@@ -51,9 +51,9 @@ public class Game {
     }
 
     // This is why you should use dependency injection frameworks
-    public Game(Printer printer, GameState gameState, ChestGameData chestGameData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
+    public Game(Printer printer, GameStatus gameStatus, ChestGameData chestGameData, PlayerGameData playerGameData, GameBackup gameBackup, GameInitPrinter gameInitPrinter, DiamondIncreaser diamondIncreaser, LocationSetter locationSetter, StatsGiver statsGiver, ItemGiver itemGiver, PlayerNameFixer playerNameFixer, BukkitTask startingTask, ItemRemover itemRemover, ScoreboardManager scoreboardManager, WorldProvider worldProvider) {
         this.printer = printer;
-        this.gameState = gameState;
+        this.gameStatus = gameStatus;
         this.chestGameData = chestGameData;
         this.playerGameData = playerGameData;
         this.gameBackup = gameBackup;
@@ -70,7 +70,7 @@ public class Game {
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
-        gameState.setGameStatusType(GameStatusType.STARTING);
+        gameStatus.setGameStatusType(GameStatusType.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGameAfterDelay();
         join(gameStarter, null);
@@ -78,7 +78,7 @@ public class Game {
 
     // For testing, without threads
     public void startInitializeMocked(Player gameStarter, String[] invitedPlayerNames) {
-        gameState.setGameStatusType(GameStatusType.STARTING);
+        gameStatus.setGameStatusType(GameStatusType.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGame();
         join(gameStarter, null);
@@ -103,7 +103,7 @@ public class Game {
     }
 
     private void startGame() {
-        gameState.setGameStatusType(GameStatusType.RUNNING);
+        gameStatus.setGameStatusType(GameStatusType.RUNNING);
         gameBackup.reloadMapRegionFromConfig();
 
         itemRemover.remove(worldProvider.getWorld());
@@ -156,7 +156,7 @@ public class Game {
         playerGameData.remove(player);
         statsGiver.clear(player);
 
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING) {
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING) {
             gameBackup.getPlayerBackup().restore(player);
             scoreboardManager.clear(player);
         }
@@ -168,17 +168,17 @@ public class Game {
     }
 
     private void endGame() {
-        if (gameState.getGameStatusType() == GameStatusType.STARTING) {
+        if (gameStatus.getGameStatusType() == GameStatusType.STARTING) {
             gameInitPrinter.stop();
             startingTask.cancel();
-        } else if (gameState.getGameStatusType() == GameStatusType.RUNNING) {
+        } else if (gameStatus.getGameStatusType() == GameStatusType.RUNNING) {
             itemRemover.remove(worldProvider.getWorld());
             gameBackup.getMapBackup().restore();
             diamondIncreaser.stop();
         }
 
         printer.broadcast(Message.STOPPED);
-        gameState.setGameStatusType(GameStatusType.OFF);
+        gameStatus.setGameStatusType(GameStatusType.OFF);
     }
 
     private void throwIfNotIngame(Player player) {

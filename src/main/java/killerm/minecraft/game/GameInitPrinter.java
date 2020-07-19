@@ -16,12 +16,12 @@ import java.util.List;
 
 public class GameInitPrinter {
     private Printer printer = new Printer();
-    private GameState gameState;
+    private GameStatus gameStatus;
     private PlayerGameData playerGameData;
     private List<BukkitTask> tasks = new ArrayList<>();
 
-    public GameInitPrinter(GameState gameState, PlayerGameData playerGameData) {
-        this.gameState = gameState;
+    public GameInitPrinter(GameStatus gameStatus, PlayerGameData playerGameData) {
+        this.gameStatus = gameStatus;
         this.playerGameData = playerGameData; //gameinit printer und diaincreaser testen
     }
 

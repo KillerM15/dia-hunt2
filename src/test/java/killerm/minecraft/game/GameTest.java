@@ -28,7 +28,7 @@ class GameTest {
     // Most methods are tested in game
 
     private Printer printer = mock(Printer.class);
-    private GameState gameState = mock(GameState.class);
+    private GameStatus gameStatus = mock(GameStatus.class);
     private ChestGameData chestGameData = mock(ChestGameData.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
     private GameBackup gameBackup = mock(GameBackup.class);
@@ -44,7 +44,7 @@ class GameTest {
     private ItemRemover itemRemover = mock(ItemRemover.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
     private WorldProvider worldProvider = mock(WorldProvider.class);
-    private Game game = new Game(printer, gameState, chestGameData, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver, playerNameFixer, startingTask, itemRemover, scoreboardManager, worldProvider);
+    private Game game = new Game(printer, gameStatus, chestGameData, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver, playerNameFixer, startingTask, itemRemover, scoreboardManager, worldProvider);
 
     @BeforeEach
     public void setup() {
@@ -107,7 +107,7 @@ class GameTest {
     @Test
     public void GIVEN_GameStatus_RUNNING_player_WHEN_leave_THEN_playerBackup_restore_diaPlayerData_remove_statsGiver_clear() {
         // GIVEN
-        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
+        doReturn(GameStatusType.RUNNING).when(gameStatus).getGameStatusType();
         Player player = mock(Player.class);
         doReturn(true).when(playerGameData).inGame(player);
 
@@ -130,8 +130,8 @@ class GameTest {
         game.startInitializeMocked(gameStarter, null);
 
         // THEN
-        Mockito.verify(gameState, times(1)).setGameStatusType(GameStatusType.STARTING);
-        Mockito.verify(gameState, times(1)).setGameStatusType(GameStatusType.RUNNING);
+        Mockito.verify(gameStatus, times(1)).setGameStatusType(GameStatusType.STARTING);
+        Mockito.verify(gameStatus, times(1)).setGameStatusType(GameStatusType.RUNNING);
     }
 
     @Test
@@ -196,7 +196,7 @@ class GameTest {
         players.add(player);
 
         doReturn(players).when(playerGameData).players();
-        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
+        doReturn(GameStatusType.STARTING).when(gameStatus).getGameStatusType();
         doReturn(true).when(playerGameData).inGame(player);
 
         // WHEN

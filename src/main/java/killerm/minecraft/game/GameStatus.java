@@ -1,6 +1,6 @@
 package killerm.minecraft.game;
 
-public class GameState {
+public class GameStatus {
     private volatile GameStatusType gameStatusType = GameStatusType.OFF;
 
     public void setGameStatusType(GameStatusType gameStatusType) {

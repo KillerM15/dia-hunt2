@@ -17,7 +17,7 @@ import java.util.List;
 public class Respawner {
     private Printer printer = new Printer();
     private List<BukkitTask> tasks = Collections.synchronizedList(new ArrayList<>());
-    private GameState gameState;
+    private GameStatus gameStatus;
     private PlayerGameData playerGameData;
     private ChestGameData chestGameData;
     private ItemGiver itemGiver = new ItemGiver();
@@ -26,8 +26,8 @@ public class Respawner {
     private DiamondIndicator diamondIndicator = new DiamondIndicator(); // TODO: maybe move in own class??
     private ScoreboardManager scoreboardManager = new ScoreboardManager();
 
-    public Respawner(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
-        this.gameState = gameState;
+    public Respawner(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
+        this.gameStatus = gameStatus;
         this.playerGameData = playerGameData;
         this.chestGameData = chestGameData;
     }
@@ -37,7 +37,7 @@ public class Respawner {
 
         new BukkitRunnable() {
             public void run() {
-                if (gameState.getGameStatusType() != GameStatusType.RUNNING) {
+                if (gameStatus.getGameStatusType() != GameStatusType.RUNNING) {
                     cancel();
                 }
 

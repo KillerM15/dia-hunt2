@@ -3,28 +3,28 @@ package killerm.minecraft.controller;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.LogicException;
 import killerm.minecraft.game.ChestGameData;
-import killerm.minecraft.game.GameState;
+import killerm.minecraft.game.GameStatus;
 import killerm.minecraft.game.Game;
 import killerm.minecraft.game.PlayerGameData;
 import org.bukkit.entity.Player;
 
 public class GameController {
-    private GameState gameState;
+    private GameStatus gameStatus;
     private Game game;
 
-    public GameController(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
-        this.gameState = gameState;
-        this.game = new Game(gameState, playerGameData, chestGameData);
+    public GameController(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
+        this.gameStatus = gameStatus;
+        this.game = new Game(gameStatus, playerGameData, chestGameData);
     }
 
     // This one is for tests
-    public GameController(GameState gameState, Game game) {
-        this.gameState = gameState;
+    public GameController(GameStatus gameStatus, Game game) {
+        this.gameStatus = gameStatus;
         this.game = game;
     }
 
     public void play(Player player, String[] invitedPlayerNames) {
-        switch (gameState.getGameStatusType()) {
+        switch (gameStatus.getGameStatusType()) {
             case OFF:
                 game.startInitialize(player, invitedPlayerNames);
                 break;
@@ -38,7 +38,7 @@ public class GameController {
     }
 
     public void stop() {
-        switch (gameState.getGameStatusType()) {
+        switch (gameStatus.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
@@ -51,7 +51,7 @@ public class GameController {
     }
 
     public void join(Player player, String[] teamString) {
-        switch (gameState.getGameStatusType()) {
+        switch (gameStatus.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
@@ -65,7 +65,7 @@ public class GameController {
     }
 
     public void leave(Player player) {
-        switch (gameState.getGameStatusType()) {
+        switch (gameStatus.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:

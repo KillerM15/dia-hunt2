@@ -23,26 +23,26 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class DiaHuntListener implements Listener {
     private Printer printer;
-    private GameState gameState;
+    private GameStatus gameStatus;
     private PlayerGameData playerGameData;
     private ChestGameData chestGameData;
     private DamageRecorder damageRecorder;
     private DeathProcessor deathProcessor;
     private ScoreboardManager scoreboardManager;
 
-    public DiaHuntListener(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
+    public DiaHuntListener(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
         this.printer = new Printer();
-        this.gameState = gameState;
+        this.gameStatus = gameStatus;
         this.playerGameData = playerGameData;
         this.chestGameData = chestGameData;
-        this.damageRecorder = new DamageRecorder(gameState, (int) (double) DiaConfig.SECONDS_COUNTS_AS_KILL.get());
-        this.deathProcessor = new DeathProcessor(gameState, playerGameData, chestGameData, damageRecorder);
+        this.damageRecorder = new DamageRecorder(gameStatus, (int) (double) DiaConfig.SECONDS_COUNTS_AS_KILL.get());
+        this.deathProcessor = new DeathProcessor(gameStatus, playerGameData, chestGameData, damageRecorder);
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DiaHuntListener(Printer printer, GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
+    public DiaHuntListener(Printer printer, GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
         this.printer = printer;
-        this.gameState = gameState;
+        this.gameStatus = gameStatus;
         this.playerGameData = playerGameData;
         this.chestGameData = chestGameData;
         this.damageRecorder = damageRecorder;
@@ -53,7 +53,7 @@ public class DiaHuntListener implements Listener {
     @EventHandler
     public void onPlayerRegainHealth(EntityRegainHealthEvent e) {
         // Disable health regen
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())
                 && (e.getRegainReason() == EntityRegainHealthEvent.RegainReason.SATIATED || e.getRegainReason() == EntityRegainHealthEvent.RegainReason.REGEN)) {
@@ -65,7 +65,7 @@ public class DiaHuntListener implements Listener {
     @EventHandler
     public void onHungerDeplete(FoodLevelChangeEvent e) {
         // Disable hunger
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())) {
 
@@ -76,7 +76,7 @@ public class DiaHuntListener implements Listener {
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         // Add shulkerBoxes to dia chest locations
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && playerGameData.inGame(e.getPlayer())
                 && (e.getBlock().getType() == Material.BLUE_SHULKER_BOX || e.getBlock().getType() == Material.RED_SHULKER_BOX)) {
 
@@ -92,7 +92,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && playerGameData.inGame(e.getPlayer())
                 && (e.getBlock().getType() == Material.BLUE_SHULKER_BOX || e.getBlock().getType() == Material.RED_SHULKER_BOX)) {
 
@@ -103,7 +103,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && e.getDamager() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())
@@ -117,7 +117,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && playerGameData.inGame(e.getPlayer())) {
 
             Player player = e.getPlayer();
@@ -134,7 +134,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onDamageEvent(EntityDamageEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())
                 && playerGameData.isAlive((Player) e.getEntity())) {
@@ -163,7 +163,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getWhoClicked() instanceof Player
                 && playerGameData.inGame((Player) e.getWhoClicked())) {
 
@@ -180,7 +180,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onInventoryItemDrop(PlayerDropItemEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getPlayer() instanceof Player
                 && playerGameData.inGame((Player) e.getPlayer())) {
             Player player = (Player) e.getPlayer();
@@ -196,7 +196,7 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onItemPickup(EntityPickupItemEvent e) {
-        if (gameState.getGameStatusType() == GameStatusType.RUNNING
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())) {
             Player player = (Player) e.getEntity();

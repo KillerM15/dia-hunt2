@@ -3,7 +3,7 @@ package killerm.minecraft.utilities;
 
 import com.sun.istack.internal.Nullable;
 import killerm.minecraft.DiaHuntPlugin;
-import killerm.minecraft.game.GameState;
+import killerm.minecraft.game.GameStatus;
 import killerm.minecraft.game.GameStatusType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,11 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DamageRecorder {
     private Map<Player, Player> lastDamagers = new ConcurrentHashMap<>();
     private Map<Player, BukkitRunnable> lastDamagerRemoverTasks = new ConcurrentHashMap<>();
-    private GameState gameState;
+    private GameStatus gameStatus;
     private int secondsUntilDelete;
 
-    public DamageRecorder(GameState gameState, int secondsUntilDelete) {
-        this.gameState = gameState;
+    public DamageRecorder(GameStatus gameStatus, int secondsUntilDelete) {
+        this.gameStatus = gameStatus;
         this.secondsUntilDelete = secondsUntilDelete;
     }
 
@@ -38,7 +38,7 @@ public class DamageRecorder {
         BukkitRunnable removerTask = new BukkitRunnable() {
             @Override
             public void run() {
-                if (gameState.getGameStatusType() == GameStatusType.RUNNING)
+                if (gameStatus.getGameStatusType() == GameStatusType.RUNNING)
                     lastDamagers.remove(receiver, damager);
             }
         };
