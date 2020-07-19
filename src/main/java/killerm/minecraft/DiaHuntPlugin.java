@@ -1,6 +1,7 @@
 package killerm.minecraft;
 
 import killerm.minecraft.commands.DiaHuntExecutor;
+import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.game.ChestGameData;
 import killerm.minecraft.game.GameStatus;
 import killerm.minecraft.game.PlayerGameData;
@@ -22,6 +23,7 @@ public class DiaHuntPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         prepareInstance();
+        initializeConfig();
         initializeGame();
         initializeExecutor();
         initializeListener();
@@ -29,6 +31,10 @@ public class DiaHuntPlugin extends JavaPlugin {
 
     private void prepareInstance() {
         instance = this;
+    }
+
+    private void initializeConfig() {
+        DiaConfig.setPlugin(instance);
     }
 
     private void initializeGame() {

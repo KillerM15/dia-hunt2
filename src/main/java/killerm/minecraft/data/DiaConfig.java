@@ -16,8 +16,14 @@ public enum DiaConfig {
     SECONDS_UNTIL_START(60.0, Double.class),
     SECONDS_COUNTS_AS_KILL(13.0, Double.class);
 
+    private static DiaHuntPlugin plugin;
     private Class T;
     private Object defaultValue;
+
+    public static void setPlugin(DiaHuntPlugin diaHuntPlugin) {
+        // Very bad design
+        plugin = diaHuntPlugin;
+    }
 
     private DiaConfig(Object defaultValue, Class T) {
         this.T = T;
@@ -26,8 +32,6 @@ public enum DiaConfig {
 
     public <U> void set(U value) {
         throwIfWrongType(value.getClass());
-
-        DiaHuntPlugin plugin = DiaHuntPlugin.getInstance();
 
         plugin.getConfig().set(this.toString(), value);
         plugin.saveConfig();
@@ -40,7 +44,7 @@ public enum DiaConfig {
     }
 
     public <T> T get() {
-        FileConfiguration config = DiaHuntPlugin.getInstance().getConfig();
+        FileConfiguration config = plugin.getInstance().getConfig();
 
         if (config.get(this.toString()) == null) {
             set(defaultValue);
