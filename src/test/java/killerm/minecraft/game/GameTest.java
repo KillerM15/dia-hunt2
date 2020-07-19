@@ -5,7 +5,7 @@ import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.PlayerBackup;
 import killerm.minecraft.data.RegionBackup;
 import killerm.minecraft.error.ParameterException;
-import killerm.minecraft.helper.PlayerNameFixer;
+import killerm.minecraft.utilities.PlayerNameFixer;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.ItemRemover;
 import killerm.minecraft.utilities.WorldProvider;

@@ -5,7 +5,7 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.error.ParameterException;
-import killerm.minecraft.helper.PlayerNameFixer;
+import killerm.minecraft.utilities.PlayerNameFixer;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.ItemRemover;
 import killerm.minecraft.utilities.MinecraftConstants;

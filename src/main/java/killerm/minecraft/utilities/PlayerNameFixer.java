@@ -1,4 +1,4 @@
-package killerm.minecraft.helper;
+package killerm.minecraft.utilities;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
