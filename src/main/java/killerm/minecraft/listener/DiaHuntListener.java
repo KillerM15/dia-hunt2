@@ -6,6 +6,7 @@ import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.game.data.ChestGameData;
 import killerm.minecraft.game.data.PlayerGameData;
 import killerm.minecraft.game.data.Team;
+import killerm.minecraft.game.flow.Condition;
 import killerm.minecraft.game.flow.DeathProcessor;
 import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.flow.GameStatusType;
@@ -147,7 +148,7 @@ public class DiaHuntListener implements Listener {
         if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getEntity() instanceof Player
                 && playerGameData.inGame((Player) e.getEntity())
-                && playerGameData.isAlive((Player) e.getEntity())) {
+                && playerGameData.getCondition((Player) e.getEntity()) == Condition.ALIVE) {
 
             Player player = (Player) e.getEntity();
             boolean gotDamageInVoid = e.getCause().equals(EntityDamageEvent.DamageCause.VOID);

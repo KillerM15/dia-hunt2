@@ -4,8 +4,10 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.controller.ConfigController;
 import killerm.minecraft.controller.GameController;
+import killerm.minecraft.controller.StatusController;
 import killerm.minecraft.validator.ConfigValidator;
 import killerm.minecraft.validator.GameValidator;
+import killerm.minecraft.validator.StatusValidator;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,9 +20,11 @@ class DiaHuntExecutorTest {
     private Tester tester = mock(Tester.class);
     private ConfigValidator configValidator = mock(ConfigValidator.class);
     private GameValidator gameValidator = mock(GameValidator.class);
+    private StatusValidator statusValidator = mock(StatusValidator.class);
     private ConfigController configController = mock(ConfigController.class);
     private GameController gameController = mock(GameController.class);
-    private DiaHuntExecutor diaHuntExecutor = new DiaHuntExecutor(tester, printer, configValidator, gameValidator, configController, gameController);
+    private StatusController statusController = mock(StatusController.class);
+    private DiaHuntExecutor diaHuntExecutor = new DiaHuntExecutor(tester, printer, configValidator, gameValidator, statusValidator, configController, gameController, statusController);
     
     @Test
     public void GIVEN_command_WHEN_onCommand_with_non_player_THEN_execute_command_as_server() {

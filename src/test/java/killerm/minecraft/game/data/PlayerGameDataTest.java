@@ -175,33 +175,33 @@ class PlayerGameDataTest {
     }
 
     @Test
-    public void GIVEN_player_with_Condition_ALIVE_WHEN_isAlive_THEN_true() {
+    public void GIVEN_player_with_Condition_ALIVE_WHEN_getCondition_THEN_Condition_ALIVE() {
         // GIVEN
         Player player = mock(Player.class);
         playerGameData.setCondition(player, Condition.ALIVE);
 
         // WHEN / THEN
-        assert (playerGameData.isAlive(player));
+        assertEquals (Condition.ALIVE, playerGameData.getCondition(player));
     }
 
     @Test
-    public void GIVEN_player_with_Condition_RESPAWNING_WHEN_isAlive_THEN_false() {
+    public void GIVEN_player_with_Condition_RESPAWNING_WHEN_getCondition_THEN_Condition_RESPAWNING() {
         // GIVEN
         Player player = mock(Player.class);
         playerGameData.setCondition(player, Condition.RESPAWNING);
 
         // WHEN / THEN
-        assert (!playerGameData.isAlive(player));
+        assertEquals (Condition.RESPAWNING, playerGameData.getCondition(player));
     }
 
     @Test
-    public void GIVEN_player_with_Condition_DEAD_WHEN_isAlive_THEN_false() {
+    public void GIVEN_player_with_Condition_DEAD_WHEN_getCondition_THEN_Condition_DEAD() {
         // GIVEN
         Player player = mock(Player.class);
         playerGameData.setCondition(player, Condition.DEAD);
 
         // WHEN / THEN
-        assert (!playerGameData.isAlive(player));
+        assertEquals (Condition.DEAD, playerGameData.getCondition(player));
     }
 
     @Test

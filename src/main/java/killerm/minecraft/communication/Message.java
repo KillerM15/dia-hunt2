@@ -19,6 +19,7 @@ public class Message {
     public static final String DARK_AQUA = "§3";
     public static final String BOLD = "§l";
     public static final String STRIKE = "§m";
+    public static final String ITALIC = "§o";
     public static final String RESET = "§r";
     public static final String TEAM_AQUA = BLUE;
     public static final String TEAM_LAVA = RED;
@@ -41,6 +42,7 @@ public class Message {
     public static final String DESCRIPTION_JOIN = "Join a Dia Hunt game. Usage: /diahunt join <Team>";
     public static final String DESCRIPTION_LEAVE = "Leave a Dia Hunt game. Usage: /diahunt leave";
     public static final String DESCRIPTION_STOP = "Stop a Dia Hunt game. Usage: /diahunt stop";
+    public static final String DESCRIPTION_STATUS = "Show current game status and Player in game. Usage: /diahunt status";
 
     public static final String VALID_TEAMS = "Valid teams: " + CollectionDelimiter.delimit(Team.values(), Team::toString);
     public static final String TEAM_NOT_VALID = "This team isn't valid! " + VALID_TEAMS;
@@ -52,6 +54,7 @@ public class Message {
     public static final String SYMBOL_FIRE = "ᐃ";
     public static final String SYMBOL_WATER = "ᐁ";
     public static final String SPACE = " ";
+    public static final String TABLE_DELIMITER = " | ";
     public static final String RIGHT_ARROW = "→";
     public static final String LEFT_ARROW = "←";
     public static final String JOINED_TEAM = " has joined team ";

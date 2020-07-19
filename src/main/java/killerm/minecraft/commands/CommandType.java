@@ -13,7 +13,8 @@ public enum CommandType {
     PLAY(Message.DESCRIPTION_START, false),
     JOIN(Message.DESCRIPTION_JOIN, false),
     LEAVE(Message.DESCRIPTION_LEAVE, false),
-    STOP(Message.DESCRIPTION_STOP, false);
+    STOP(Message.DESCRIPTION_STOP, false),
+    STATUS(Message.DESCRIPTION_STATUS, false);
 
     private String description;
     private boolean emptyCommandEqualsHelp; // "/diahunt command" -> results in help, if true

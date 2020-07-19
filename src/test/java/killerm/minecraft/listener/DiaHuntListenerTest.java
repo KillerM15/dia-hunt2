@@ -3,6 +3,7 @@ package killerm.minecraft.listener;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.game.data.ChestGameData;
 import killerm.minecraft.game.data.PlayerGameData;
+import killerm.minecraft.game.flow.Condition;
 import killerm.minecraft.game.flow.DeathProcessor;
 import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.flow.GameStatusType;
@@ -105,7 +106,7 @@ class DiaHuntListenerTest {
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);
-        doReturn(true).when(playerGameData).isAlive(player);
+        doReturn(Condition.ALIVE).when(playerGameData).getCondition(player);
         doReturn(EntityDamageEvent.DamageCause.VOID).when(e).getCause();
 
         // WHEN
@@ -123,7 +124,7 @@ class DiaHuntListenerTest {
         Player player = mock(Player.class);
         doReturn(player).when(e).getEntity();
         doReturn(true).when(playerGameData).inGame(player);
-        doReturn(true).when(playerGameData).isAlive(player);
+        doReturn(Condition.ALIVE).when(playerGameData).getCondition(player);
         doReturn(EntityDamageEvent.DamageCause.LIGHTNING).when(e).getCause();
         doReturn(1.0).when(player).getHealth();
         doReturn(1.0).when(e).getDamage();
