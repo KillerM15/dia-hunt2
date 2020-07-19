@@ -23,7 +23,7 @@ public class Respawner {
     private ItemGiver itemGiver = new ItemGiver();
     private StatsGiver statsGiver = new StatsGiver();
     private LocationSetter locationSetter = new LocationSetter();
-    private DiamondIndicator diamondIndicator = new DiamondIndicator(); // TODO: maybe move in own class??
+    private DiamondIndicator diamondIndicator = new DiamondIndicator();
     private ScoreboardManager scoreboardManager = new ScoreboardManager();
 
     public Respawner(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
