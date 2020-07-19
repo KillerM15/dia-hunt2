@@ -136,4 +136,10 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         setLore(itemstack, Message.GREY + ItemCategory.TRICKY.getDescription());
         return itemstack;
     }
+
+    public static ItemStack melon() { // TODO: remove as soon as real items are implemented
+        ItemStack itemstack = new ItemStack(Material.MELON);
+        setDisplayName(itemstack, Message.GREEN + "MELONE!");
+        return itemstack;
+    }
 }
