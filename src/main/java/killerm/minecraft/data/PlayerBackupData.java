@@ -7,7 +7,7 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.Collection;
 
-public class PlayerData {
+public class PlayerBackupData {
     public ItemStack[] itemStacks;
     public ItemStack[] itemStacksArmor;
     public Location location;
