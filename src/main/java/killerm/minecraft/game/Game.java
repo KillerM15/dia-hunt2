@@ -70,7 +70,7 @@ public class Game {
     }
 
     public void startInitialize(Player gameStarter, String[] invitedPlayerNames) {
-        gameState.setGameStatus(GameStatus.STARTING);
+        gameState.setGameStatusType(GameStatusType.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGameAfterDelay();
         join(gameStarter, null);
@@ -78,7 +78,7 @@ public class Game {
 
     // For testing, without threads
     public void startInitializeMocked(Player gameStarter, String[] invitedPlayerNames) {
-        gameState.setGameStatus(GameStatus.STARTING);
+        gameState.setGameStatusType(GameStatusType.STARTING);
         printCountDown(gameStarter, invitedPlayerNames);
         startGame();
         join(gameStarter, null);
@@ -103,7 +103,7 @@ public class Game {
     }
 
     private void startGame() {
-        gameState.setGameStatus(GameStatus.RUNNING);
+        gameState.setGameStatusType(GameStatusType.RUNNING);
         gameBackup.reloadMapRegionFromConfig();
 
         itemRemover.remove(worldProvider.getWorld());
@@ -156,7 +156,7 @@ public class Game {
         playerGameData.remove(player);
         statsGiver.clear(player);
 
-        if (gameState.getGameStatus() == GameStatus.RUNNING) {
+        if (gameState.getGameStatusType() == GameStatusType.RUNNING) {
             gameBackup.getPlayerBackup().restore(player);
             scoreboardManager.clear(player);
         }
@@ -168,17 +168,17 @@ public class Game {
     }
 
     private void endGame() {
-        if (gameState.getGameStatus() == GameStatus.STARTING) {
+        if (gameState.getGameStatusType() == GameStatusType.STARTING) {
             gameInitPrinter.stop();
             startingTask.cancel();
-        } else if (gameState.getGameStatus() == GameStatus.RUNNING) {
+        } else if (gameState.getGameStatusType() == GameStatusType.RUNNING) {
             itemRemover.remove(worldProvider.getWorld());
             gameBackup.getMapBackup().restore();
             diamondIncreaser.stop();
         }
 
         printer.broadcast(Message.STOPPED);
-        gameState.setGameStatus(GameStatus.OFF);
+        gameState.setGameStatusType(GameStatusType.OFF);
     }
 
     private void throwIfNotIngame(Player player) {

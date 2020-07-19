@@ -24,7 +24,7 @@ public class GameController {
     }
 
     public void play(Player player, String[] invitedPlayerNames) {
-        switch (gameState.getGameStatus()) {
+        switch (gameState.getGameStatusType()) {
             case OFF:
                 game.startInitialize(player, invitedPlayerNames);
                 break;
@@ -38,7 +38,7 @@ public class GameController {
     }
 
     public void stop() {
-        switch (gameState.getGameStatus()) {
+        switch (gameState.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
@@ -51,7 +51,7 @@ public class GameController {
     }
 
     public void join(Player player, String[] teamString) {
-        switch (gameState.getGameStatus()) {
+        switch (gameState.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
@@ -65,7 +65,7 @@ public class GameController {
     }
 
     public void leave(Player player) {
-        switch (gameState.getGameStatus()) {
+        switch (gameState.getGameStatusType()) {
             case OFF:
                 throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:

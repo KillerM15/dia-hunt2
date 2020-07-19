@@ -4,7 +4,7 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.LogicException;
 import killerm.minecraft.game.GameState;
 import killerm.minecraft.game.Game;
-import killerm.minecraft.game.GameStatus;
+import killerm.minecraft.game.GameStatusType;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,7 +25,7 @@ class GameControllerTest {
         // GIVEN
         Player player = mock(Player.class);
         String[] invitedPlayerNames = new String[]{"player1", "player2"};
-        doReturn(GameStatus.OFF).when(gameState).getGameStatus();
+        doReturn(GameStatusType.OFF).when(gameState).getGameStatusType();
 
         // WHEN
         gameController.play(player, invitedPlayerNames);
@@ -37,7 +37,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_STARTING_WHEN_play_THEN_Exception() {
         // GIVEN
-        doReturn(GameStatus.STARTING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -53,7 +53,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_RUNNING_WHEN_play_THEN_Exception() {
         // GIVEN
-        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -69,7 +69,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_OFF_WHEN_stop_THEN_Exception() {
         // GIVEN
-        doReturn(GameStatus.OFF).when(gameState).getGameStatus();
+        doReturn(GameStatusType.OFF).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -85,7 +85,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_STARTING_WHEN_stop_THEN_game_stop_called() {
         // GIVEN
-        doReturn(GameStatus.STARTING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
 
         // WHEN
         gameController.stop();
@@ -97,7 +97,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_RUNNING_WHEN_stop_THEN_game_stop_called() {
         // GIVEN
-        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
 
         // WHEN
         gameController.stop();
@@ -109,7 +109,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_OFF_WHEN_join_THEN_Exception() {
         // GIVEN
-        doReturn(GameStatus.OFF).when(gameState).getGameStatus();
+        doReturn(GameStatusType.OFF).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -125,7 +125,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_STARTING_and_player_and_teamString_WHEN_join_THEN_game_join_with_player_and_teamString_called() {
         // GIVEN
-        doReturn(GameStatus.STARTING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
         Player player = mock(Player.class);
         String[] teamString = new String[]{};
 
@@ -138,7 +138,7 @@ class GameControllerTest {
 
     @Test
     public void GIVEN_GameStatus_RUNNING_WHEN_join_THEN_Exception() {
-        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -154,7 +154,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_OFF_WHEN_leave_THEN_Exception() {
         // GIVEN
-        doReturn(GameStatus.OFF).when(gameState).getGameStatus();
+        doReturn(GameStatusType.OFF).when(gameState).getGameStatusType();
 
         // WHEN
         LogicException thrown = assertThrows(
@@ -170,7 +170,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_STARTING_and_player_WHEN_leave_THEN_game_leave_player_called() {
         // GIVEN
-        doReturn(GameStatus.STARTING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
         Player player = mock(Player.class);
 
         // WHEN
@@ -183,7 +183,7 @@ class GameControllerTest {
     @Test
     public void GIVEN_GameStatus_RUNNING_WHEN_leave_THEN_game_leave_player_called() {
         // GIVEN
-        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
         Player player = mock(Player.class);
 
         // WHEN

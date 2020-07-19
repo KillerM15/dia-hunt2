@@ -1,13 +1,13 @@
 package killerm.minecraft.game;
 
 public class GameState {
-    private volatile GameStatus gameStatus = GameStatus.OFF;
+    private volatile GameStatusType gameStatusType = GameStatusType.OFF;
 
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
+    public void setGameStatusType(GameStatusType gameStatusType) {
+        this.gameStatusType = gameStatusType;
     }
 
-    public GameStatus getGameStatus() {
-        return gameStatus;
+    public GameStatusType getGameStatusType() {
+        return gameStatusType;
     }
 }

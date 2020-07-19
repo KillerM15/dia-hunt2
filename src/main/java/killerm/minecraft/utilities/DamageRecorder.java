@@ -4,7 +4,7 @@ package killerm.minecraft.utilities;
 import com.sun.istack.internal.Nullable;
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.game.GameState;
-import killerm.minecraft.game.GameStatus;
+import killerm.minecraft.game.GameStatusType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -38,7 +38,7 @@ public class DamageRecorder {
         BukkitRunnable removerTask = new BukkitRunnable() {
             @Override
             public void run() {
-                if (gameState.getGameStatus() == GameStatus.RUNNING)
+                if (gameState.getGameStatusType() == GameStatusType.RUNNING)
                     lastDamagers.remove(receiver, damager);
             }
         };

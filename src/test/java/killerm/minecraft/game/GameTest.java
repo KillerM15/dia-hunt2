@@ -107,7 +107,7 @@ class GameTest {
     @Test
     public void GIVEN_GameStatus_RUNNING_player_WHEN_leave_THEN_playerBackup_restore_diaPlayerData_remove_statsGiver_clear() {
         // GIVEN
-        doReturn(GameStatus.RUNNING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.RUNNING).when(gameState).getGameStatusType();
         Player player = mock(Player.class);
         doReturn(true).when(playerGameData).inGame(player);
 
@@ -130,8 +130,8 @@ class GameTest {
         game.startInitializeMocked(gameStarter, null);
 
         // THEN
-        Mockito.verify(gameState, times(1)).setGameStatus(GameStatus.STARTING);
-        Mockito.verify(gameState, times(1)).setGameStatus(GameStatus.RUNNING);
+        Mockito.verify(gameState, times(1)).setGameStatusType(GameStatusType.STARTING);
+        Mockito.verify(gameState, times(1)).setGameStatusType(GameStatusType.RUNNING);
     }
 
     @Test
@@ -196,7 +196,7 @@ class GameTest {
         players.add(player);
 
         doReturn(players).when(playerGameData).players();
-        doReturn(GameStatus.STARTING).when(gameState).getGameStatus();
+        doReturn(GameStatusType.STARTING).when(gameState).getGameStatusType();
         doReturn(true).when(playerGameData).inGame(player);
 
         // WHEN

@@ -37,7 +37,7 @@ public class Respawner {
 
         new BukkitRunnable() {
             public void run() {
-                if (gameState.getGameStatus() != GameStatus.RUNNING) {
+                if (gameState.getGameStatusType() != GameStatusType.RUNNING) {
                     cancel();
                 }
 

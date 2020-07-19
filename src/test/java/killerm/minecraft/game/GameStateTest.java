@@ -9,18 +9,18 @@ class GameStateTest {
 
     @Test
     public void WHEN_getGameStatus_THEN_return_OFF() {
-        assertEquals(GameStatus.OFF, gameState.getGameStatus());
+        assertEquals(GameStatusType.OFF, gameState.getGameStatusType());
     }
 
     @Test
     public void GIVEN_GameStatus_WHEN_getGameStatus_THEN_return_gameStatus() {
         // GIVEN
-        GameStatus gameStatus = GameStatus.STARTING;
+        GameStatusType gameStatusType = GameStatusType.STARTING;
 
         // WHEN
-        gameState.setGameStatus(gameStatus);
+        gameState.setGameStatusType(gameStatusType);
 
         // THEN
-        assertEquals(gameStatus, gameState.getGameStatus());
+        assertEquals(gameStatusType, gameState.getGameStatusType());
     }
 }

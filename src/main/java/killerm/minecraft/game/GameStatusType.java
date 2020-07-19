@@ -1,5 +1,5 @@
 package killerm.minecraft.game;
 
-public enum GameStatus {
+public enum GameStatusType {
     STARTING, RUNNING, OFF;
 }
