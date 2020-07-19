@@ -1,4 +1,4 @@
-package killerm.minecraft.communication;
+package killerm.minecraft.manager;
 
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.utilities.PlayerRetriever;
@@ -9,14 +9,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 
-public class Sounds {
+public class SoundManager {
     private PlayerRetriever playerRetriever;
 
-    public Sounds() {
+    public SoundManager() {
         this.playerRetriever = new PlayerRetriever();
     }
 
-    public Sounds(PlayerRetriever playerRetriever) {
+    public SoundManager(PlayerRetriever playerRetriever) {
         this.playerRetriever = playerRetriever;
     }
 

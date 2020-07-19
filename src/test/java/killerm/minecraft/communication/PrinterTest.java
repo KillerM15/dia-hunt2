@@ -1,5 +1,6 @@
 package killerm.minecraft.communication;
 
+import killerm.minecraft.manager.SoundManager;
 import killerm.minecraft.utilities.PlayerRetriever;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -17,9 +18,9 @@ import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 class PrinterTest {
-    private Sounds sounds = mock(Sounds.class);
+    private SoundManager soundManager = mock(SoundManager.class);
     private PlayerRetriever playerRetriever = mock(PlayerRetriever.class);
-    private Printer printer = new Printer(sounds, playerRetriever);
+    private Printer printer = new Printer(soundManager, playerRetriever);
 
     @Test
     public void GIVEN_2_online_players_and_message_WHEN_broadcast_THEN_each_player_got_message_and_2_sounds() {
@@ -37,7 +38,7 @@ class PrinterTest {
         printer.broadcast(message);
 
         // THEN
-        Mockito.verify(sounds, times(2)).play(any(Sound.class), Matchers.anyFloat());
+        Mockito.verify(soundManager, times(2)).play(any(Sound.class), Matchers.anyFloat());
         Mockito.verify(player1, times(1)).sendMessage(anyString());
         Mockito.verify(player2, times(1)).sendMessage(anyString());
     }
@@ -52,7 +53,7 @@ class PrinterTest {
         printer.tell(player, message);
 
         // THEN
-        Mockito.verify(sounds, times(1)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
+        Mockito.verify(soundManager, times(1)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
         Mockito.verify(player, times(1)).sendMessage(anyString());
     }
 
@@ -73,7 +74,7 @@ class PrinterTest {
         printer.broadcastTitle(title, subtitle);
 
         // THEN
-        Mockito.verify(sounds, times(4)).playDelayedSound(any(Player.class), any(Sound.class), anyFloat(), anyInt());
+        Mockito.verify(soundManager, times(4)).playDelayedSound(any(Player.class), any(Sound.class), anyFloat(), anyInt());
         Mockito.verify(player1, times(1)).sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
         Mockito.verify(player2, times(1)).sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
     }
@@ -94,7 +95,7 @@ class PrinterTest {
         printer.broadcastError(message);
 
         // THEN
-        Mockito.verify(sounds, times(1)).play(any(Sound.class), Matchers.anyFloat());
+        Mockito.verify(soundManager, times(1)).play(any(Sound.class), Matchers.anyFloat());
         Mockito.verify(player1, times(1)).sendMessage(anyString());
         Mockito.verify(player2, times(1)).sendMessage(anyString());
     }
@@ -109,7 +110,7 @@ class PrinterTest {
         printer.tellError(player, message);
 
         // THEN
-        Mockito.verify(sounds, times(1)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
+        Mockito.verify(soundManager, times(1)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
         Mockito.verify(player, times(1)).sendMessage(anyString());
     }
 
@@ -131,8 +132,8 @@ class PrinterTest {
         printer.broadcastClickable("message", "command");
 
         // THEN
-        Mockito.verify(sounds, times(2)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
-        Mockito.verify(sounds, times(2)).play(any(Player.class), any(Sound.class));
+        Mockito.verify(soundManager, times(2)).play(any(Player.class), any(Sound.class), Matchers.anyFloat());
+        Mockito.verify(soundManager, times(2)).play(any(Player.class), any(Sound.class));
     }
 
 }

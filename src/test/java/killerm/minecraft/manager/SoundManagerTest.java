@@ -1,4 +1,4 @@
-package killerm.minecraft.communication;
+package killerm.minecraft.manager;
 
 import killerm.minecraft.utilities.PlayerRetriever;
 import org.bukkit.Location;
@@ -15,9 +15,9 @@ import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
-class SoundsTest {
+class SoundManagerTest {
     private PlayerRetriever playerRetriever = mock(PlayerRetriever.class);
-    private Sounds sounds = new Sounds(playerRetriever);
+    private SoundManager soundManager = new SoundManager(playerRetriever);
 
     @Test
     public void GIVEN_player_location_world_sound_pitch_WHEN_play_THEN_verify_correct_method_called() {
@@ -32,7 +32,7 @@ class SoundsTest {
         float pitch = (float) 0.5;
 
         // WHEN
-        sounds.play(player, Sound.ENTITY_HORSE_DEATH, pitch);
+        soundManager.play(player, Sound.ENTITY_HORSE_DEATH, pitch);
 
         // THEN
         Mockito.verify(world, times(1)).playSound(playerLocation, sound, 1, pitch);
@@ -50,7 +50,7 @@ class SoundsTest {
         Sound sound = Sound.ENTITY_HORSE_DEATH;
 
         // WHEN
-        sounds.play(player, sound);
+        soundManager.play(player, sound);
 
         // THEN
         Mockito.verify(world, times(1)).playSound(playerLocation, sound, 1, 1);
@@ -78,7 +78,7 @@ class SoundsTest {
         Sound sound = Sound.ENTITY_HORSE_DEATH;
 
         // WHEN
-        sounds.play(players, sound);
+        soundManager.play(players, sound);
 
         // THEN
         Mockito.verify(world1, times(1)).playSound(playerLocation1, sound, 1, 1);
@@ -107,7 +107,7 @@ class SoundsTest {
         Sound sound = Sound.ENTITY_HORSE_DEATH;
 
         // WHEN
-        sounds.play(players, sound, (float) 1.5);
+        soundManager.play(players, sound, (float) 1.5);
 
         // THEN
         Mockito.verify(world1, times(1)).playSound(playerLocation1, sound, 1, (float) 1.5);
@@ -139,7 +139,7 @@ class SoundsTest {
         Sound sound = Sound.ENTITY_HORSE_DEATH;
 
         // WHEN
-        sounds.play(sound);
+        soundManager.play(sound);
 
         // THEN
         Mockito.verify(world1, times(1)).playSound(playerLocation1, sound, 1,1);
