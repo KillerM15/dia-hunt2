@@ -1,7 +1,7 @@
 package killerm.minecraft.commands;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 
 public enum CommandType {
     HELP(Message.DESCRIPTION_EMPTY, true),
@@ -39,7 +39,7 @@ public enum CommandType {
             }
         }
 
-        throw new DiaHuntParameterException(Message.COMMANDTYPE_NOT_VALID);
+        throw new ParameterException(Message.COMMANDTYPE_NOT_VALID);
     }
 
     public boolean isEmptyCommandEqualsHelp() {

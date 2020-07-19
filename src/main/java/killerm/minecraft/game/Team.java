@@ -1,7 +1,7 @@
 package killerm.minecraft.game;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 
 public enum Team {
     AQUA, LAVA;
@@ -18,7 +18,7 @@ public enum Team {
             }
         }
 
-        throw new DiaHuntParameterException(Message.TEAM_NOT_VALID);
+        throw new ParameterException(Message.TEAM_NOT_VALID);
     }
 
     public Team getEnemy() {

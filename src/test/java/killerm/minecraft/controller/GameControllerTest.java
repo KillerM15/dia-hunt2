@@ -1,7 +1,7 @@
 package killerm.minecraft.controller;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntLogicException;
+import killerm.minecraft.error.LogicException;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.Game;
 import killerm.minecraft.game.GameStatus;
@@ -40,8 +40,8 @@ class GameControllerTest {
         doReturn(GameStatus.STARTING).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.play(null, new String[]{}),
                 "Expected to throw, but didn't"
         );
@@ -56,8 +56,8 @@ class GameControllerTest {
         doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.play(null, new String[]{}),
                 "Expected to throw, but didn't"
         );
@@ -72,8 +72,8 @@ class GameControllerTest {
         doReturn(GameStatus.OFF).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.stop(),
                 "Expected to throw, but didn't"
         );
@@ -112,8 +112,8 @@ class GameControllerTest {
         doReturn(GameStatus.OFF).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.join(null, null),
                 "Expected to throw, but didn't"
         );
@@ -141,8 +141,8 @@ class GameControllerTest {
         doReturn(GameStatus.RUNNING).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.join(null, new String[]{}),
                 "Expected to throw, but didn't"
         );
@@ -157,8 +157,8 @@ class GameControllerTest {
         doReturn(GameStatus.OFF).when(diaHuntGameState).getGameStatus();
 
         // WHEN
-        DiaHuntLogicException thrown = assertThrows(
-                DiaHuntLogicException.class,
+        LogicException thrown = assertThrows(
+                LogicException.class,
                 () -> gameController.leave(null),
                 "Expected to throw, but didn't"
         );

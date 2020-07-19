@@ -4,7 +4,7 @@ import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.ItemRemover;
@@ -183,7 +183,7 @@ public class Game {
 
     private void throwIfNotIngame(Player player) {
         if (!playerGameData.inGame(player)) {
-            throw new DiaHuntParameterException(Message.NOT_INGAME);
+            throw new ParameterException(Message.NOT_INGAME);
         }
     }
 

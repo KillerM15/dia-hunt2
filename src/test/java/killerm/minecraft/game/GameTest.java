@@ -4,7 +4,7 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.PlayerBackup;
 import killerm.minecraft.data.RegionBackup;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import killerm.minecraft.helper.PlayerNameFixer;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.ItemRemover;
@@ -94,8 +94,8 @@ class GameTest {
         Player player = mock(Player.class);
 
         // WHEN
-        DiaHuntParameterException thrown = assertThrows(
-                DiaHuntParameterException.class,
+        ParameterException thrown = assertThrows(
+                ParameterException.class,
                 () -> game.leave(player),
                 "Expected to throw, but didn't"
         );

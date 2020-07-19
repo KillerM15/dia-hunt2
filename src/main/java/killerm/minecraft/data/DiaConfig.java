@@ -2,7 +2,7 @@ package killerm.minecraft.data;
 
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -35,7 +35,7 @@ public enum DiaConfig {
 
     private void throwIfWrongType(Class U) {
         if (!U.equals(T)) {
-            throw new DiaHuntParameterException(U.getName() + Message.AND + T.getName() + Message.NOT_SAME_TYPE);
+            throw new ParameterException(U.getName() + Message.AND + T.getName() + Message.NOT_SAME_TYPE);
         }
     }
 
@@ -61,6 +61,6 @@ public enum DiaConfig {
             }
         }
 
-        throw new DiaHuntParameterException(Message.DIACONFIG_NOT_VALID);
+        throw new ParameterException(Message.DIACONFIG_NOT_VALID);
     }
 }

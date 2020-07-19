@@ -1,7 +1,7 @@
 package killerm.minecraft.commands;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,8 +35,8 @@ class CommandTypeTest {
         String commandTypeString = "helpp";
 
         // WHEN
-        DiaHuntParameterException thrown = assertThrows(
-                DiaHuntParameterException.class,
+        ParameterException thrown = assertThrows(
+                ParameterException.class,
                 () -> CommandType.getInstance(commandTypeString),
                 "Expected to throw, but didn't"
         );

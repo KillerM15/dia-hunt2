@@ -4,8 +4,8 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.controller.ConfigController;
 import killerm.minecraft.controller.GameController;
-import killerm.minecraft.error.DiaHuntLogicException;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.LogicException;
+import killerm.minecraft.error.ParameterException;
 import killerm.minecraft.game.DiaChestGameData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.PlayerGameData;
@@ -64,7 +64,7 @@ public class DiaHuntExecutor implements CommandExecutor {
             } else {
                 sendToController(player, command);
             }
-        } catch (DiaHuntParameterException | DiaHuntLogicException e) {
+        } catch (ParameterException | LogicException e) {
             printer.tellError(player, e.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class DiaHuntExecutor implements CommandExecutor {
         try {
             Command command = new Command(args);
             sendToController(null, command);
-        } catch (DiaHuntParameterException | DiaHuntLogicException e) {
+        } catch (ParameterException | LogicException e) {
             printer.broadcastError(e.getMessage());
         }
     }
@@ -118,7 +118,7 @@ public class DiaHuntExecutor implements CommandExecutor {
                 gameController.stop();
                 break;
             default:
-                throw new DiaHuntParameterException(Message.COMMAND_NOT_IMPLEMENTED);
+                throw new ParameterException(Message.COMMAND_NOT_IMPLEMENTED);
         }
     }
 

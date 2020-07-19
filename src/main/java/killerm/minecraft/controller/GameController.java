@@ -1,7 +1,7 @@
 package killerm.minecraft.controller;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntLogicException;
+import killerm.minecraft.error.LogicException;
 import killerm.minecraft.game.DiaChestGameData;
 import killerm.minecraft.game.DiaHuntGameState;
 import killerm.minecraft.game.Game;
@@ -29,51 +29,51 @@ public class GameController {
                 game.startInitialize(player, invitedPlayerNames);
                 break;
             case STARTING:
-                throw new DiaHuntLogicException(Message.GAME_ALREADY_STARTING);
+                throw new LogicException(Message.GAME_ALREADY_STARTING);
             case RUNNING:
-                throw new DiaHuntLogicException(Message.GAME_ALREADY_RUNNING);
+                throw new LogicException(Message.GAME_ALREADY_RUNNING);
             default:
-                throw new DiaHuntLogicException(Message.INVALID_GAME_STATUS);
+                throw new LogicException(Message.INVALID_GAME_STATUS);
         }
     }
 
     public void stop() {
         switch (diaHuntGameState.getGameStatus()) {
             case OFF:
-                throw new DiaHuntLogicException(Message.NO_GAME_IN_PROGRESS);
+                throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
             case RUNNING:
                 game.stop();
                 break;
             default:
-                throw new DiaHuntLogicException(Message.INVALID_GAME_STATUS);
+                throw new LogicException(Message.INVALID_GAME_STATUS);
         }
     }
 
     public void join(Player player, String[] teamString) {
         switch (diaHuntGameState.getGameStatus()) {
             case OFF:
-                throw new DiaHuntLogicException(Message.NO_GAME_IN_PROGRESS);
+                throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
                 game.join(player, teamString);
                 break;
             case RUNNING:
-                throw new DiaHuntLogicException(Message.GAME_ALREADY_RUNNING);
+                throw new LogicException(Message.GAME_ALREADY_RUNNING);
             default:
-                throw new DiaHuntLogicException(Message.INVALID_GAME_STATUS);
+                throw new LogicException(Message.INVALID_GAME_STATUS);
         }
     }
 
     public void leave(Player player) {
         switch (diaHuntGameState.getGameStatus()) {
             case OFF:
-                throw new DiaHuntLogicException(Message.NO_GAME_IN_PROGRESS);
+                throw new LogicException(Message.NO_GAME_IN_PROGRESS);
             case STARTING:
             case RUNNING:
                 game.leave(player);
                 break;
             default:
-                throw new DiaHuntLogicException(Message.INVALID_GAME_STATUS);
+                throw new LogicException(Message.INVALID_GAME_STATUS);
         }
     }
 }

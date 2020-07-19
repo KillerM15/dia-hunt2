@@ -1,7 +1,7 @@
 package killerm.minecraft.utilities;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import killerm.minecraft.game.Team;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +25,8 @@ class TeamTest {
         String teamString = "invalid";
 
         // WHEN
-        DiaHuntParameterException thrown = assertThrows(
-                DiaHuntParameterException.class,
+        ParameterException thrown = assertThrows(
+                ParameterException.class,
                 () -> Team.getTeam(teamString),
                 "Expected to throw, but didn't"
         );

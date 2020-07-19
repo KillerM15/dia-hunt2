@@ -1,7 +1,7 @@
 package killerm.minecraft.validator;
 
 import killerm.minecraft.communication.Message;
-import killerm.minecraft.error.DiaHuntParameterException;
+import killerm.minecraft.error.ParameterException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,8 +16,8 @@ class ConfigValidatorTest {
         String[] params = new String[]{"1", "2", "3"};
 
         // WHEN
-        DiaHuntParameterException thrown = assertThrows(
-                DiaHuntParameterException.class,
+        ParameterException thrown = assertThrows(
+                ParameterException.class,
                 () -> configValidator.validateExecute(params),
                 "Expected to throw, but didn't"
         );
