@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class DeathProcessor {
     private Printer printer;
     private PlayerGameData playerGameData;
-    private ChestData chestData;
+    private ChestGameData chestGameData;
     private Respawner respawner;
     private DamageRecorder damageRecorder;
     private Winner winner;
@@ -20,11 +20,11 @@ public class DeathProcessor {
     private ScoreboardManager scoreboardManager;
     private LocationSetter locationSetter;
 
-    public DeathProcessor(GameState gameState, PlayerGameData playerGameData, ChestData chestData, DamageRecorder damageRecorder) {
+    public DeathProcessor(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder) {
         this.printer = new Printer();
         this.playerGameData = playerGameData;
-        this.chestData = chestData;
-        this.respawner = new Respawner(gameState, playerGameData, chestData);
+        this.chestGameData = chestGameData;
+        this.respawner = new Respawner(gameState, playerGameData, chestGameData);
         this.damageRecorder = damageRecorder;
         this.winner = new Winner();
         this.statsGiver = new StatsGiver();
@@ -33,10 +33,10 @@ public class DeathProcessor {
         this.locationSetter = new LocationSetter();
     }
 
-    public DeathProcessor(Printer printer, PlayerGameData playerGameData, ChestData chestData, Respawner respawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager, LocationSetter locationSetter) {
+    public DeathProcessor(Printer printer, PlayerGameData playerGameData, ChestGameData chestGameData, Respawner respawner, DamageRecorder damageRecorder, Winner winner, StatsGiver statsGiver, InventoryCopy inventoryCopy, ScoreboardManager scoreboardManager, LocationSetter locationSetter) {
         this.printer = printer;
         this.playerGameData = playerGameData;
-        this.chestData = chestData;
+        this.chestGameData = chestGameData;
         this.respawner = respawner;
         this.damageRecorder = damageRecorder;
         this.winner = winner;
@@ -90,7 +90,7 @@ public class DeathProcessor {
     }
 
     private boolean hasNoDias(Team team) {
-        return playerGameData.carriesDias(team) || chestData.containsDias(team);
+        return playerGameData.carriesDias(team) || chestGameData.containsDias(team);
     }
 
     private void respawn(Player player) {

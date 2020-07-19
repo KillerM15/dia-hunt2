@@ -29,7 +29,7 @@ class GameTest {
 
     private Printer printer = mock(Printer.class);
     private GameState gameState = mock(GameState.class);
-    private ChestData chestData = mock(ChestData.class);
+    private ChestGameData chestGameData = mock(ChestGameData.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
     private GameBackup gameBackup = mock(GameBackup.class);
     private PlayerBackup playerBackup = mock(PlayerBackup.class);
@@ -44,7 +44,7 @@ class GameTest {
     private ItemRemover itemRemover = mock(ItemRemover.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
     private WorldProvider worldProvider = mock(WorldProvider.class);
-    private Game game = new Game(printer, gameState, chestData, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver, playerNameFixer, startingTask, itemRemover, scoreboardManager, worldProvider);
+    private Game game = new Game(printer, gameState, chestGameData, playerGameData, gameBackup, gameInitPrinter, diamondIncreaser, locationSetter, statsGiver, itemGiver, playerNameFixer, startingTask, itemRemover, scoreboardManager, worldProvider);
 
     @BeforeEach
     public void setup() {

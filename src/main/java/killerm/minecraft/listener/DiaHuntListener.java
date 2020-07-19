@@ -25,26 +25,26 @@ public class DiaHuntListener implements Listener {
     private Printer printer;
     private GameState gameState;
     private PlayerGameData playerGameData;
-    private ChestData chestData;
+    private ChestGameData chestGameData;
     private DamageRecorder damageRecorder;
     private DeathProcessor deathProcessor;
     private ScoreboardManager scoreboardManager;
 
-    public DiaHuntListener(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
+    public DiaHuntListener(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
         this.printer = new Printer();
         this.gameState = gameState;
         this.playerGameData = playerGameData;
-        this.chestData = chestData;
+        this.chestGameData = chestGameData;
         this.damageRecorder = new DamageRecorder(gameState, (int) (double) DiaConfig.SECONDS_COUNTS_AS_KILL.get());
-        this.deathProcessor = new DeathProcessor(gameState, playerGameData, chestData, damageRecorder);
+        this.deathProcessor = new DeathProcessor(gameState, playerGameData, chestGameData, damageRecorder);
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public DiaHuntListener(Printer printer, GameState gameState, PlayerGameData playerGameData, ChestData chestData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
+    public DiaHuntListener(Printer printer, GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
         this.printer = printer;
         this.gameState = gameState;
         this.playerGameData = playerGameData;
-        this.chestData = chestData;
+        this.chestGameData = chestGameData;
         this.damageRecorder = damageRecorder;
         this.deathProcessor = deathProcessor;
         this.scoreboardManager = scoreboardManager;
@@ -83,9 +83,9 @@ public class DiaHuntListener implements Listener {
             Location boxLocation = e.getBlock().getLocation();
 
             if (e.getBlock().getType() == Material.BLUE_SHULKER_BOX) {
-                chestData.addLocation(boxLocation, Team.AQUA);
+                chestGameData.addLocation(boxLocation, Team.AQUA);
             } else {
-                chestData.addLocation(boxLocation, Team.LAVA);
+                chestGameData.addLocation(boxLocation, Team.LAVA);
             }
         }
     }
@@ -97,7 +97,7 @@ public class DiaHuntListener implements Listener {
                 && (e.getBlock().getType() == Material.BLUE_SHULKER_BOX || e.getBlock().getType() == Material.RED_SHULKER_BOX)) {
 
             Location boxLocation = e.getBlock().getLocation();
-            chestData.removeLocation(boxLocation);
+            chestGameData.removeLocation(boxLocation);
         }
     }
 

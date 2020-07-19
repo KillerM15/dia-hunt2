@@ -19,17 +19,17 @@ public class Respawner {
     private List<BukkitTask> tasks = Collections.synchronizedList(new ArrayList<>());
     private GameState gameState;
     private PlayerGameData playerGameData;
-    private ChestData chestData;
+    private ChestGameData chestGameData;
     private ItemGiver itemGiver = new ItemGiver();
     private StatsGiver statsGiver = new StatsGiver();
     private LocationSetter locationSetter = new LocationSetter();
     private DiamondIndicator diamondIndicator = new DiamondIndicator(); // TODO: maybe move in own class??
     private ScoreboardManager scoreboardManager = new ScoreboardManager();
 
-    public Respawner(GameState gameState, PlayerGameData playerGameData, ChestData chestData) {
+    public Respawner(GameState gameState, PlayerGameData playerGameData, ChestGameData chestGameData) {
         this.gameState = gameState;
         this.playerGameData = playerGameData;
-        this.chestData = chestData;
+        this.chestGameData = chestGameData;
     }
 
     public void startRespawningWhenTeamHasDias(Player player) {
@@ -41,7 +41,7 @@ public class Respawner {
                     cancel();
                 }
 
-                if (playerGameData.carriesDias(team) || chestData.containsDias(team)) {
+                if (playerGameData.carriesDias(team) || chestGameData.containsDias(team)) {
                     startRespawning(player);
                     cancel();
                 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerBackup {
-    private Map<Player, PlayerBackupData> savedPlayers = new HashMap<>();
+    private Map<Player, PlayerData> savedPlayers = new HashMap<>();
     private ItemStackCopy itemStackCopy;
 
     public PlayerBackup() {
@@ -26,33 +26,33 @@ public class PlayerBackup {
     }
 
     public void backup(Player player) {
-        PlayerBackupData playerBackupData = new PlayerBackupData();
+        PlayerData playerData = new PlayerData();
 
-        playerBackupData.gameMode = player.getGameMode();
-        playerBackupData.itemStacks = itemStackCopy.getCopy(player.getInventory().getContents());
-        playerBackupData.itemStacksArmor = itemStackCopy.getCopy(player.getInventory().getArmorContents());
-        playerBackupData.location = player.getLocation();
-        playerBackupData.potionEffects = player.getActivePotionEffects();
-        playerBackupData.health = player.getHealth();
-        playerBackupData.foodLevel = player.getFoodLevel();
+        playerData.gameMode = player.getGameMode();
+        playerData.itemStacks = itemStackCopy.getCopy(player.getInventory().getContents());
+        playerData.itemStacksArmor = itemStackCopy.getCopy(player.getInventory().getArmorContents());
+        playerData.location = player.getLocation();
+        playerData.potionEffects = player.getActivePotionEffects();
+        playerData.health = player.getHealth();
+        playerData.foodLevel = player.getFoodLevel();
 
-        savedPlayers.put(player, playerBackupData);
+        savedPlayers.put(player, playerData);
     }
 
     public void restore(Player player) {
-        PlayerBackupData playerBackupData = savedPlayers.get(player);
+        PlayerData playerData = savedPlayers.get(player);
 
-        if (playerBackupData == null) {
+        if (playerData == null) {
             throw new RuntimeException("Player not found!");
         }
 
-        player.setGameMode(playerBackupData.gameMode);
-        player.getInventory().setContents(playerBackupData.itemStacks);
-        player.getInventory().setArmorContents(playerBackupData.itemStacksArmor);
-        player.teleport(playerBackupData.location);
-        player.addPotionEffects(playerBackupData.potionEffects);
-        player.setHealth(playerBackupData.health);
-        player.setFoodLevel(playerBackupData.foodLevel);
+        player.setGameMode(playerData.gameMode);
+        player.getInventory().setContents(playerData.itemStacks);
+        player.getInventory().setArmorContents(playerData.itemStacksArmor);
+        player.teleport(playerData.location);
+        player.addPotionEffects(playerData.potionEffects);
+        player.setHealth(playerData.health);
+        player.setFoodLevel(playerData.foodLevel);
 
         savedPlayers.remove(player);
     }

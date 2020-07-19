@@ -20,11 +20,11 @@ class DiaHuntListenerTest {
     private Printer printer = mock(Printer.class);
     private GameState gameState = mock(GameState.class);
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
-    private ChestData chestData = mock(ChestData.class);
+    private ChestGameData chestGameData = mock(ChestGameData.class);
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
     private DeathProcessor deathProcessor = mock(DeathProcessor.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, gameState, playerGameData, chestData, damageRecorder, deathProcessor, scoreboardManager);
+    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, gameState, playerGameData, chestGameData, damageRecorder, deathProcessor, scoreboardManager);
 
     @Test
     public void GIVEN_EntityRegainHealthEvent_and_GameStatus_RUNNING_and_player_inGame_and_Regain_Reason_REGEN_WHEN_onPlayerRegainHealth_THEN_event_cancelled() {

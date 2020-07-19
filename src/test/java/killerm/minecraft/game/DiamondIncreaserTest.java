@@ -16,11 +16,11 @@ import static org.powermock.api.mockito.PowerMockito.mock;
 
 class DiamondIncreaserTest {
     private PlayerGameData playerGameData = mock(PlayerGameData.class);
-    private ChestData chestData = mock(ChestData.class);
+    private ChestGameData chestGameData = mock(ChestGameData.class);
     private DiamondIndicator diamondIndicator = mock(DiamondIndicator.class);
     private ItemGiver itemGiver = mock(ItemGiver.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DiamondIncreaser diamondIncreaser = new DiamondIncreaser(playerGameData, chestData, diamondIndicator, itemGiver, scoreboardManager);
+    private DiamondIncreaser diamondIncreaser = new DiamondIncreaser(playerGameData, chestGameData, diamondIndicator, itemGiver, scoreboardManager);
 
 
     @Test
@@ -96,7 +96,7 @@ class DiamondIncreaserTest {
         shulkerBoxes.add(shulkerBox1);
         shulkerBoxes.add(shulkerBox2);
         shulkerBoxes.add(shulkerBox3);
-        doReturn(shulkerBoxes).when(chestData).getShulkerBoxes();
+        doReturn(shulkerBoxes).when(chestGameData).getShulkerBoxes();
 
         doReturn(50).when(playerGameData).amountOfPlayers();
 
@@ -122,7 +122,7 @@ class DiamondIncreaserTest {
         shulkerBoxes.add(shulkerBox1);
         shulkerBoxes.add(shulkerBox2);
         shulkerBoxes.add(shulkerBox3);
-        doReturn(shulkerBoxes).when(chestData).getShulkerBoxes();
+        doReturn(shulkerBoxes).when(chestGameData).getShulkerBoxes();
 
         doReturn(50).when(playerGameData).amountOfPlayers();
 
