@@ -3,7 +3,7 @@ package killerm.minecraft.communication;
 import killerm.minecraft.commands.CommandType;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.helper.CollectionDelimiter;
-import killerm.minecraft.game.Team;
+import killerm.minecraft.game.data.Team;
 
 // Intentional code duplication and ugly inner class to increase readability
 public class Message {
@@ -82,9 +82,16 @@ public class Message {
     public static final String PLAYER_NOT_FOUND = "Couldn't fix case of player!";
     public static final String NO_PLAYERS_LEFT = "There is no player left!";
     public static final String SYMBOL_DIAMOND = "◆";
-    public static final String KILLED = " has killed ";
+    public static final String KILLED = " has completely destroyed ";
     public static final String HAS_DIED = " has died! Loser haha!";
     public static final String UNTIL_RESPAWN = "seconds until respawn";
     public static final String GO = "Go!";
     public static final String NEW_CONFIG_VALUE = "New config value has been set";
+    public static final String DESCRIPTION_BUILDING = "Buy blocks to build bridges like a 12 year old!";
+    public static final String DESCRIPTION_MELEE = "Buy melee weapons to f*** them at close range!";
+    public static final String DESCRIPTION_RANGED = "Buy ranged weapon to camp and snipe them!";
+    public static final String DESCRIPTION_EFFECTS = "Buy cool effects to dominate in every fight!";
+    public static final String DESCRIPTION_PROTECTION = "Buy some lame protection!";
+    public static final String DESCRIPTION_TRICKY = "Buy some cool items to outplay them!";
+    public static final String SHOP_NAME = "Shop";
 }
