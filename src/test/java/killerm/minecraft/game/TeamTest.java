@@ -1,8 +1,7 @@
-package killerm.minecraft.utilities;
+package killerm.minecraft.game;
 
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.error.ParameterException;
-import killerm.minecraft.game.Team;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
