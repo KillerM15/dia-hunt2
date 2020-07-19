@@ -4,6 +4,7 @@ import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.controller.ConfigController;
 import killerm.minecraft.controller.GameController;
+import killerm.minecraft.controller.StatusController;
 import killerm.minecraft.error.LogicException;
 import killerm.minecraft.error.ParameterException;
 import killerm.minecraft.game.data.ChestGameData;
@@ -11,6 +12,7 @@ import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.data.PlayerGameData;
 import killerm.minecraft.validator.ConfigValidator;
 import killerm.minecraft.validator.GameValidator;
+import killerm.minecraft.validator.StatusValidator;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,9 +22,11 @@ public class DiaHuntExecutor implements CommandExecutor {
 
     private ConfigValidator configValidator;
     private GameValidator gameValidator;
+    private StatusValidator statusValidator;
 
     private ConfigController configController;
     private GameController gameController;
+    private StatusController statusController;
 
     private Tester tester; //TODO: Remove tester when Plugin is finished
 
@@ -31,17 +35,21 @@ public class DiaHuntExecutor implements CommandExecutor {
         this.printer = new Printer();
         this.configValidator = new ConfigValidator();
         this.gameValidator = new GameValidator();
+        this.statusValidator = new StatusValidator();
         this.configController = new ConfigController();
         this.gameController = new GameController(gameStatus, playerGameData, chestGameData);
+        this.statusController = new StatusController(gameStatus, playerGameData);
     }
 
-    public DiaHuntExecutor(Tester tester, Printer printer, ConfigValidator configValidator, GameValidator gameValidator, ConfigController configController, GameController gameController) {
+    public DiaHuntExecutor(Tester tester, Printer printer, ConfigValidator configValidator, GameValidator gameValidator, StatusValidator statusValidator, ConfigController configController, GameController gameController, StatusController statusController) {
         this.tester = tester;
         this.printer = printer;
         this.configValidator = configValidator;
         this.gameValidator = gameValidator;
+        this.statusValidator = statusValidator;
         this.configController = configController;
         this.gameController = gameController;
+        this.statusController = statusController;
     }
 
     @Override
@@ -116,6 +124,10 @@ public class DiaHuntExecutor implements CommandExecutor {
             case STOP:
                 gameValidator.validateStop(params);
                 gameController.stop();
+                break;
+            case STATUS:
+                statusValidator.validateStatus(params);
+                statusController.printStatus(player);
                 break;
             default:
                 throw new ParameterException(Message.COMMAND_NOT_IMPLEMENTED);
