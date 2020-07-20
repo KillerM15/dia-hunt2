@@ -4,26 +4,34 @@ import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.data.DiaConfig;
 import killerm.minecraft.game.data.ChestGameData;
+import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.data.PlayerGameData;
 import killerm.minecraft.game.data.Team;
 import killerm.minecraft.game.flow.DeathProcessor;
-import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.flow.GameStatusType;
+import killerm.minecraft.game.item.GameItem;
+import killerm.minecraft.game.shop.Shop;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.DamageRecorder;
+import killerm.minecraft.utilities.ItemEquals;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class DiaHuntListener implements Listener {
@@ -34,6 +42,8 @@ public class DiaHuntListener implements Listener {
     private DamageRecorder damageRecorder;
     private DeathProcessor deathProcessor;
     private ScoreboardManager scoreboardManager;
+    private Shop shop;
+    private GameItem gameItem;
 
     public DiaHuntListener(GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData) {
         this.printer = new Printer();
@@ -43,9 +53,11 @@ public class DiaHuntListener implements Listener {
         this.damageRecorder = new DamageRecorder(gameStatus, (int) (double) DiaConfig.SECONDS_COUNTS_AS_KILL.get());
         this.deathProcessor = new DeathProcessor(gameStatus, playerGameData, chestGameData, damageRecorder);
         this.scoreboardManager = new ScoreboardManager();
+        this.shop = new Shop();
+        this.gameItem = new GameItem();
     }
 
-    public DiaHuntListener(Printer printer, GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager) {
+    public DiaHuntListener(Printer printer, GameStatus gameStatus, PlayerGameData playerGameData, ChestGameData chestGameData, DamageRecorder damageRecorder, DeathProcessor deathProcessor, ScoreboardManager scoreboardManager, Shop shop) {
         this.printer = printer;
         this.gameStatus = gameStatus;
         this.playerGameData = playerGameData;
@@ -53,6 +65,8 @@ public class DiaHuntListener implements Listener {
         this.damageRecorder = damageRecorder;
         this.deathProcessor = deathProcessor;
         this.scoreboardManager = scoreboardManager;
+        this.shop = shop;
+        this.gameItem = null; // TODO
     }
 
     @EventHandler
@@ -92,6 +106,14 @@ public class DiaHuntListener implements Listener {
             } else {
                 chestGameData.addLocation(boxLocation, Team.LAVA);
             }
+        }
+
+        // Disable placing shop item
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame(e.getPlayer())
+                && shop.isShopItem(e.getItemInHand())) {
+
+            e.setCancelled(true);
         }
     }
 
@@ -174,15 +196,42 @@ public class DiaHuntListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        // Buy item in shop
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame((Player) e.getWhoClicked())
+                && shop.isShop(e.getClickedInventory())) {
 
-        printer.broadcast(e.getCurrentItem().toString());
-       // e.getAction() == InventoryAction.PICKUP_ALL && e.getClickedInventory() -> maybe in klasse prüfen ob es das richtige ist
-                //get who clicked -> ingame -> instan of player (so wie unten)
+            Player player = (Player) e.getWhoClicked();
+            int slot = e.getSlot();
+            ItemStack itemStack = e.getClickedInventory().getItem(slot);
 
+            if (e.getAction() == InventoryAction.PICKUP_ALL) {
+                shop.buyItem(player, itemStack);
+            } else if (e.getAction() == InventoryAction.PICKUP_HALF) {
+                shop.buyItemUntilOneDiaLeft(player, itemStack);
+            }
 
+            e.setCancelled(true);
+        }
 
+        // Disable moving shop item
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame((Player) e.getWhoClicked())
+                && shop.isShopItem(e.getCurrentItem())) {
 
-        // Update diamond scoreboard
+            e.setCancelled(true);
+        }
+
+        // Disable shift-clicking in shop
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame((Player) e.getWhoClicked())
+                && shop.isShop(e.getView().getTopInventory())
+                && e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+
+            e.setCancelled(true);
+        }
+
+        // Update diamond scoreboard, to keep it simple on every click
         if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
                 && e.getWhoClicked() instanceof Player
                 && playerGameData.inGame((Player) e.getWhoClicked())) {
@@ -196,16 +245,24 @@ public class DiaHuntListener implements Listener {
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), 1);
         }
-
     }
 
     @EventHandler
-    public void onInventoryItemDrop(PlayerDropItemEvent e) {
-        // Update diamond scoreboard
+    public void onInventoryDrag(InventoryDragEvent e) {
+        // Disable dragging items in shop
         if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
-                && e.getPlayer() instanceof Player
-                && playerGameData.inGame((Player) e.getPlayer())) {
-            Player player = (Player) e.getPlayer();
+                && playerGameData.inGame((Player) e.getWhoClicked())
+                && shop.isShop(e.getInventory())) {
+
+            e.setCancelled(true); // TODO: Drag is disabled also in player inventory. Enable it
+        }
+
+        // Update diamond scoreboard, to keep it simple on every drag
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && e.getWhoClicked() instanceof Player
+                && playerGameData.inGame((Player) e.getWhoClicked())) {
+
+            Player player = (Player) e.getWhoClicked();
 
             new BukkitRunnable() {
                 @Override
@@ -217,12 +274,12 @@ public class DiaHuntListener implements Listener {
     }
 
     @EventHandler
-    public void onItemPickup(EntityPickupItemEvent e) {
+    public void onInventoryItemDrop(PlayerDropItemEvent e) {
         // Update diamond scoreboard
         if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
-                && e.getEntity() instanceof Player
-                && playerGameData.inGame((Player) e.getEntity())) {
-            Player player = (Player) e.getEntity();
+                && playerGameData.inGame(e.getPlayer())
+                && ItemEquals.equals(e.getItemDrop().getItemStack(), gameItem.diamond())) {
+            Player player = e.getPlayer();
 
             new BukkitRunnable() {
                 @Override
@@ -230,6 +287,45 @@ public class DiaHuntListener implements Listener {
                     scoreboardManager.refresh(player);
                 }
             }.runTaskLater(DiaHuntPlugin.getInstance(), 1);
+        }
+
+        // Cancel shop item drop
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame(e.getPlayer())
+                && shop.isShopItem(e.getItemDrop().getItemStack())) {
+
+            e.setCancelled(true);
+        }
+    }
+
+
+    @EventHandler
+    public void onItemPickup(EntityPickupItemEvent e) {
+        // Update diamond scoreboard
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && e.getEntity() instanceof Player
+                && playerGameData.inGame((Player) e.getEntity())
+                && ItemEquals.equals(e.getItem().getItemStack(), gameItem.diamond())) {
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    scoreboardManager.refresh((Player) e.getEntity());
+                }
+            }.runTaskLater(DiaHuntPlugin.getInstance(), 1);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        // Open shop if player presses right click with shop item
+        if (gameStatus.getGameStatusType() == GameStatusType.RUNNING
+                && playerGameData.inGame(e.getPlayer())
+                && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
+                && shop.isShopItem(e.getPlayer().getInventory().getItemInMainHand())) {
+
+            Team team = playerGameData.team(e.getPlayer());
+            e.getPlayer().openInventory(shop.getInventory(team));
         }
     }
 }
