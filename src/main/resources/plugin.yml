@@ -1,5 +1,6 @@
 name: DiaHunt
 version: 1.0
+api-version: 1.13
 main: killerm.minecraft.DiaHuntPlugin
 commands:
   diahunt:
