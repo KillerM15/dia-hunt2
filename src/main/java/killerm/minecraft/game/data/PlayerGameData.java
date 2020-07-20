@@ -1,12 +1,10 @@
 package killerm.minecraft.game.data;
 
-
-import com.sun.istack.internal.Nullable;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.NameChanger;
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.game.flow.DiamondIndicator;
 import killerm.minecraft.game.flow.Condition;
+import killerm.minecraft.game.flow.DiamondIndicator;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
@@ -138,7 +136,6 @@ public class PlayerGameData {
         return players(team).size();
     }
 
-    @Nullable
     public Player randomPlayer(Team team) {
         Collection<Player> playersInTeam = players(team);
         Player player = randomPlayer(playersInTeam);
@@ -157,7 +154,6 @@ public class PlayerGameData {
         return player;
     }
 
-    @Nullable
     private Player randomPlayer(Collection<Player> players) {
         if (players.size() == 0) {
             return null;

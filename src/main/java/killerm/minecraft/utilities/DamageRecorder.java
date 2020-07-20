@@ -1,7 +1,5 @@
 package killerm.minecraft.utilities;
 
-
-import com.sun.istack.internal.Nullable;
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.flow.GameStatusType;
@@ -47,7 +45,6 @@ public class DamageRecorder {
         lastDamagerRemoverTasks.put(receiver, removerTask);
     }
 
-    @Nullable
     public Player getDamager(Player receiver) {
         return lastDamagers.get(receiver);
     }
