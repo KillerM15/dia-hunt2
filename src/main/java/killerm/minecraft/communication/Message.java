@@ -95,4 +95,5 @@ public class Message {
     public static final String DESCRIPTION_PROTECTION = "Get some lame protection!";
     public static final String DESCRIPTION_TRICKY = "Outplay them with cool mechanics!";
     public static final String SHOP_NAME = "Shop";
+    public static final String NOT_ENOUGH_DIAS = "You don't have enough diamonds to do that!";
 }

@@ -5,6 +5,7 @@ import killerm.minecraft.game.item.GameItem;
 import killerm.minecraft.manager.ItemManager;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 
@@ -53,5 +54,9 @@ public class ItemGiver {
 
     public void giveLavaDiaChest(Player player) {
         itemManager.give(player, GameItem.diaChest(Team.LAVA));
+    }
+
+    public void giveShopItem(Player player, ItemStack shopItem) {
+        itemManager.give(player, new ItemStack(shopItem));
     }
 }
