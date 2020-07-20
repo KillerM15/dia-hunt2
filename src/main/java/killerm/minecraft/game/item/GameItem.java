@@ -13,33 +13,33 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import java.util.Arrays;
 
 public class GameItem { // TODO: Nice descriptions and effects with enchantments
-    public static ItemStack diamond() {
+    public ItemStack diamond() {
         ItemStack diamond = new ItemStack(Material.DIAMOND, 1);
         setDisplayName(diamond, Message.ITEM_DIAMOND);
 
         return diamond;
     }
 
-    public static ItemStack knockbackStick() {
+    public ItemStack knockbackStick() {
         ItemStack knockbackStick = new ItemStack(Material.STICK, 1);
         knockbackStick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 10);
 
         return knockbackStick;
     }
 
-    private static void setDisplayName(ItemStack itemStack, String name) {
+    private void setDisplayName(ItemStack itemStack, String name) {
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(name);
         itemStack.setItemMeta(meta);
     }
 
-    private static void setLore(ItemStack itemStack, String... lore) {
+    private void setLore(ItemStack itemStack, String... lore) {
         ItemMeta meta = itemStack.getItemMeta();
         meta.setLore(Arrays.asList(lore));
         itemStack.setItemMeta(meta);
     }
 
-    public static ItemStack diaChest(Team team) {
+    public ItemStack diaChest(Team team) {
         ItemStack diaChest = null;
 
         if (team == Team.AQUA) {
@@ -53,7 +53,7 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         return diaChest;
     }
 
-    public static ItemStack chestplate(Team team) {
+    public ItemStack chestplate(Team team) {
         ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE, 1);
         LeatherArmorMeta meta = (LeatherArmorMeta) chestplate.getItemMeta();
 
@@ -69,7 +69,7 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         return chestplate;
     }
 
-    public static ItemStack shopGlassPane(Team team) {
+    public ItemStack shopGlassPane(Team team) {
         ItemStack glassPane = null;
 
         if (team == Team.AQUA) {
@@ -83,49 +83,49 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         return glassPane;
     }
 
-    public static ItemStack shopBuildingItem() {
+    public ItemStack shopBuildingItem() {
         ItemStack itemStack = new ItemStack(Material.BRICKS);
         setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.BUILDING.toString());
         setLore(itemStack, Message.GREY + ItemCategory.BUILDING.getDescription());
         return itemStack;
     }
 
-    public static ItemStack shopMeleeItem() {
+    public ItemStack shopMeleeItem() {
         ItemStack itemStack = new ItemStack(Material.STICK);
         setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.MELEE.toString());
         setLore(itemStack, Message.GREY + ItemCategory.MELEE.getDescription());
         return itemStack;
     }
 
-    public static ItemStack shopRangedItem() {
+    public ItemStack shopRangedItem() {
         ItemStack itemStack = new ItemStack(Material.BOW);
         setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.RANGED.toString());
         setLore(itemStack, Message.GREY + ItemCategory.RANGED.getDescription());
         return itemStack;
     }
 
-    public static ItemStack shopEffectsItem() {
+    public ItemStack shopEffectsItem() {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.EFFECTS.toString());
         setLore(itemStack, Message.GREY + ItemCategory.EFFECTS.getDescription());
         return itemStack;
     }
 
-    public static ItemStack shopProtectionItem() {
+    public ItemStack shopProtectionItem() {
         ItemStack itemStack = new ItemStack(Material.SHIELD);
         setDisplayName(itemStack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.PROTECTION.toString());
         setLore(itemStack, Message.GREY + ItemCategory.PROTECTION.getDescription());
         return itemStack;
     }
 
-    public static ItemStack shopTrickyItem() {
+    public ItemStack shopTrickyItem() {
         ItemStack itemstack = new ItemStack(Material.REDSTONE_TORCH);
         setDisplayName(itemstack, Message.RESET + Message.GOLD + Message.BOLD + ItemCategory.TRICKY.toString());
         setLore(itemstack, Message.GREY + ItemCategory.TRICKY.getDescription());
         return itemstack;
     }
 
-    public static ItemStack melon() { // TODO: remove as soon as real items are implemented
+    public ItemStack melon() { // TODO: remove as soon as real items are implemented
         ItemStack itemstack = new ItemStack(Material.MELON);
         setDisplayName(itemstack, Message.GREEN + "MELONE!");
         return itemstack;

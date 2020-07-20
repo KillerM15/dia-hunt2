@@ -1,5 +1,6 @@
 package killerm.minecraft.game.shop;
 
+import killerm.minecraft.game.item.GameItem;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,9 @@ class ShopInventoryBuilderTest {
     private Inventory inventory = mock(Inventory.class);
     private ShopSlotInformation shopSlotInformation = mock(ShopSlotInformation.class);
     private ShopItemCategoryItemStacks shopItemCategoryItemStacks = mock(ShopItemCategoryItemStacks.class);
-    private ShopInventoryBuilder shopInventoryBuilder = new ShopInventoryBuilder(inventory, shopSlotInformation, shopItemCategoryItemStacks, 54);
+    private GameItem gameItem = new GameItem();
+    private static final int size = 54;
+    private ShopInventoryBuilder shopInventoryBuilder = new ShopInventoryBuilder(inventory, shopSlotInformation, shopItemCategoryItemStacks, gameItem, size);
 
     @Test
     public void GIVEN_itemCategory_and_slot_and_itemstack_WHEN_build_withItem_THEN_item_added_to_slot() {
