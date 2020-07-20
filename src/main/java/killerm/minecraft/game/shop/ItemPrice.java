@@ -1,6 +1,7 @@
 package killerm.minecraft.game.shop;
 
 import killerm.minecraft.data.DiaConfig;
+import killerm.minecraft.error.ItemNotFoundException;
 import killerm.minecraft.game.item.GameItem;
 import org.bukkit.inventory.ItemStack;
 
@@ -24,7 +25,7 @@ public class ItemPrice {
         DiaConfig diaConfig = prices.get(itemStack.getItemMeta().getDisplayName());
 
         if (diaConfig == null) {
-            throw new RuntimeException(itemStack.getItemMeta().getDisplayName() + " is not a valid shop item");
+            throw new ItemNotFoundException(itemStack.getItemMeta().getDisplayName() + " is not a valid shop item");
         }
         return (int) (double) diaConfig.get();
     }

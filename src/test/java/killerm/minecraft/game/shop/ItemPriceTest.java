@@ -2,6 +2,7 @@ package killerm.minecraft.game.shop;
 
 import killerm.minecraft.DiaHuntPlugin;
 import killerm.minecraft.data.DiaConfig;
+import killerm.minecraft.error.ItemNotFoundException;
 import killerm.minecraft.game.item.GameItem;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -60,8 +61,8 @@ class ItemPriceTest {
         doReturn(unknownItemStack).when(gameItem).melon();
 
         // WHEN
-        RuntimeException thrown = assertThrows(
-                RuntimeException.class,
+        ItemNotFoundException thrown = assertThrows(
+                ItemNotFoundException.class,
                 () -> itemPrice.getPrice(unknownItemStack),
                 "Expected to throw, but didn't"
         );
