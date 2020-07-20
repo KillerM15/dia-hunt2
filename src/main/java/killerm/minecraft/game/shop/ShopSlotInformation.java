@@ -17,7 +17,7 @@ public class ShopSlotInformation {
             amountOfItems.put(itemCategory, 0);
             slotOfFirstItem.put(itemCategory, slot);
 
-            slot += MinecraftConstants.slotsInInventoryRow;
+            slot += MinecraftConstants.SLOTS_IN_INVENTORY_ROW;
         }
     }
 

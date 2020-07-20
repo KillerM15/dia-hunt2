@@ -43,7 +43,7 @@ public class ShopInventoryBuilder {
     }
 
     public ShopInventoryBuilder withGlassPanes(Team team, int column) {
-        for (int slot = column; slot < size; slot += MinecraftConstants.slotsInInventoryRow) {
+        for (int slot = column; slot < size; slot += MinecraftConstants.SLOTS_IN_INVENTORY_ROW) {
             inventory.setItem(slot, gameItem.shopGlassPane(team));
         }
 
@@ -56,7 +56,7 @@ public class ShopInventoryBuilder {
         for (ItemCategory itemCategory : ItemCategory.values()) {
             inventory.setItem(slots, shopItemCategoryItemStacks.getItemStack(itemCategory));
 
-            slots += MinecraftConstants.slotsInInventoryRow;
+            slots += MinecraftConstants.SLOTS_IN_INVENTORY_ROW;
         }
 
         return this;
