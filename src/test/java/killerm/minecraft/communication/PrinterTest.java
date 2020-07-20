@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import java.util.Collection;
 import java.util.HashSet;
 
-import static killerm.minecraft.utilities.MinecraftConstants.ticksPerSecond;
+import static killerm.minecraft.utilities.MinecraftConstants.TICKS_PER_SECOND;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.times;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
@@ -75,8 +75,8 @@ class PrinterTest {
 
         // THEN
         Mockito.verify(soundManager, times(4)).playDelayedSound(any(Player.class), any(Sound.class), anyFloat(), anyInt());
-        Mockito.verify(player1, times(1)).sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
-        Mockito.verify(player2, times(1)).sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
+        Mockito.verify(player1, times(1)).sendTitle(title, subtitle, 0, 3 * TICKS_PER_SECOND, 1 * TICKS_PER_SECOND);
+        Mockito.verify(player2, times(1)).sendTitle(title, subtitle, 0, 3 * TICKS_PER_SECOND, 1 * TICKS_PER_SECOND);
     }
 
     @Test

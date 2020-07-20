@@ -41,7 +41,7 @@ public class DamageRecorder {
             }
         };
 
-        removerTask.runTaskLater(DiaHuntPlugin.getInstance(), secondsUntilDelete * MinecraftConstants.ticksPerSecond);
+        removerTask.runTaskLater(DiaHuntPlugin.getInstance(), secondsUntilDelete * MinecraftConstants.TICKS_PER_SECOND);
         lastDamagerRemoverTasks.put(receiver, removerTask);
     }
 

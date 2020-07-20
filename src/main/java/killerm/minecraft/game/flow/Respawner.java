@@ -74,7 +74,7 @@ public class Respawner {
                         printer.tellTitle(player, Message.AQUA + String.valueOf(s), Message.DARK_AQUA + Message.UNTIL_RESPAWN);
                     }
                 }
-            }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * secondsToWait);
+            }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.TICKS_PER_SECOND * secondsToWait);
 
             tasks.add(task);
         }
@@ -95,7 +95,7 @@ public class Respawner {
                 printer.tellTitle(player, Message.AQUA + Message.GO, Message.DARK_AQUA + Message.GET_DIAS);
                 scoreboardManager.refresh(player);
             }
-        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * maxSecond);
+        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.TICKS_PER_SECOND * maxSecond);
 
         tasks.add(task);
     }

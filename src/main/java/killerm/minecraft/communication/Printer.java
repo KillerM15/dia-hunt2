@@ -8,7 +8,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import static killerm.minecraft.utilities.MinecraftConstants.ticksPerSecond;
+import static killerm.minecraft.utilities.MinecraftConstants.TICKS_PER_SECOND;
 
 public class Printer {
     private SoundManager soundManager;
@@ -77,7 +77,7 @@ public class Printer {
     }
 
     public void tellTitle(Player player, String title, String subtitle) {
-        player.sendTitle(title, subtitle, 0, 3 * ticksPerSecond, 1 * ticksPerSecond);
+        player.sendTitle(title, subtitle, 0, 3 * TICKS_PER_SECOND, 1 * TICKS_PER_SECOND);
 
         soundManager.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, (float) 0.95, 0);
         soundManager.playDelayedSound(player, Sound.BLOCK_NOTE_BLOCK_BELL, (float) 1.8, 3);

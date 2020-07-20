@@ -112,7 +112,7 @@ public class GameInitPrinter {
                 public void run() {
                     printer.broadcast(Message.GAME_START_IN + String.valueOf(s) + Message.SECONDS);
                 }
-            }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * secondsToWait);
+            }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.TICKS_PER_SECOND * secondsToWait);
 
             tasks.add(task);
         }
@@ -127,7 +127,7 @@ public class GameInitPrinter {
                     printer.tellTitle(player, Message.AQUA + Message.START_DIA, Message.DARK_AQUA + Message.GET_DIAS);
                 }
             }
-        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.ticksPerSecond * seconds);
+        }.runTaskLater(DiaHuntPlugin.getInstance(), MinecraftConstants.TICKS_PER_SECOND * seconds);
 
         tasks.add(task);
     }
