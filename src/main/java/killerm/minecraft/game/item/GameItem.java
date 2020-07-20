@@ -69,18 +69,6 @@ public class GameItem { // TODO: Nice descriptions and effects with enchantments
         return chestplate;
     }
 
-    public static ItemStack stone() {
-        ItemStack diamond = new ItemStack(Material.PURPLE_WOOL, 64);
-
-        return diamond;
-    }
-
-    public static ItemStack diamondSword() {
-        ItemStack diamond = new ItemStack(Material.DIAMOND_SWORD, 1);
-
-        return diamond;
-    }
-
     public static ItemStack shopGlassPane(Team team) {
         ItemStack glassPane = null;
 
