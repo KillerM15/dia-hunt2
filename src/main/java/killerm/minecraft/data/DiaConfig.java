@@ -45,7 +45,7 @@ public enum DiaConfig {
     }
 
     public <T> T get() {
-        FileConfiguration config = plugin.getInstance().getConfig();
+        FileConfiguration config = plugin.getConfig();
 
         if (config.get(this.toString()) == null) {
             set(defaultValue);
