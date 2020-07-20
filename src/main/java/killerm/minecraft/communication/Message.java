@@ -16,6 +16,7 @@ public class Message {
     public static final String BLUE = "§9";
     public static final String YELLOW = "§e";
     public static final String GREEN = "§a";
+    public static final String DARK_GREEN = "§2";
     public static final String DARK_AQUA = "§3";
     public static final String BOLD = "§l";
     public static final String STRIKE = "§m";
@@ -98,4 +99,7 @@ public class Message {
     public static final String DESCRIPTION_PROTECTION = "Get some lame protection!";
     public static final String DESCRIPTION_TRICKY = "Outplay them with cool mechanics!";
     public static final String SHOP_NAME = "Shop";
+    public static final String NOT_ENOUGH_DIAS = "You don't have enough diamonds to do that!";
+    public static final String SHOP_INSTRUCTION_LEFT_CLICK = "Press left mouse button to buy an item";
+    public static final String SHOP_INSTRUCTION_RIGHT_CLICK = "Press right mouse button to buy as much as possible";
 }

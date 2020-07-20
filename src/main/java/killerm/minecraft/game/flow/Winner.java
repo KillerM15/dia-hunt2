@@ -25,6 +25,6 @@ public class Winner {
             public void run() {
                 Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "diahunt stop");
             }
-        }.runTaskLater(DiaHuntPlugin.getInstance(), 3 * MinecraftConstants.ticksPerSecond);
+        }.runTaskLater(DiaHuntPlugin.getInstance(), 3 * MinecraftConstants.TICKS_PER_SECOND);
     }
 }

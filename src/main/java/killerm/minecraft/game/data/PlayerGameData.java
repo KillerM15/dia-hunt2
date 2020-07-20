@@ -3,8 +3,8 @@ package killerm.minecraft.game.data;
 import killerm.minecraft.communication.Message;
 import killerm.minecraft.communication.NameChanger;
 import killerm.minecraft.communication.Printer;
-import killerm.minecraft.game.flow.DiamondIndicator;
 import killerm.minecraft.game.flow.Condition;
+import killerm.minecraft.game.flow.DiamondIndicator;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 

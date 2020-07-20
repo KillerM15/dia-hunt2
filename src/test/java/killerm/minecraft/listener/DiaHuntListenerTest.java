@@ -2,11 +2,12 @@ package killerm.minecraft.listener;
 
 import killerm.minecraft.communication.Printer;
 import killerm.minecraft.game.data.ChestGameData;
+import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.data.PlayerGameData;
 import killerm.minecraft.game.flow.Condition;
 import killerm.minecraft.game.flow.DeathProcessor;
-import killerm.minecraft.game.data.GameStatus;
 import killerm.minecraft.game.flow.GameStatusType;
+import killerm.minecraft.game.shop.Shop;
 import killerm.minecraft.manager.ScoreboardManager;
 import killerm.minecraft.utilities.DamageRecorder;
 import org.bukkit.entity.Player;
@@ -29,7 +30,8 @@ class DiaHuntListenerTest {
     private DamageRecorder damageRecorder = mock(DamageRecorder.class);
     private DeathProcessor deathProcessor = mock(DeathProcessor.class);
     private ScoreboardManager scoreboardManager = mock(ScoreboardManager.class);
-    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, gameStatus, playerGameData, chestGameData, damageRecorder, deathProcessor, scoreboardManager);
+    private Shop shop = mock(Shop.class);
+    private DiaHuntListener diaHuntListener = new DiaHuntListener(printer, gameStatus, playerGameData, chestGameData, damageRecorder, deathProcessor, scoreboardManager, shop);
 
     @Test
     public void GIVEN_EntityRegainHealthEvent_and_GameStatus_RUNNING_and_player_inGame_and_Regain_Reason_REGEN_WHEN_onPlayerRegainHealth_THEN_event_cancelled() {

@@ -14,7 +14,8 @@ public enum DiaConfig {
     MAP_POS2(new Location(null, 0, 0, 0), Location.class),
     TICKS_PER_DIAMOND(80.0, Double.class),
     SECONDS_UNTIL_START(60.0, Double.class),
-    SECONDS_COUNTS_AS_KILL(13.0, Double.class);
+    SECONDS_COUNTS_AS_KILL(13.0, Double.class),
+    PRICE_MELON(20.0, Double.class);
 
     private static DiaHuntPlugin plugin;
     private Class T;
@@ -44,7 +45,7 @@ public enum DiaConfig {
     }
 
     public <T> T get() {
-        FileConfiguration config = plugin.getInstance().getConfig();
+        FileConfiguration config = plugin.getConfig();
 
         if (config.get(this.toString()) == null) {
             set(defaultValue);

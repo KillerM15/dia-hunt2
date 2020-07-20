@@ -58,4 +58,20 @@ class ItemManagerTest {
         // THEN
         Mockito.verify(inventory).addItem(itemStack);
     }
+
+    @Test
+    public void GIVEN_player_and_itemStack_and_slot_WHEN_giveAtSlot_THEN_itemstack_set_at_slot() {
+        //GIVEN
+        Player player = mock(Player.class);
+        PlayerInventory inventory = mock(PlayerInventory.class);
+        doReturn(inventory).when(player).getInventory();
+        ItemStack itemStack = mock(ItemStack.class);
+        int slot = 20;
+
+        // WHEN
+        itemManager.giveAtSlot(player, slot, itemStack);
+
+        // THEN
+        Mockito.verify(inventory).setItem(slot, itemStack);
+    }
 }

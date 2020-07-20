@@ -1,11 +1,14 @@
 package killerm.minecraft.game.flow;
 
-import killerm.minecraft.communication.Message;
+import killerm.minecraft.game.item.GameItem;
+import killerm.minecraft.utilities.ItemEquals;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class DiamondIndicator {
+    private GameItem gameItem = new GameItem();
+
     public boolean hasDiamonds(Player player) {
         return amount(player) > 0;
     }
@@ -19,7 +22,7 @@ public class DiamondIndicator {
                 continue;
             }
 
-            if (itemStack.getItemMeta().getDisplayName().equals(Message.ITEM_DIAMOND)) {
+            if (ItemEquals.equals(itemStack, gameItem.diamond())) {
                 amount += itemStack.getAmount();
             }
         }
@@ -35,7 +38,7 @@ public class DiamondIndicator {
                 continue;
             }
 
-            if (itemStack.getItemMeta().getDisplayName().equals(Message.ITEM_DIAMOND)) {
+            if (ItemEquals.equals(itemStack, gameItem.diamond())) {
                 return true;
             }
         }

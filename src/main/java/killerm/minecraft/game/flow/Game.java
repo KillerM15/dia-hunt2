@@ -96,7 +96,7 @@ public class Game {
 
     private void startGameAfterDelay() {
         // Added 1 tick extra because GameInitPrinter needs unstarted game after 60 seconds
-        int delay = (int) (double) DiaConfig.SECONDS_UNTIL_START.get() * MinecraftConstants.ticksPerSecond + 1;
+        int delay = (int) (double) DiaConfig.SECONDS_UNTIL_START.get() * MinecraftConstants.TICKS_PER_SECOND + 1;
 
         this.startingTask = new BukkitRunnable() {
             @Override
@@ -157,6 +157,7 @@ public class Game {
     public void leave(Player player) {
         throwIfNotIngame(player);
 
+        scoreboardManager.refresh(player);
         playerGameData.remove(player);
         statsGiver.clear(player);
 
